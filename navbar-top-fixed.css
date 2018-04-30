@@ -1,8 +1,58 @@
 /* Show it is fixed to the top */
 body {
   min-height: 75rem;
-  padding-top: 4.5rem;
+  padding-top: 70px;
   background-image: linear-gradient(#4d94ff,#000099);
+}
+
+img {
+ height: auto;
+ max-width: 100%;
+}
+
+.topnav img {
+  filter: invert(1);
+  -webkit-filter: invert(1);
+  -moz-filter: invert(1);
+  -o-filter: invert(1);
+  -ms-filter: invert(1);
+}
+
+.roundedImage{
+    overflow:hidden;
+    -webkit-border-radius:120px;
+    -moz-border-radius:120px;
+    border-radius:120px;
+    width:180px;
+    height:180px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px white;
+}
+
+.cadre_post {
+  width: 600px;
+  height: 315px;
+  display: block;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.navbar{
+    background: rgba(0,0,0,0.8);
+}
+
+
+.ident {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 15px;
+    color: white;
 }
 
 /*

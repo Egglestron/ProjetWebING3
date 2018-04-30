@@ -14,6 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link href="navbar-top-fixed.css" rel="stylesheet">
+    <link href="/normalize.css" rel="stylesheet">
   </head>
 
   <body>
@@ -42,15 +43,25 @@
         </ul>
         <form class="form-inline">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-primary" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
+          <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
+          <button class="btn btn-primary" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
         </form>
       </div>
     </nav>
 
+    <form action=/cadre_post method=post>
+      <div class="cadre_post">
+        <label for="txt">Write a new post...</label>
+        <textarea cols="60" rows="9" ></textarea>
+        <p><a class="btn btn-primary" href="#" role="button">Publish &raquo;</a></p>
+        <!--<button class="btn btn-primary" style="border-color: #000099 color: #000099;" type="submit">Publish</button>-->
+    </div>
+  </form>
+
 
     <footer class="mastfoot mt-auto">
       <div class="inner">
-        <p>Social network by Arthur Prat, Maxime Michel and Sam Caddeo</p>
+        <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
       </div>
     </footer>
 
