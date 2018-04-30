@@ -1,0 +1,16 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+  background-image: linear-gradient(#4d94ff,#000099);
+}
+
+/*
+ * Footer
+ */
+.mastfoot {
+  position: fixed;
+  bottom: 0px;
+  color: rgba(255, 255, 255, .4);
+  margin: 0px auto; /* fonctionne pas des masses pour l'instant*/
+}
