@@ -1,0 +1,3 @@
+INSERT INTO 'tablename1' (ID, ID_User, Date_Post, Url_Media, Description) VALUES (NULL, '1', '2025-04-04 00:00:00', NULL, 'salut');
+INSERT INTO 'tablename2' (ID_Object, ID_Post) VALUES
+(LAST_INSERT_ID(), 8);
