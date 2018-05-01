@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 30 avr. 2018 à 19:01
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  mar. 01 mai 2018 à 11:08
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `ID_Object` int(11) NOT NULL,
   `Date` date DEFAULT NULL,
   `Location` varchar(32) DEFAULT NULL,
-  `Status` enum('Public','Private') NOT NULL,
+  `Status` enum('Public','Private','Friends Only','Network') NOT NULL DEFAULT 'Public',
   PRIMARY KEY (`ID_Object`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -66,7 +66,10 @@ CREATE TABLE IF NOT EXISTS `events` (
 --
 
 INSERT INTO `events` (`ID_Object`, `Date`, `Location`, `Status`) VALUES
-(2, NULL, 'beaugrenelle', 'Private');
+(2, NULL, 'beaugrenelle', 'Private'),
+(20, NULL, 'boulbi', 'Public'),
+(21, '2018-05-03', NULL, 'Public'),
+(26, NULL, NULL, 'Public');
 
 -- --------------------------------------------------------
 
@@ -78,7 +81,8 @@ DROP TABLE IF EXISTS `friendships`;
 CREATE TABLE IF NOT EXISTS `friendships` (
   `ID_User1` int(11) NOT NULL,
   `ID_User2` int(11) NOT NULL,
-  `Status` enum('Amis','En attente','Demande Envoyée') NOT NULL,
+  `Status` enum('Accepted','Request sent','Waiting') NOT NULL,
+  `Relationship` enum('Pro','Friend') NOT NULL,
   PRIMARY KEY (`ID_User1`,`ID_User2`),
   KEY `ID_User2` (`ID_User2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -87,8 +91,13 @@ CREATE TABLE IF NOT EXISTS `friendships` (
 -- Déchargement des données de la table `friendships`
 --
 
-INSERT INTO `friendships` (`ID_User1`, `ID_User2`, `Status`) VALUES
-(1, 2, 'Amis');
+INSERT INTO `friendships` (`ID_User1`, `ID_User2`, `Status`, `Relationship`) VALUES
+(1, 2, 'Accepted', 'Pro'),
+(1, 4, 'Waiting', 'Friend'),
+(2, 1, 'Request sent', 'Friend'),
+(2, 4, 'Accepted', 'Pro'),
+(4, 1, 'Accepted', 'Friend'),
+(4, 2, 'Accepted', 'Friend');
 
 -- --------------------------------------------------------
 
@@ -103,8 +112,9 @@ CREATE TABLE IF NOT EXISTS `joboffers` (
   `Company` varchar(32) NOT NULL,
   `Title` varchar(240) NOT NULL,
   `JobDescription` text,
-  `JobDetails` text,
+  `Length` decimal(4,1) DEFAULT '0.0',
   `Skills` text,
+  `Area` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`ID_Object`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -125,6 +135,27 @@ CREATE TABLE IF NOT EXISTS `jobreacts` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `jobrequests`
+--
+
+DROP TABLE IF EXISTS `jobrequests`;
+CREATE TABLE IF NOT EXISTS `jobrequests` (
+  `ID_Object` int(11) NOT NULL,
+  `Length` decimal(4,1) DEFAULT '0.0' COMMENT 'en mois',
+  `Area` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`ID_Object`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `jobrequests`
+--
+
+INSERT INTO `jobrequests` (`ID_Object`, `Length`, `Area`) VALUES
+(21, '6.4', 'commerce');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `objectposts`
 --
 
@@ -132,12 +163,12 @@ DROP TABLE IF EXISTS `objectposts`;
 CREATE TABLE IF NOT EXISTS `objectposts` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ID_User` int(11) NOT NULL,
-  `Date_Post` datetime NOT NULL,
+  `Date_Post` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Url_Media` varchar(32) DEFAULT NULL,
   `Description` text,
   PRIMARY KEY (`ID`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `objectposts`
@@ -161,7 +192,8 @@ INSERT INTO `objectposts` (`ID`, `ID_User`, `Date_Post`, `Url_Media`, `Descripti
 (22, 1, '2022-04-04 00:00:00', NULL, 'salut'),
 (23, 1, '2022-04-04 00:00:00', NULL, 'salut'),
 (24, 1, '2025-04-04 00:00:00', NULL, 'salut'),
-(25, 1, '2025-04-04 00:00:00', NULL, 'salut');
+(25, 1, '2025-04-04 00:00:00', NULL, 'salut'),
+(26, 4, '2018-05-01 11:04:08', NULL, 'yo bb');
 
 -- --------------------------------------------------------
 
@@ -173,7 +205,7 @@ DROP TABLE IF EXISTS `reacts`;
 CREATE TABLE IF NOT EXISTS `reacts` (
   `ID_User` int(11) NOT NULL,
   `ID_Object` int(11) NOT NULL,
-  `Date` datetime NOT NULL,
+  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID_User`,`ID_Object`),
   KEY `ID_Object` (`ID_Object`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -214,11 +246,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Status` enum('Admin','LambdaUser') NOT NULL,
   `Position` enum('Etudiant','Salarié') DEFAULT NULL,
   `CV` varchar(32) DEFAULT NULL,
-  `Uptime` datetime NOT NULL,
+  `Uptime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
@@ -226,7 +258,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`ID`, `Email`, `LastName`, `FirstName`, `Pseudo`, `Password`, `ProfilePicture`, `CoverPicture`, `Status`, `Position`, `CV`, `Uptime`, `description`) VALUES
 (1, 'fzfzfez', 'zefzefz', 'zefzfzfezef', 'fezf', 'fezfz', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL),
-(2, 'maximePD', 'zefzefz', 'zefzfzfezef', 'fezf', 'fezfz', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL);
+(2, 'maximePD', 'zefzefz', 'zefzfzfezef', 'fezf', 'fezfz', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL),
+(4, 'sam@bb', 'caddeo', 'sam', 'sami', 'fezef', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-05-01 10:52:50', NULL);
 
 --
 -- Contraintes pour les tables déchargées
@@ -264,6 +297,12 @@ ALTER TABLE `joboffers`
 ALTER TABLE `jobreacts`
   ADD CONSTRAINT `jobreacts_ibfk_1` FOREIGN KEY (`ID_Offer`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `jobreacts_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `jobrequests`
+--
+ALTER TABLE `jobrequests`
+  ADD CONSTRAINT `jobrequests_ibfk_1` FOREIGN KEY (`ID_Object`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `objectposts`
