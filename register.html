@@ -1,41 +1,49 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
 
-    <title>Register on LonkedOn</title>
+  <title>Register on LonkedOn</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-  </head>
+  <!-- Custom styles for this template -->
+  <link href="register.css" rel="stylesheet">
+</head>
 
-  <body class="text-center">
-    <form class="form-signin" action="register.php" method="post">
-      <img class="mb-4" src="assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+<body class="text-center">
 
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+  <!-- <div class=""> -->
 
-      <label for="inputFirstname" class="sr-only">First name</label>
-      <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
-      <label for="inputLastname" class="sr-only">Last name</label>
-      <input type="text" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last name" required>
+  <main role="main" class="container">
+    <div class="jumbotron">
 
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name='inputPassword' id="inputPassword" class="form-control" placeholder="Password" required>
-      <label for="inputPasswordCheck" class="sr-only">Re-type password</label>
-      <input type="password" name="inputPasswordCheck" id="inputPasswordCheck" class="form-control" placeholder="Re-type password" required>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-    </form>
-  </body>
+
+      <form class="form-signin" action="register.php" method="post">
+        <img class="mb-4" src="assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+
+        <label for="inputFirstname" class="sr-only">First name</label>
+        <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
+        <label for="inputLastname" class="sr-only">Last name</label>
+        <input type="text" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last name" required>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name='inputPassword' id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="inputPasswordCheck" class="sr-only">Re-type password</label>
+        <input type="password" name="inputPasswordCheck" id="inputPasswordCheck" class="form-control" placeholder="Re-type password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      </form>
+    </div>
+  </main>
+</body>
 </html>
