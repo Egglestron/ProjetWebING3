@@ -16,4 +16,6 @@ $req = mysqli_prepare($db,"INSERT INTO users(Email, Passwordhash, Firstname, Las
 mysqli_stmt_bind_param($req, "ssss", $email, $passwordhash,$firstname,$lastname);
 mysqli_stmt_execute($req);
 mysqli_stmt_close($req);
+
+header('location: log_page.html');
 ?>
