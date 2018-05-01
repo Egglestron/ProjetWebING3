@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 01 mai 2018 à 11:08
--- Version du serveur :  5.7.21
--- Version de PHP :  5.6.35
+-- Host: 127.0.0.1:3306
+-- Generation Time: May 01, 2018 at 01:55 PM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `socialmedia`
+-- Database: `socialmedia`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comments`
+-- Table structure for table `comments`
 --
 
 DROP TABLE IF EXISTS `comments`;
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `comments`
+-- Dumping data for table `comments`
 --
 
 INSERT INTO `comments` (`ID_Object`, `ID_Post`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `comments` (`ID_Object`, `ID_Post`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `events`
+-- Table structure for table `events`
 --
 
 DROP TABLE IF EXISTS `events`;
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `events`
+-- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`ID_Object`, `Date`, `Location`, `Status`) VALUES
@@ -74,7 +74,7 @@ INSERT INTO `events` (`ID_Object`, `Date`, `Location`, `Status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `friendships`
+-- Table structure for table `friendships`
 --
 
 DROP TABLE IF EXISTS `friendships`;
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `friendships` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `friendships`
+-- Dumping data for table `friendships`
 --
 
 INSERT INTO `friendships` (`ID_User1`, `ID_User2`, `Status`, `Relationship`) VALUES
@@ -102,7 +102,7 @@ INSERT INTO `friendships` (`ID_User1`, `ID_User2`, `Status`, `Relationship`) VAL
 -- --------------------------------------------------------
 
 --
--- Structure de la table `joboffers`
+-- Table structure for table `joboffers`
 --
 
 DROP TABLE IF EXISTS `joboffers`;
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `joboffers` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `jobreacts`
+-- Table structure for table `jobreacts`
 --
 
 DROP TABLE IF EXISTS `jobreacts`;
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `jobreacts` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `jobrequests`
+-- Table structure for table `jobrequests`
 --
 
 DROP TABLE IF EXISTS `jobrequests`;
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `jobrequests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `jobrequests`
+-- Dumping data for table `jobrequests`
 --
 
 INSERT INTO `jobrequests` (`ID_Object`, `Length`, `Area`) VALUES
@@ -156,7 +156,7 @@ INSERT INTO `jobrequests` (`ID_Object`, `Length`, `Area`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `objectposts`
+-- Table structure for table `objectposts`
 --
 
 DROP TABLE IF EXISTS `objectposts`;
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `objectposts` (
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `objectposts`
+-- Dumping data for table `objectposts`
 --
 
 INSERT INTO `objectposts` (`ID`, `ID_User`, `Date_Post`, `Url_Media`, `Description`) VALUES
@@ -198,7 +198,7 @@ INSERT INTO `objectposts` (`ID`, `ID_User`, `Date_Post`, `Url_Media`, `Descripti
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reacts`
+-- Table structure for table `reacts`
 --
 
 DROP TABLE IF EXISTS `reacts`;
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `reacts` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `shares`
+-- Table structure for table `shares`
 --
 
 DROP TABLE IF EXISTS `shares`;
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `shares` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -239,8 +239,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Email` varchar(32) NOT NULL,
   `LastName` varchar(32) NOT NULL,
   `FirstName` varchar(32) NOT NULL,
-  `Pseudo` varchar(8) NOT NULL,
-  `Password` varchar(10) NOT NULL,
+  `Pseudo` varchar(20) DEFAULT NULL,
+  `PasswordHash` varchar(255) NOT NULL,
   `ProfilePicture` varchar(32) DEFAULT NULL,
   `CoverPicture` varchar(32) DEFAULT NULL,
   `Status` enum('Admin','LambdaUser') NOT NULL,
@@ -250,75 +250,76 @@ CREATE TABLE IF NOT EXISTS `users` (
   `description` text,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`ID`, `Email`, `LastName`, `FirstName`, `Pseudo`, `Password`, `ProfilePicture`, `CoverPicture`, `Status`, `Position`, `CV`, `Uptime`, `description`) VALUES
+INSERT INTO `users` (`ID`, `Email`, `LastName`, `FirstName`, `Pseudo`, `PasswordHash`, `ProfilePicture`, `CoverPicture`, `Status`, `Position`, `CV`, `Uptime`, `description`) VALUES
 (1, 'fzfzfez', 'zefzefz', 'zefzfzfezef', 'fezf', 'fezfz', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL),
-(2, 'maximePD', 'zefzefz', 'zefzfzfezef', 'fezf', 'fezfz', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL),
-(4, 'sam@bb', 'caddeo', 'sam', 'sami', 'fezef', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-05-01 10:52:50', NULL);
+(2, 'maximemichelpc@gmail.com', 'Maxime', 'Maxime', 'Egglestron', 'maxmic', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL),
+(4, 'sam@bb', 'caddeo', 'sam', 'sami', 'fezef', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-05-01 10:52:50', NULL),
+(5, 'maxime.michel@edu.ece.fr', 'MICHEL', 'Maxime', NULL, '$2y$10$COhGj5KWn2sN7MSt3KSJau/uFfwnJTXcYa0BtfP2B0f2DsMKSLBoy', NULL, NULL, 'Admin', NULL, NULL, '2018-05-01 15:45:02', NULL);
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `comments`
+-- Constraints for table `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `FK_IdObject` FOREIGN KEY (`ID_Object`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`ID_Post`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `events`
+-- Constraints for table `events`
 --
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`ID_Object`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `friendships`
+-- Constraints for table `friendships`
 --
 ALTER TABLE `friendships`
   ADD CONSTRAINT `friendships_ibfk_1` FOREIGN KEY (`ID_User1`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `friendships_ibfk_2` FOREIGN KEY (`ID_User2`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `joboffers`
+-- Constraints for table `joboffers`
 --
 ALTER TABLE `joboffers`
   ADD CONSTRAINT `joboffers_ibfk_1` FOREIGN KEY (`ID_Object`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `jobreacts`
+-- Constraints for table `jobreacts`
 --
 ALTER TABLE `jobreacts`
   ADD CONSTRAINT `jobreacts_ibfk_1` FOREIGN KEY (`ID_Offer`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `jobreacts_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `jobrequests`
+-- Constraints for table `jobrequests`
 --
 ALTER TABLE `jobrequests`
   ADD CONSTRAINT `jobrequests_ibfk_1` FOREIGN KEY (`ID_Object`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `objectposts`
+-- Constraints for table `objectposts`
 --
 ALTER TABLE `objectposts`
   ADD CONSTRAINT `objectposts_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `reacts`
+-- Constraints for table `reacts`
 --
 ALTER TABLE `reacts`
   ADD CONSTRAINT `reacts_ibfk_1` FOREIGN KEY (`ID_Object`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `reacts_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
 
 --
--- Contraintes pour la table `shares`
+-- Constraints for table `shares`
 --
 ALTER TABLE `shares`
   ADD CONSTRAINT `shares_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
