@@ -14,7 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link href="navbar-top-fixed.css" rel="stylesheet">
-    <link href="/normalize.css" rel="stylesheet">
+    <link href="dist/css/normalize.css" rel="stylesheet">
   </head>
 
   <body>
@@ -49,14 +49,12 @@
       </div>
     </nav>
 
-    <form action=/cadre_post method=post>
-      <div class="cadre_post">
-        <label for="txt">Write a new post...</label>
-        <textarea cols="60" rows="9" ></textarea>
-        <p><a class="btn btn-primary" href="#" role="button">Publish &raquo;</a></p>
-        <!--<button class="btn btn-primary" style="border-color: #000099 color: #000099;" type="submit">Publish</button>-->
-    </div>
+<div>
+    <form class="form-post">
+        <input class="form-control mr-sm-2" type="text" placeholder="Publish" aria-label="Publish">
+        <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
   </form>
+</div>
 
 
     <footer class="mastfoot mt-auto">

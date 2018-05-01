@@ -18,28 +18,53 @@ img {
   -ms-filter: invert(1);
 }
 
-.roundedImage{
-    overflow:hidden;
-    -webkit-border-radius:120px;
-    -moz-border-radius:120px;
-    border-radius:120px;
-    width:180px;
-    height:180px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border: solid 2px white;
+/**
+ * Profile image component
+ */
+.profile-header-container{
+    margin: 0 auto;
+    text-align: center;
 }
 
-.cadre_post {
-  width: 600px;
-  height: 315px;
-  display: block;
+.profile-header-img {
+    padding: 54px;
+}
+
+.profile-header-img > img.img-circle {
+    width: 230px;
+    height: 230px;
+  /*  border: 2px solid #51D2B7;*/
+}
+
+.profile-header {
+    margin-top: 30px;
+}
+
+/**
+ * Ranking component
+ */
+.rank-label-container {
+    margin-top: -19px;
+    text-align: center;
+}
+
+.label.label-default.rank-label {
+    background-color: #4d94ff;
+    padding: 5px 15px 5px 15px;
+    border-radius: 27px;
+}
+
+.form-post {
+  width: 700px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row;
   text-align: center;
   margin-right: auto;
   margin-left: auto;
-  background-color: white;
   border-radius: 15px;
+  -ms-flex-alin: center
 }
 
 .navbar{
