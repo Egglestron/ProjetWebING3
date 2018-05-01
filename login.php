@@ -8,30 +8,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 // username and password sent from form
 
-$myusername=addslashes($_POST['email']);
-$mypassword=addslashes($_POST['password']);
+$req = mysqli_prepare($db, "SELECT id, passwordhash FROM users WHERE email = ?");
+mysqli_stmt_bind_param($req, "s", $_POST['email']);
+mysqli_stmt_execute($req);
+
+mysqli_stmt_store_result($req);
+
+mysqli_stmt_bind_result($req, $colID, $colPasswordhash);
 
 
-$req= $bdd->prepare('SELECT id, password FROM users WHERE email='$myemail'');
-$req-> execute(array('email'=>$myemail));
-$result=$req->fetch();
+$isPasswordCorrect = false;
 
-$isPasswordCorrect = password_verify($_POST['pass'], $result['pass']);
+while(mysqli_stmt_fetch($req)){
 
-if (!$result)
-{
-    header("location: log_page.html");
+if(password_verify($_POST['password'], $colPasswordhash)){
+    $isPasswordCorrect = true;
+    $_SESSION['id'] = $colID;
+    break;
 }
-else
-{
+
+}
+
+
     if ($isPasswordCorrect) {
         session_start();
-        $_SESSION['id'] = $result['id'];
         $_SESSION['email'] = $mymail;
         header("location: welcome.php");
     }
     else {
+      //echo $phash;
+
         header("location: log_page.html");
     }
+
 }
 ?>
