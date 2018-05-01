@@ -24,6 +24,7 @@ while(mysqli_stmt_fetch($req)){
 if(password_verify($_POST['password'], $colPasswordhash)){
     $isPasswordCorrect = true;
     $_SESSION['id'] = $colID;
+    //echo $colID;
     break;
 }
 

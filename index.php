@@ -62,10 +62,10 @@
   session_start();
   $id = $_SESSION['id'];
 
-  $requete = "SELECT DISTINCT o.ID, o.ID_User, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, friendships f, objectposts o ";
-  $requete .= " WHERE o.ID = e.ID_Object AND(f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
+  $requete = "SELECT DISTINCT o.ID, o.ID_User, us.Firstname, us.Lastname, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, friendships f, objectposts o, users us ";
+  $requete .= " WHERE o.ID = e.ID_Object AND((f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
   $requete .= " AND ((f.Relationship = 'Friend' AND e.Status IN ('Public','Friends Only','Network')) OR (f.Relationship = 'Pro' ";
-  $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) AND e.ID_Object = o.ID ORDER BY o.Date_Post DESC LIMIT 25";
+  $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
 
   //echo $requete;
 
@@ -75,10 +75,46 @@
 
   mysqli_stmt_store_result($req);
 
-  mysqli_stmt_bind_result($req, $colID, $colID_User, $colDescription, $colDate_Post, $colDate, $colLocation, $colStatus);
+  mysqli_stmt_bind_result($req, $colID, $colID_User, $colID_FirstName, $col_LastName, $colDescription, $colDate_Post, $colDate, $colLocation, $colStatus);
 
   while(mysqli_stmt_fetch($req)){
-    echo "<p>".$colDescription."<p>";
+    //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+ echo "<main role=\"main\" class=\"container col-sm-5\">";
+    echo "<div class=\"jumbotron float-center text-left\">";
+        echo "<h1 class=\"h3 mb-1\">$colID_FirstName $col_LastName</h1>";
+        echo "<div class=\"col-sm-10\">";
+        echo "<label class=\"col-sm-2 control-label text-right\">$colDate_Post</label>";
+        echo "</div>";
+        if(!empty($colDate)){
+          echo "<p class=\"form-control mr-sm-2\" type=\"text\">à $colLocation<p>";
+        }
+        if(!empty($colDate = NULL)){
+          echo "<p class=\"form-control mr-sm-2\" type=\"text\">le $colDate<p>";
+        }
+
+        echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+        // <div class="multitext">
+        //   <label for="inputFirstname" class="sr-only">First name</label>
+        //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
+        //   <label for="inputLastname" class="sr-only">Last name</label>
+        //   <input type="text" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last name" required>
+        // </div>
+        //
+        // <div class="multitext">
+        //   <label for="inputEmail" class="sr-only">Email address</label>
+        //   <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        // </div>
+        //
+        // <div class="multitext">
+        //   <label for="inputPassword" class="sr-only">Password</label>
+        //   <input type="password" name='inputPassword' id="inputPassword" class="form-control" placeholder="Password" required>
+        //   <label for="inputPasswordCheck" class="sr-only">Re-type password</label>
+        //   <input type="password" name="inputPasswordCheck" id="inputPasswordCheck" class="form-control" placeholder="Re-type password" required>
+        // </div>
+        //
+        // <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    echo "</div>";
+echo "</main>";
 
   }
 
