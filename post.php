@@ -25,5 +25,5 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_close($req);
 
-header('location:index.html');
+header('location:index.php');
 ?>

@@ -56,6 +56,27 @@
   </form>
 </div>
 
+<div>
+  <?php
+  include("config.php");
+  session_start();
+  SELECT DISTINCT o.ID, o.ID_User, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, friendships f, objectposts o
+  WHERE o.ID = e.ID_Object
+  AND(f.ID_User1 = o.ID_User AND f.ID_User2 = '6'
+  AND f.Status = 'Accepted'
+  AND ((f.Relationship = 'Friend'
+  AND e.Status IN ('Public','Friends Only','Network'))
+  OR (f.Relationship = 'Pro'
+  AND e.Status IN ('Network','Public'))))
+  OR (o.ID_User = '6')
+  AND e.ID_Object = o.ID ORDER BY o.Date_Post DSC
+  $req = mysqli_prepare($db, "INSERT INTO objectposts (ID_User, Url_Media, Description) VALUES (?, ?, ?)");
+  mysqli_stmt_bind_param($req, "iss", $id_User, $Url_Media,$description);
+  mysqli_stmt_execute($req);
+  ?>
+</div>
+
+
 
     <footer class="mastfoot mt-auto">
       <div class="inner">

@@ -25,17 +25,18 @@ Requete pour a la fois creer l'objet post et l'event en relation
 **/
 
 
+// Insertion
+$req = mysqli_prepare($db, "INSERT INTO objectposts (ID_User, Url_Media, Description) VALUES (?, ?, ?)");
+mysqli_stmt_bind_param($req, "iss", $id_User, $Url_Media,$description);
+mysqli_stmt_execute($req);
 
-INSERT INTO 'objectposts' (ID, ID_User, Date_Post, Url_Media, Description) 
+$lastid = mysqli_insert_id($db);
 
-VALUES (NULL, '1', '2025-04-04 00:00:00', NULL, 'salut');
+$req = mysqli_prepare($db, "INSERT INTO events (ID_Object, Date, Location, Status) VALUES(?, ?, ?, ?)");
+mysqli_stmt_bind_param($req, "isss", $lastid, $Date, $Location, $Status);
+mysqli_stmt_execute($req);
 
-
-INSERT INTO 'events' (ID_Object, Date, Location, Status) 
-
-VALUES
-(LAST_INSERT_ID(), '2025-04-04 00:00:00', 'Paris, 'Private');
-
+mysqli_stmt_close($req);
 
 
 /**
@@ -46,18 +47,13 @@ Requete pour recuperer tous les posts chronologiquement auquel l'utilisateur X a
 
 
 
-SELECT * FROM events e, friendships f, objectposts o 
-
-WHERE (f.ID_User1 = o.ID_User AND f.ID_User2 = '**METTRE L'UTILISATEUR X ICI**' 
-       
+SELECT DISTINCT o.ID, o.ID_User, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, friendships f, objectposts o 
+WHERE o.ID = e.ID_Object
+AND(f.ID_User1 = o.ID_User AND f.ID_User2 = '6' 
 AND f.Status = 'Accepted' 
-       
 AND ((f.Relationship = 'Friend' 
-            
 AND e.Status IN ('Public','Friends Only','Network'))
-           
 OR (f.Relationship = 'Pro'
-           
 AND e.Status IN ('Network','Public')))) 
-
-AND e.ID_Object = o.ID ORDER BY o.Date_Post ASC;
+OR (o.ID_User = '6')
+AND e.ID_Object = o.ID ORDER BY o.Date_Post DSC
