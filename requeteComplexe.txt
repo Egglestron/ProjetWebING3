@@ -1,19 +1,29 @@
 /**
-	Requete pour a la fois creer l'objet post et le commentaire en relation
+	
+
+Requete pour a la fois creer l'objet post et le commentaire en relation
+
 **/
 
+
+
 INSERT INTO 'objectposts' (ID, ID_User, Date_Post, Url_Media, Description) 
+
 VALUES (NULL, '1', '2025-04-04 00:00:00', NULL, 'salut');
+
 
 INSERT INTO 'comments' (ID_Object, ID_Post) 
 VALUES
 (LAST_INSERT_ID(), 8);
 
+
+
 /**
-	Requete pour a la fois creer l'objet post et l'event en relation
+	
+Requete pour a la fois creer l'objet post et l'event en relation
+
 **/
 
-<<<<<<< HEAD
 
 // Insertion
 $req = mysqli_prepare($db, "INSERT INTO objectposts (ID_User, Url_Media, Description) VALUES (?, ?, ?)");
@@ -29,20 +39,12 @@ mysqli_stmt_execute($req);
 mysqli_stmt_close($req);
 
 
-=======
-INSERT INTO 'objectposts' (ID, ID_User, Date_Post, Url_Media, Description) 
-VALUES (NULL, '1', '2025-04-04 00:00:00', NULL, 'salut');
-
-INSERT INTO 'events' (ID_Object, Date, Location, Status) 
-VALUES
-(LAST_INSERT_ID(), '2025-04-04 00:00:00', 'Paris, 'Private');
-
->>>>>>> 68f0e23bd8ded564b7105c9e151889181e2a76e5
 /**
-	Requete pour recuperer tous les posts chronologiquement auquel l'utilisateur X a accès => ID_User2
+	
+Requete pour recuperer tous les posts chronologiquement auquel l'utilisateur X a accès => ID_User2
+
 **/
 
-<<<<<<< HEAD
 
 
 SELECT DISTINCT o.ID, o.ID_User, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, friendships f, objectposts o 
@@ -54,14 +56,4 @@ AND e.Status IN ('Public','Friends Only','Network'))
 OR (f.Relationship = 'Pro'
 AND e.Status IN ('Network','Public')))) 
 OR (o.ID_User = '6')
-AND e.ID_Object = o.ID ORDER BY o.Date_Post DSC
-=======
-SELECT * FROM events e, friendships f, objectposts o 
-WHERE (f.ID_User1 = o.ID_User AND f.ID_User2 = '**METTRE L'UTILISATEUR X ICI**' 
-       AND f.Status = 'Accepted' 
-       AND ((f.Relationship = 'Friend' 
-            AND e.Status IN ('Public','Friends Only','Network'))
-           OR (f.Relationship = 'Pro'
-           AND e.Status IN ('Network','Public')))) 
-AND e.ID_Object = o.ID ORDER BY o.Date_Post ASC
->>>>>>> 68f0e23bd8ded564b7105c9e151889181e2a76e5
+AND e.ID_Object = o.ID ORDER BY o.Date_Post DESC
