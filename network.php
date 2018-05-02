@@ -18,26 +18,26 @@
 
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
-      <a class="navbar-brand" href="index.html">LOGO</a>
+      <a class="navbar-brand" href="index.php">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="profile.html">Profile </a>
+            <a class="nav-link" href="profile.php">Profile </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="notif.html">Notifications </a>
+            <a class="nav-link" href="notif.php">Notifications </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="network.html">Network <span class="sr-only">(current)</span></a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
+            <a class="nav-link" href="network.php">Network <span class="sr-only">(current)</span></a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="messages.html">Messages </a>
+            <a class="nav-link" href="messages.php">Messages </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="jobs.html">Jobs </a>
+            <a class="nav-link" href="jobs.php">Jobs </a>
           </li>
         </ul>
         <form class="form-inline">
