@@ -1,7 +1,15 @@
 <!doctype html>
+<<?php
+session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+}
+ ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="30">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -60,10 +68,9 @@
 <div>
   <?php
   include("config.php");
-  session_start();
-  $id = $_SESSION['id'];
+  $id = $_SESSION["id"];
 
-  $requete = "SELECT DISTINCT o.ID, o.ID_User, us.Firstname, us.Lastname, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
+  $requete = "SELECT DISTINCT o.*, us.Firstname, us.Lastname, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
   $requete .= " WHERE o.ID = e.ID_Object AND(EXISTS( SELECT * FROM friendships f WHERE f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
   $requete .= " AND ((f.Relationship = 'Friend' AND e.Status IN ('Public','Friends Only','Network')) OR (f.Relationship = 'Pro' ";
   $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
@@ -76,7 +83,7 @@
 
   mysqli_stmt_store_result($req);
 
-  mysqli_stmt_bind_result($req, $colID, $colID_User, $colID_FirstName, $col_LastName, $colDescription, $colDate_Post, $colDate, $colLocation, $colStatus);
+  mysqli_stmt_bind_result($req, $colID, $colID_User, $colDate_Post, $colUrlMedia, $colDescription, $colID_FirstName, $col_LastName, $colDate, $colLocation, $colStatus);
 
   while(mysqli_stmt_fetch($req)){
     //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
@@ -86,14 +93,21 @@
         echo "<div class=\"col-sm-10\">";
         echo "<label class=\"col-sm-2 control-label text-right\">$colDate_Post</label>";
         echo "</div>";
+
         if(!empty($colDate)){
           echo "<p class=\"form-control mr-sm-2\" type=\"text\">à $colLocation<p>";
         }
+
         if(!empty($colDate = NULL)){
           echo "<p class=\"form-control mr-sm-2\" type=\"text\">le $colDate<p>";
         }
 
         echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+
+        if(!empty($colUrlMedia)){
+          echo "<img src =\"$colUrlMedia\" alt = \"image du post\" >";
+        }
+
         echo "<div>";
         echo "<form class=\"form-post\" method=\"post\">";
         echo "<input class=\"form-control mr-sm-2\" name=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";

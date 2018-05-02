@@ -23,5 +23,7 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_close($req);
 
-header('location:index.php');
+//echo "<meta http-equiv=\"refresh\" content=\"0\"> ";
+header("Location: {$_SERVER['HTTP_REFERER']}");
+//exit;
 ?>
