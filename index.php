@@ -62,8 +62,8 @@
   session_start();
   $id = $_SESSION['id'];
 
-  $requete = "SELECT DISTINCT o.ID, o.ID_User, us.Firstname, us.Lastname, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, friendships f, objectposts o, users us ";
-  $requete .= " WHERE o.ID = e.ID_Object AND((f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
+  $requete = "SELECT DISTINCT o.ID, o.ID_User, us.Firstname, us.Lastname, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
+  $requete .= " WHERE o.ID = e.ID_Object AND(EXISTS( SELECT * FROM friendships f WHERE f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
   $requete .= " AND ((f.Relationship = 'Friend' AND e.Status IN ('Public','Friends Only','Network')) OR (f.Relationship = 'Pro' ";
   $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
 
@@ -93,6 +93,29 @@
         }
 
         echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+        echo "<div>";
+        echo "<form class=\"form-post\" method=\"post\">";
+        echo "<input class=\"form-control mr-sm-2\" name=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+        echo "<button class=\"btn btn-primary mr-sm-2\" formaction=\"comment.php?idpost=$colID\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Publish</button>";
+        echo "</form>";
+        echo "</div>";
+
+        $requete = "SELECT o.Date_Post, o.Url_Media, o.Description, u.FirstName, u.LastName FROM objectposts o, users u, comments c ";
+        $requete .= " WHERE o.ID = c.ID_Object AND o.ID_User = u.ID AND c.ID_Post = ? ORDER BY o.Date_Post DESC ";
+
+        $req2 = mysqli_prepare($db, $requete);
+
+        mysqli_stmt_bind_param($req2, "i", $colID);
+        mysqli_stmt_execute($req2);
+
+        mysqli_stmt_store_result($req2);
+
+        mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
+
+        while (mysqli_stmt_fetch($req2)) {
+          // code...
+          echo "<p class=\"form-control mr-sm-2\" type=\"text\">$cFirstn $cLastn le $cDate ::: $cCom<p>";
+        }
         // <div class="multitext">
         //   <label for="inputFirstname" class="sr-only">First name</label>
         //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
