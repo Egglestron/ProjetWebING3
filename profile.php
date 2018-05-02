@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
     <title>Profile </title>
 
@@ -19,15 +18,39 @@
   </head>
 
   <body>
+
+    <?php
+    include("config.php");
+    session_start();
+    $id = $_SESSION['id'];
+
+    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description FROM users us WHERE us.ID = ?";
+
+    //echo $requete;
+
+    $req = mysqli_prepare($db, $requete);
+    mysqli_stmt_bind_param($req, "i", $id);
+    mysqli_stmt_execute($req);
+
+    mysqli_stmt_store_result($req);
+
+    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description);
+
+    while(mysqli_stmt_fetch($req)){
+      $firstN = $col_FirstName ;
+      $lastN = $col_LastName;
+      $description = $col_Description;
+    }
+    ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
-      <a class="navbar-brand" href="index.html">LOGO</a>
+      <a class="navbar-brand" href="index.php">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="profile.html">Profile <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notif.html">Notifications </a>
@@ -57,23 +80,22 @@
                 <img class="img-circle" src="img/default.png" />
                 <!-- badge -->
                 <div class="rank-label-container">
-                    <span class="label label-default rank-label">Prenom NOM</span>
+                    <span class="label label-default rank-label">
+                      <?php
+                      echo "$firstN $lastN";
+                      ?>
+                    </span>
                 </div>
             </div>
         </div>
 	</div>
 </div>
-
-<!--    <div>
-      <img src="img/default.png" class="img-circle" style="text-align: center;" alt="profile_picture" width="200px" height="200px" >
-    </div>
-
-    <div class="ident">
-      <h2>*NAME*</h2>
-      <p>*INTRO*</p>
-    </div>
--->
-
+<button class="btn btn-primary" onclick="window.location.href='update.php'" style="border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;" type="submit">Update my profile</button>
+<div class="jumbotron float-center">
+  <?php
+  echo "$description";
+   ?>
+</div>
     <footer class="mastfoot mt-auto">
       <div class="inner">
         <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
