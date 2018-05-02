@@ -5,6 +5,6 @@ session_start();
 $_SESSION = array();
 if(session_destroy())
 {
-header("location: log_page.html");
+header("location: login.html");
 }
 ?>
