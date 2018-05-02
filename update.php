@@ -24,7 +24,7 @@
     session_start();
     $id = $_SESSION['id'];
 
-    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description FROM users us WHERE us.ID = ?";
+    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.position FROM users us WHERE us.ID = ?";
 
     //echo $requete;
 
@@ -34,12 +34,13 @@
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description);
+    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position);
 
     while(mysqli_stmt_fetch($req)){
       $firstN = $col_FirstName ;
       $lastN = $col_LastName;
       $description = $col_Description;
+      $position = $col_Position;
     }
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
@@ -91,7 +92,7 @@
 	</div>
 </div>
 
-<form class="form-horizontal col-lg-6">
+<form class="form-horizontal col-lg-6"  method="post">
   <div class="form-group">
     <legend>Update my profile</legend>
   </div>
@@ -101,9 +102,10 @@
       </label>
       <div class="col-lg-10">
         <?php
-        echo "<input type=\"text\" class=\"form-control\" id=\"text\" placeholder=\" ";
-        if(empty($description)){echo "My best line";}
-        else{echo"$description";}
+        if(empty($description)){
+        echo "<input type=\"text\" name=\"description\" class=\"form-control\" id=\"text\" placeholder=\"My best line\" ";
+        }
+        else{echo"<input type=\"text\" name=\"description\" class=\"form-control\" id=\"text\" value=\"$description\" ";}
         echo "\">";
         ?>
       </div>
@@ -113,16 +115,18 @@
     <div class="form-group">
     <label for="select" class="col-lg-2 control-label">Status:  </label>
       <div class="col-lg-10">
-        <select id="select" class="form-control" >
-          <option>Student</option>
-          <option>Teacher</option>
-          <option>Professional</option>
-        </select>
+        <?php
+        echo "<select id=\"select\" name=\"position\" class=\"form-control\" >";
+        echo "<option>Student</option>";
+        echo "<option>Teacher</option>";
+        echo "<option>Professional</option>";
+        echo "</select>";
+        ?>
       </div>
     </div>
   </div>
-  <div class="form-group">
-    <button class="pull-right btn btn-default">Save</button>
+  <div class="form-post">
+  <button class="btn btn-primary mr-sm-2" formaction="post_update.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Save</button>
   </div>
 </form>
 
