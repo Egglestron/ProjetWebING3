@@ -24,7 +24,7 @@
     session_start();
     $id = $_SESSION['id'];
 
-    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.position FROM users us WHERE us.ID = ?";
+    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.position, us.Pseudo FROM users us WHERE us.ID = ?";
 
     //echo $requete;
 
@@ -34,13 +34,14 @@
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position);
+    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position, $col_Pseudo);
 
     while(mysqli_stmt_fetch($req)){
       $firstN = $col_FirstName ;
       $lastN = $col_LastName;
       $description = $col_Description;
       $position = $col_Position;
+      $pseudo = $col_Pseudo;
     }
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
@@ -83,7 +84,7 @@
                 <div class="rank-label-container">
                     <span class="label label-default rank-label">
                       <?php
-                      echo "$firstN $lastN";
+                      echo "$firstN $lastN - $pseudo";
                       ?>
                     </span>
                 </div>
@@ -106,6 +107,21 @@
         echo "<input type=\"text\" name=\"description\" class=\"form-control\" id=\"text\" placeholder=\"My best line\" ";
         }
         else{echo"<input type=\"text\" name=\"description\" class=\"form-control\" id=\"text\" value=\"$description\" ";}
+        echo "\">";
+        ?>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="text" class="col-lg-2 control-label">
+      </label>
+      <div class="col-lg-10">
+        <?php
+        if(empty($pseudo)){
+        echo "<input type=\"text\" name=\"pseudo\" class=\"form-control\" id=\"text\" placeholder=\"Here is my pseudo\" ";
+        }
+        else{echo"<input type=\"text\" name=\"pseudo\" class=\"form-control\" id=\"text\" value=\"$pseudo\" ";}
         echo "\">";
         ?>
       </div>
