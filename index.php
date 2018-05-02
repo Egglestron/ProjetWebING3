@@ -51,14 +51,8 @@
 
 <div>
   <form action="post.php" class="form-post" method="post" enctype="multipart/form-data">
-
-  <input type="file" name="fileupload" value="fileupload" id="fileupload">
-
-
-        <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
-    <button class="btn btn-primary mr-sm-2" formaction="post.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
-      <input type="file" name="fileToUpload" id="fileToUpload">
-      <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
+    <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload">
+    <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
     <button class="btn btn-primary mr-sm-2" name="submit" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
   </form>
 </div>

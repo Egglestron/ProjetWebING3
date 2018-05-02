@@ -24,10 +24,12 @@ mysqli_stmt_execute($req);
 $lastid = mysqli_insert_id($db);
 
 $target_file = null;
+
 //upload de l'image w3schools.com
 if(isset($_FILES["fileToUpload"])){
+  echo $_FILES["fileToUpload"]['size'];
 $target_dir = "uploads/user$id_User/";
-
+  echo "yooo";
   if (!is_dir($target_dir)) {
     mkdir($target_dir, 0777, true);
 }
@@ -38,7 +40,15 @@ $target_dir = "uploads/user$id_User/";
   // Check if image file is a actual image or fake image
 
   if(isset($_POST["submit"])) {
+    if (!file_exists($_FILES['fileToUpload']['tmp_name'])) {
+    echo "File upload failed. ";
+    if (isset($_FILES['fileToUpload']['error'])) {
+         echo "Error code: ".$_FILES['fileToUpload']['error'];
+    }
+    exit;
+}
     $file_temp = $_FILES['fileToUpload']['tmp_name'];
+    echo $file_temp;
       $check = getimagesize($file_temp);
       if($check !== false) {
           echo "File is an image - " . $check["mime"] . ".";
@@ -75,19 +85,19 @@ $target_dir = "uploads/user$id_User/";
   }
 }
 
-if($target_file != null){
-  //echo $target_file;
-  $req = mysqli_prepare($db, "UPDATE objectposts SET Url_Media = ? WHERE ID = ?");
-
-  mysqli_stmt_bind_param($req, "si", $target_file, $id_User);
-  mysqli_stmt_execute($req);
-}
-
-$req = mysqli_prepare($db, "INSERT INTO events (ID_Object, Date, Location, Status) VALUES(?, ?, ?, ?)");
-mysqli_stmt_bind_param($req, "isss", $lastid, $Date, $Location, $Status);
-mysqli_stmt_execute($req);
-
-mysqli_stmt_close($req);
+// if($target_file != null){
+//   //echo $target_file;
+//   $req = mysqli_prepare($db, "UPDATE objectposts SET Url_Media = ? WHERE ID = ?");
+//
+//   mysqli_stmt_bind_param($req, "si", $target_file, $id_User);
+//   mysqli_stmt_execute($req);
+// }
+//
+// $req = mysqli_prepare($db, "INSERT INTO events (ID_Object, Date, Location, Status) VALUES(?, ?, ?, ?)");
+// mysqli_stmt_bind_param($req, "isss", $lastid, $Date, $Location, $Status);
+// mysqli_stmt_execute($req);
+//
+// mysqli_stmt_close($req);
 
 //header('location:index.php');
 
