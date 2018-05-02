@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign in Konnect.ed</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="login.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
+
+    <style>
+      .container{margin-top:100px}
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-blue"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
+      <a class="navbar-brand" href="login.html" style="font-weight: 700;">Konnect.ed</a>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+        <form class="form-inline">
+          <a class="navbar-brand" href="register.html" style="font-weight: 400;">Don't have an account?</a>
+          <button class="btn btn-default" formaction="register.html" type="submit" style="font-weight: 600;">Register</button>
+        </form>
+      </div>
+    </nav>
+
+
+    <div class="col-sm-6 bigtitle">
+      Welcome back to
+      <div style="font-size:1.5em; margin-top:-0.4em;">
+        Konnect.ed
+      </div>
+    </div>
+
+    <main role="main" class="container col-sm-6">
+
+      <div class="jumbotron float-right text-center">
+
+        <form class="form-signin" action="login.php" method="post">
+          <img class="mb-4" src="assets/logo.svg" alt="Konnect.ed" height="72">
+          <h1 class="h3 mb-3">Log in</h1>
+
+          <div class="multitext">
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+          </div>
+
+          <div class="multitext">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+          </div>
+
+          <div class="checkbox">
+
+            <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe">
+            <label class="control-label" style="color: #263E99; margin-bottom:20px;">Remember me</label>
+          </div>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+        </form>
+      </div>
+    </main>
+
+  </body>
+</html>
