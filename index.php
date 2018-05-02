@@ -50,9 +50,9 @@
     </nav>
 
 <div>
-    <form class="form-post">
-        <input class="form-control mr-sm-2" type="text" placeholder="Publish" aria-label="Publish">
-        <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
+  <form class="form-post" method="post">
+    <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
+    <button class="btn btn-primary mr-sm-2" formaction="post.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
   </form>
 </div>
 
