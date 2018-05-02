@@ -17,6 +17,7 @@
   </head>
 
   <body>
+
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
       <a class="navbar-brand" href="index.php">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,13 +41,64 @@
             <a class="nav-link" href="jobs.php">Jobs </a>
           </li>
         </ul>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-primary  mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
-          <button class="btn btn-primary" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
+        <form class="form-inline" method="post">
+          <input class="form-control mr-sm-2" name="information" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary  mr-sm-2" name="info" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
+          <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
         </form>
       </div>
     </nav>
+
+    <?php
+    include("config.php");
+    session_start();
+    $id = $_SESSION['id'];
+
+    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
+
+    $requete2 = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete2 .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
+
+    //echo $requete;
+
+    $req = mysqli_prepare($db, $requete);
+    mysqli_stmt_bind_param($req, "i", $id);
+    mysqli_stmt_execute($req);
+
+    mysqli_stmt_store_result($req);
+
+    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo);
+echo "<div class=\"jumbotron float-center\">";
+echo "<h3>Pros</h3>";
+    while(mysqli_stmt_fetch($req)){
+      $firstN = $col_FirstName ;
+      $lastN = $col_LastName;
+      $pseudo = $col_Pseudo;
+      echo "   $firstN $lastN - $pseudo   |";
+
+    }
+echo "</div>";
+    $req = mysqli_prepare($db, $requete2);
+    mysqli_stmt_bind_param($req, "i", $id);
+    mysqli_stmt_execute($req);
+
+    mysqli_stmt_store_result($req);
+
+    mysqli_stmt_bind_result($req, $col_FirstName2, $col_LastName2, $col_Pseudo2);
+echo "<div class=\"jumbotron float-center\">";
+echo "<h3>Friends</h3>";
+    while(mysqli_stmt_fetch($req)){
+      $firstN2 = $col_FirstName2 ;
+      $lastN2 = $col_LastName2;
+      $pseudo2 = $col_Pseudo2;
+      echo "   $firstN2 $lastN2 - $pseudo2   |";
+    }
+echo "</div>";
+    ?>
+
+
+
 
 
     <footer class="mastfoot mt-auto">
