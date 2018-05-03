@@ -6,6 +6,8 @@ if(empty($_SESSION['id'])){
   header('location:login.html');
 }
  ?>
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -109,9 +111,11 @@ if(empty($_SESSION['id'])){
         }
 
         echo "<div>";
-        echo "<form class=\"form-post\" method=\"post\">";
-        echo "<input class=\"form-control mr-sm-2\" name=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
-        echo "<button class=\"btn btn-primary mr-sm-2\" formaction=\"comment.php?idpost=$colID\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Publish</button>";
+        echo "<form action=\"comment.php\" class=\"form-post\" method=\"post\">";
+        echo "<input class=\"form-control mr-sm-2\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+        echo "<input type=\"hidden\" name=\"idpost\" value=\"$colID\" id=\"idpost\"> ";
+        echo "<button class=\"btn btn-primary mr-sm-2\"  style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\" >Publish</button>";
+        //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
         echo "</form>";
         echo "</div>";
 
