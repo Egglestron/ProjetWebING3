@@ -1,9 +1,10 @@
 <?php
 include("config.php");
+session_start();
 $id = $_SESSION["id"];
 $idp = isset($_GET["idpost"])?$_GET["idpost"]:null;
 
-$requete = "INSERT INTO jobreacts (ID_Offer, ID_User) VALUES (?, ?)");
+$requete = "INSERT INTO jobreacts (ID_Offer, ID_User) VALUES (? , ?)";
 
 
 
