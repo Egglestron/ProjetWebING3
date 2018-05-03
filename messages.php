@@ -130,7 +130,7 @@ if(empty($_SESSION['id'])){
   echo "</div>";
 
   //w3schools
-  echo ";
+  echo "";
   ?>
   <footer class="mastfoot mt-auto">
     <div class="inner">
