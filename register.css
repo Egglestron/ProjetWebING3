@@ -28,6 +28,10 @@ nav.bg-blue{
   padding-left: 1em;
 }
 
+.container{
+  margin-top:56px
+}
+
 .h3{
   color: #263E99;
   font-weight: 700;
