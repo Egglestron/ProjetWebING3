@@ -59,7 +59,6 @@ if(empty($_SESSION['id'])){
 
     <?php
     include("config.php");
-    //$id = $_SESSION["id"];
 
     $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
     $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
