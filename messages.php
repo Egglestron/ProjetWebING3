@@ -74,17 +74,10 @@ if(empty($_SESSION['id'])){
     include("config.php");
     $id = $_SESSION["id"];
 
-    $requete3 = "SELECT ID, Name, Notif FROM chatgroups WHERE ID_User = ?";
-
-    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
-    $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
-
-    $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
-    $requete2 .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
-
+    $requete = "SELECT ID, Name, Notif FROM chatgroups WHERE ID_User = ?";
     //echo $requete;
 
-    $req = mysqli_prepare($db, $requete3);
+    $req = mysqli_prepare($db, $requete);
     mysqli_stmt_bind_param($req, "i", $id);
     mysqli_stmt_execute($req);
 
@@ -118,7 +111,10 @@ if(empty($_SESSION['id'])){
       echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhide()\" id=\"hidebutton\" >Show More</button><br>";
     }
 
-    $req = mysqli_prepare($db, $requete2);
+    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
+
+    $req = mysqli_prepare($db, $requete);
     mysqli_stmt_bind_param($req, "i", $id);
     mysqli_stmt_execute($req);
 
@@ -135,6 +131,9 @@ if(empty($_SESSION['id'])){
       echo "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" >$col_FirstName $col_LastName </button> <br>";
       echo "</form>";
     }
+
+    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
 
     $req = mysqli_prepare($db, $requete);
     mysqli_stmt_bind_param($req, "i", $id);
@@ -182,13 +181,10 @@ if(!empty($_SESSION["idDiscussion"])){
 
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
-        echo "<p class=\"col-sm-5\">$col_FirstName $col_LastName :: $col_JobDescri</p>";
+        echo "<p align=\"left\">$col_FirstName $col_LastName : $col_JobDescri</p>";
       }
       else {
-        echo "<div class=\"col-sm-5\"></div>";
-        echo "<div class=\"col-sm-4\">";
-        echo "<p>$col_FirstName $col_LastName :: $col_JobDescri</p>";
-        echo "</div>";
+        echo "<p align=\"right\">$col_FirstName $col_LastName : $col_JobDescri</p>";
       }
     }
   }

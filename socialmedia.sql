@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 02 mai 2018 à 22:09
+-- Généré le :  jeu. 03 mai 2018 à 22:14
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -21,6 +21,54 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `socialmedia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `chatgroups`
+--
+
+DROP TABLE IF EXISTS `chatgroups`;
+CREATE TABLE IF NOT EXISTS `chatgroups` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_User` int(11) NOT NULL,
+  `Name` varchar(32) NOT NULL,
+  `Notif` enum('viewed','new') NOT NULL DEFAULT 'viewed',
+  PRIMARY KEY (`ID`,`ID_User`),
+  KEY `ID_User` (`ID_User`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `chatgroups`
+--
+
+INSERT INTO `chatgroups` (`ID`, `ID_User`, `Name`, `Notif`) VALUES
+(28, 2, 'Arthur Prat', 'viewed'),
+(28, 6, 'Maxime Maxime', 'viewed');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `chatmessages`
+--
+
+DROP TABLE IF EXISTS `chatmessages`;
+CREATE TABLE IF NOT EXISTS `chatmessages` (
+  `ID_Conv` int(11) NOT NULL,
+  `ID_Post` int(11) NOT NULL,
+  KEY `ID_Conv` (`ID_Conv`),
+  KEY `ID_Post` (`ID_Post`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `chatmessages`
+--
+
+INSERT INTO `chatmessages` (`ID_Conv`, `ID_Post`) VALUES
+(28, 239),
+(28, 240),
+(28, 241),
+(28, 242);
 
 -- --------------------------------------------------------
 
@@ -44,7 +92,22 @@ INSERT INTO `comments` (`ID_Object`, `ID_Post`) VALUES
 (13, 3),
 (24, 8),
 (25, 8),
-(40, 35);
+(40, 35),
+(64, 35),
+(167, 35),
+(180, 35),
+(181, 35),
+(69, 68),
+(164, 68),
+(165, 68),
+(166, 68),
+(168, 68),
+(169, 68),
+(170, 68),
+(171, 68),
+(172, 68),
+(182, 68),
+(183, 68);
 
 -- --------------------------------------------------------
 
@@ -74,7 +137,14 @@ INSERT INTO `events` (`ID_Object`, `Date`, `Location`, `Status`) VALUES
 (38, NULL, NULL, 'Public'),
 (39, NULL, NULL, 'Public'),
 (41, NULL, NULL, 'Public'),
-(42, NULL, NULL, 'Public');
+(42, NULL, NULL, 'Public'),
+(63, NULL, NULL, 'Public'),
+(65, NULL, NULL, 'Public'),
+(66, NULL, NULL, 'Public'),
+(67, NULL, NULL, 'Public'),
+(68, NULL, NULL, 'Public'),
+(221, NULL, NULL, 'Public'),
+(222, NULL, NULL, 'Public');
 
 -- --------------------------------------------------------
 
@@ -123,11 +193,19 @@ CREATE TABLE IF NOT EXISTS `joboffers` (
   `Company` varchar(32) NOT NULL,
   `Title` varchar(240) NOT NULL,
   `JobDescription` text,
-  `Length` decimal(4,1) DEFAULT '0.0',
+  `Length` int(4) DEFAULT '0',
   `Skills` text,
   `Area` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`ID_Object`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `joboffers`
+--
+
+INSERT INTO `joboffers` (`ID_Object`, `JobLocation`, `Company`, `Title`, `JobDescription`, `Length`, `Skills`, `Area`) VALUES
+(214, 'jj', 'jj', 'jj', 'jj', 2, 'jj', 'jj'),
+(215, 'erger', 'ergerg', 'erger', 'erger', 5, 'regerg', 'erg');
 
 -- --------------------------------------------------------
 
@@ -172,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `objectposts` (
   `Description` text,
   PRIMARY KEY (`ID`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `objectposts`
@@ -183,7 +261,7 @@ INSERT INTO `objectposts` (`ID`, `ID_User`, `Date_Post`, `Url_Media`, `Descripti
 (3, 1, '2018-04-18 04:00:00', NULL, 'je savais que t\'etais pd'),
 (4, 2, '2018-04-04 00:00:00', NULL, NULL),
 (5, 1, '2018-04-27 00:00:00', NULL, NULL),
-(6, 2, '2018-04-04 00:00:00', 'uploads/user6/post41.png', NULL),
+(6, 2, '2018-04-04 00:00:00', 'uploads/user6/post67.png', NULL),
 (7, 2, '2018-04-04 00:00:00', NULL, NULL),
 (8, 2, '2018-04-04 00:00:00', NULL, NULL),
 (9, 2, '2018-04-04 00:00:00', NULL, NULL),
@@ -225,7 +303,159 @@ INSERT INTO `objectposts` (`ID`, `ID_User`, `Date_Post`, `Url_Media`, `Descripti
 (58, 6, '2018-05-02 22:47:18', NULL, NULL),
 (59, 6, '2018-05-02 22:52:24', NULL, ''),
 (60, 6, '2018-05-02 23:16:50', NULL, 'test'),
-(61, 6, '2018-05-02 23:18:45', NULL, 'frieb');
+(61, 6, '2018-05-02 23:18:45', NULL, 'frieb'),
+(62, 6, '2018-05-03 00:12:14', NULL, 'sds'),
+(63, 6, '2018-05-03 00:12:31', NULL, 'qfs'),
+(64, 6, '2018-05-03 00:19:03', NULL, 'qsd'),
+(65, 6, '2018-05-03 00:23:18', NULL, 'test image'),
+(66, 6, '2018-05-03 00:25:00', NULL, 'test2'),
+(67, 6, '2018-05-03 00:26:39', NULL, 'test 3'),
+(68, 6, '2018-05-03 00:29:45', 'uploads/user6/post68.png', 'test 4'),
+(69, 6, '2018-05-03 00:30:58', NULL, 'super boulot'),
+(70, 6, '2018-05-03 00:48:54', NULL, 'fer'),
+(71, 6, '2018-05-03 00:48:54', NULL, NULL),
+(72, 6, '2018-05-03 00:48:54', NULL, NULL),
+(73, 6, '2018-05-03 00:48:54', NULL, NULL),
+(74, 6, '2018-05-03 00:48:54', NULL, NULL),
+(75, 6, '2018-05-03 00:48:54', NULL, NULL),
+(76, 6, '2018-05-03 00:48:54', NULL, NULL),
+(77, 6, '2018-05-03 00:48:54', NULL, NULL),
+(78, 6, '2018-05-03 00:48:54', NULL, NULL),
+(79, 6, '2018-05-03 00:48:54', NULL, NULL),
+(80, 6, '2018-05-03 00:48:54', NULL, NULL),
+(81, 6, '2018-05-03 00:48:54', NULL, NULL),
+(82, 6, '2018-05-03 00:48:54', NULL, NULL),
+(83, 6, '2018-05-03 00:48:54', NULL, NULL),
+(84, 6, '2018-05-03 00:48:54', NULL, NULL),
+(85, 6, '2018-05-03 00:48:54', NULL, NULL),
+(86, 6, '2018-05-03 00:48:55', NULL, NULL),
+(87, 6, '2018-05-03 00:48:55', NULL, NULL),
+(88, 6, '2018-05-03 00:48:55', NULL, NULL),
+(89, 6, '2018-05-03 00:48:55', NULL, NULL),
+(90, 6, '2018-05-03 00:48:55', NULL, NULL),
+(91, 6, '2018-05-03 00:48:55', NULL, NULL),
+(92, 6, '2018-05-03 00:48:55', NULL, NULL),
+(93, 6, '2018-05-03 00:48:55', NULL, NULL),
+(94, 6, '2018-05-03 00:48:55', NULL, NULL),
+(95, 6, '2018-05-03 00:48:55', NULL, NULL),
+(96, 6, '2018-05-03 00:48:55', NULL, NULL),
+(97, 6, '2018-05-03 00:48:55', NULL, NULL),
+(98, 6, '2018-05-03 00:48:55', NULL, NULL),
+(99, 6, '2018-05-03 00:48:55', NULL, NULL),
+(100, 6, '2018-05-03 00:48:55', NULL, NULL),
+(101, 6, '2018-05-03 00:48:55', NULL, NULL),
+(102, 6, '2018-05-03 00:48:55', NULL, NULL),
+(103, 6, '2018-05-03 00:48:55', NULL, NULL),
+(104, 6, '2018-05-03 00:48:55', NULL, NULL),
+(105, 6, '2018-05-03 00:48:55', NULL, NULL),
+(106, 6, '2018-05-03 00:48:55', NULL, NULL),
+(107, 6, '2018-05-03 00:48:55', NULL, NULL),
+(108, 6, '2018-05-03 00:48:55', NULL, NULL),
+(109, 6, '2018-05-03 00:48:55', NULL, NULL),
+(110, 6, '2018-05-03 00:48:55', NULL, NULL),
+(111, 6, '2018-05-03 00:48:56', NULL, NULL),
+(112, 6, '2018-05-03 00:48:56', NULL, NULL),
+(113, 6, '2018-05-03 00:48:56', NULL, NULL),
+(114, 6, '2018-05-03 00:48:56', NULL, NULL),
+(115, 6, '2018-05-03 00:48:56', NULL, NULL),
+(116, 6, '2018-05-03 00:48:56', NULL, NULL),
+(117, 6, '2018-05-03 00:48:56', NULL, NULL),
+(118, 6, '2018-05-03 00:48:56', NULL, NULL),
+(119, 6, '2018-05-03 00:48:56', NULL, NULL),
+(120, 6, '2018-05-03 00:48:56', NULL, NULL),
+(121, 6, '2018-05-03 00:48:56', NULL, NULL),
+(122, 6, '2018-05-03 00:48:56', NULL, NULL),
+(123, 6, '2018-05-03 00:48:56', NULL, NULL),
+(124, 6, '2018-05-03 00:48:56', NULL, NULL),
+(125, 6, '2018-05-03 00:48:56', NULL, NULL),
+(126, 6, '2018-05-03 00:48:56', NULL, NULL),
+(127, 6, '2018-05-03 00:48:56', NULL, NULL),
+(128, 6, '2018-05-03 00:48:56', NULL, NULL),
+(129, 6, '2018-05-03 00:48:56', NULL, NULL),
+(130, 6, '2018-05-03 00:48:56', NULL, NULL),
+(131, 6, '2018-05-03 00:48:56', NULL, NULL),
+(132, 6, '2018-05-03 00:48:56', NULL, NULL),
+(133, 6, '2018-05-03 00:48:57', NULL, NULL),
+(134, 6, '2018-05-03 00:48:57', NULL, NULL),
+(135, 6, '2018-05-03 00:48:57', NULL, NULL),
+(136, 6, '2018-05-03 00:48:57', NULL, NULL),
+(137, 6, '2018-05-03 00:48:57', NULL, NULL),
+(138, 6, '2018-05-03 00:48:57', NULL, NULL),
+(139, 6, '2018-05-03 00:48:57', NULL, NULL),
+(140, 6, '2018-05-03 00:48:57', NULL, NULL),
+(141, 6, '2018-05-03 00:48:57', NULL, NULL),
+(142, 6, '2018-05-03 00:48:57', NULL, NULL),
+(143, 6, '2018-05-03 00:48:57', NULL, NULL),
+(144, 6, '2018-05-03 00:48:57', NULL, NULL),
+(145, 6, '2018-05-03 00:48:57', NULL, NULL),
+(146, 6, '2018-05-03 00:48:57', NULL, NULL),
+(147, 6, '2018-05-03 00:48:57', NULL, NULL),
+(148, 6, '2018-05-03 00:48:57', NULL, NULL),
+(149, 6, '2018-05-03 00:48:57', NULL, NULL),
+(150, 6, '2018-05-03 00:48:57', NULL, NULL),
+(151, 6, '2018-05-03 00:48:57', NULL, NULL),
+(152, 6, '2018-05-03 00:48:57', NULL, NULL),
+(153, 6, '2018-05-03 00:48:57', NULL, NULL),
+(154, 6, '2018-05-03 00:48:58', NULL, NULL),
+(155, 6, '2018-05-03 00:48:58', NULL, NULL),
+(156, 6, '2018-05-03 00:48:58', NULL, NULL),
+(157, 6, '2018-05-03 00:48:58', NULL, NULL),
+(158, 6, '2018-05-03 00:48:58', NULL, NULL),
+(159, 6, '2018-05-03 00:48:58', NULL, NULL),
+(160, 6, '2018-05-03 00:48:58', NULL, NULL),
+(161, 6, '2018-05-03 00:48:58', NULL, NULL),
+(162, 6, '2018-05-03 00:48:58', NULL, NULL),
+(163, 6, '2018-05-03 00:48:58', NULL, NULL),
+(164, 6, '2018-05-03 00:52:45', NULL, 'st'),
+(165, 6, '2018-05-03 00:53:34', NULL, 'ezgtr'),
+(166, 6, '2018-05-03 00:56:11', NULL, 'zea'),
+(167, 6, '2018-05-03 01:09:17', NULL, 'zef'),
+(168, 6, '2018-05-03 01:09:26', NULL, 'cz'),
+(169, 6, '2018-05-03 01:23:29', NULL, 'cdsc'),
+(170, 6, '2018-05-03 01:26:52', NULL, 'cdsv'),
+(171, 6, '2018-05-03 01:27:23', NULL, 'ezfze'),
+(172, 6, '2018-05-03 01:29:15', NULL, 'fezf'),
+(173, 6, '2018-05-03 01:33:06', NULL, NULL),
+(174, 6, '2018-05-03 01:33:36', NULL, NULL),
+(175, 6, '2018-05-03 01:34:06', NULL, NULL),
+(176, 6, '2018-05-03 01:34:08', NULL, NULL),
+(177, 6, '2018-05-03 01:34:11', NULL, 'daz'),
+(178, 6, '2018-05-03 01:34:19', NULL, 'daz'),
+(179, 6, '2018-05-03 01:34:50', NULL, NULL),
+(180, 6, '2018-05-03 01:35:07', NULL, 'faef'),
+(181, 6, '2018-05-03 01:35:12', NULL, 'faef'),
+(182, 6, '2018-05-03 01:35:21', NULL, 'cqs'),
+(183, 6, '2018-05-03 01:35:26', NULL, 'cqs'),
+(213, 6, '2018-05-03 11:28:08', NULL, NULL),
+(214, 6, '2018-05-03 11:58:58', NULL, NULL),
+(215, 6, '2018-05-03 12:05:25', NULL, NULL),
+(216, 6, '2018-05-03 12:09:31', NULL, ''),
+(217, 6, '2018-05-03 12:10:44', NULL, ''),
+(218, 6, '2018-05-03 12:11:04', NULL, ''),
+(219, 6, '2018-05-03 12:14:52', NULL, ''),
+(220, 6, '2018-05-03 12:16:17', NULL, 'jpg'),
+(221, 6, '2018-05-03 12:17:31', 'uploads/user6/post221.jpg', 'test jpg'),
+(222, 6, '2018-05-03 12:19:47', NULL, NULL),
+(223, 5, '2018-05-03 15:28:54', NULL, 'salut'),
+(224, 5, '2018-05-03 15:28:55', NULL, 'ca va'),
+(225, 6, '2018-05-03 16:20:03', NULL, 'ca va et toi?'),
+(226, 6, '2018-05-03 16:31:44', NULL, 'bien'),
+(227, 6, '2018-05-03 16:32:05', NULL, 'bien et toi'),
+(228, 6, '2018-05-03 17:41:37', NULL, 'yep'),
+(229, 6, '2018-05-03 18:24:31', NULL, 'salut'),
+(230, 6, '2018-05-03 18:28:17', NULL, 'salut'),
+(231, 6, '2018-05-03 18:31:13', NULL, 'yo'),
+(232, 6, '2018-05-03 18:32:51', NULL, 'yo'),
+(233, 6, '2018-05-03 18:33:32', NULL, 'yo'),
+(234, 6, '2018-05-03 18:34:21', NULL, 'yo'),
+(235, 6, '2018-05-03 18:34:29', NULL, 'yo'),
+(236, 6, '2018-05-03 20:07:35', NULL, 'yo'),
+(237, 6, '2018-05-03 20:08:11', NULL, 'yy'),
+(238, 6, '2018-05-03 20:08:39', NULL, 'salut'),
+(239, 6, '2018-05-03 20:10:03', NULL, 'yo'),
+(240, 6, '2018-05-03 20:12:49', NULL, 'ca va?'),
+(241, 6, '2018-05-03 21:31:03', NULL, 'oui et toi?'),
+(242, 6, '2018-05-03 23:21:07', NULL, 'Allo?');
 
 -- --------------------------------------------------------
 
@@ -298,6 +528,19 @@ INSERT INTO `users` (`ID`, `Email`, `LastName`, `FirstName`, `Pseudo`, `Password
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `chatgroups`
+--
+ALTER TABLE `chatgroups`
+  ADD CONSTRAINT `chatgroups_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `chatmessages`
+--
+ALTER TABLE `chatmessages`
+  ADD CONSTRAINT `chatmessages_ibfk_1` FOREIGN KEY (`ID_Conv`) REFERENCES `chatgroups` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `chatmessages_ibfk_2` FOREIGN KEY (`ID_Post`) REFERENCES `objectposts` (`ID`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `comments`
