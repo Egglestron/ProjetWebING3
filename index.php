@@ -61,9 +61,9 @@ if(empty($_SESSION['id'])){
   </div>
 
   <div class="mx-auto order-2">
-    <form class="navbar-brand mx-auto form-inline">
-      <input class="form-control multitext" type="text" placeholder="Who are you looking for?" aria-label="Search">
-      <button class="btn btn-default" style="" type="submit">Search</button>
+    <form class="navbar-brand mx-auto form-inline" method="post">
+      <input class="form-control multitext" name="information" type="text" placeholder="Who are you looking for?" aria-label="Search">
+      <button class="btn btn-default" formaction="search.php" style="" type="submit">Search</button>
     </form>
   </div>
 

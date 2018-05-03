@@ -104,11 +104,7 @@ echo "<h3>Friends</h3>";
     }
 echo "</div>";
     ?>
-
-
-
-
-
+    
     <footer class="mastfoot mt-auto">
       <div class="inner">
         <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
