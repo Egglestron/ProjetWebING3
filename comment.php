@@ -8,7 +8,7 @@ $Url_Media = isset($_POST["Url_Media"])?$_POST["Url_Media"]:null;
 $description = isset($_POST["description"])?$_POST["description"]:null;
 
 //pour comments
-$id_Post = $_GET["idpost"];
+$id_Post = $_POST["idpost"];
 
 // Insertion
 $req = mysqli_prepare($db, "INSERT INTO objectposts (ID_User, Url_Media, Description) VALUES (?, ?, ?)");
