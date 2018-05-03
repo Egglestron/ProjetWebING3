@@ -12,6 +12,7 @@ if(empty($_SESSION['id'])){
   <meta charset="utf-8">
   <meta http-equiv="refresh" content="30">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -22,15 +23,16 @@ if(empty($_SESSION['id'])){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Messagerie perso</title>
+  <title>Feed</title>
 
-  <script src="show.js"></script>
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="register.css" rel="stylesheet">
+  <link href="common.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
+  <script src="show.js"></script>
 </head>
 
 <body>
@@ -198,7 +200,7 @@ if(!empty($_SESSION["idDiscussion"])){
 
     echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\">";
     echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
-    echo "<button class=\"btn btn-primary\"  style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\" >Send Message</button>";
+    echo "<button class=\"btn btn-primary\" type=\"submit\" >Send Message</button>";
     //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
     echo "</form>";
   }
@@ -211,10 +213,6 @@ if(!empty($_SESSION["idDiscussion"])){
   echo "</div>";
 
   //w3schools
-<<<<<<< HEAD
-=======
-  echo "";
->>>>>>> 3f36e6ccaea18e1c036d902df2ff854c52a07fa2
   ?>
   <footer class="mastfoot mt-auto">
     <div class="inner">
