@@ -54,8 +54,8 @@
     include("config.php");
     //$id = $_SESSION["id"];
 
-    $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName FROM joboffers jo, jobreacts jr, users us";
-    $requete .= " WHERE jo.ID_Object = jr.ID_Offer AND jr.ID_User = us.ID";
+    $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
+    $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
 
     //echo $requete;
 
@@ -65,7 +65,7 @@
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_IDObj, $col_JobLoc, $col_Company, $col_Title, $col_JobDescri, $col_Len, $col_Skills, $col_Area, $col_ID, $col_FirstName, $col_LastName);
+    mysqli_stmt_bind_result($req, $col_IDObj, $col_JobLoc, $col_Company, $col_Title, $col_JobDescri, $col_Len, $col_Skills, $col_Area, $col_ID, $col_FirstName, $col_LastName, $col_DatePost);
 
     while(mysqli_stmt_fetch($req)){
       //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
