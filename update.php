@@ -55,22 +55,22 @@
             <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="notif.html">Notifications </a>
+            <a class="nav-link" href="notif.php">Notifications </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="network.html">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
+            <a class="nav-link" href="network.php">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="messages.html">Messages </a>
+            <a class="nav-link" href="messages.php">Messages </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="jobs.html">Jobs </a>
+            <a class="nav-link" href="jobs.php">Jobs </a>
           </li>
         </ul>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
-          <button class="btn btn-primary" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
+        <form class="form-inline" method="post">
+          <input class="form-control mr-sm-2"  name="information" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary  mr-sm-2" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
+          <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
         </form>
       </div>
     </nav>

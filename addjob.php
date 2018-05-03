@@ -18,32 +18,6 @@
   </head>
 
   <body>
-
-    <?php
-    include("config.php");
-    session_start();
-    $id = $_SESSION['id'];
-
-    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo FROM users us WHERE us.ID = ?";
-
-    //echo $requete;
-
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $id);
-    mysqli_stmt_execute($req);
-
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position, $col_Pseudo);
-
-    while(mysqli_stmt_fetch($req)){
-      $firstN = $col_FirstName ;
-      $lastN = $col_LastName;
-      $description = $col_Description;
-      $position = $col_Position;
-      $pseudo = $col_Pseudo;
-    }
-    ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
       <a class="navbar-brand" href="index.php">LOGO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="profile.php">Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notif.php">Notifications </a>
@@ -64,45 +38,59 @@
             <a class="nav-link" href="messages.php">Messages </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="jobs.php">Jobs </a>
+            <a class="nav-link" href="jobs.php">Jobs <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <form class="form-inline" method="post">
-          <input class="form-control mr-sm-2" name="information" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-primary  mr-sm-2" name="info" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
+          <input class="form-control mr-sm-2"  name="information" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary  mr-sm-2" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
           <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
         </form>
       </div>
     </nav>
 
-    <div class="container">
-	  <div class="row">
-        <div class="profile-header-container">
-    		<div class="profile-header-img">
-                <img class="img-circle" src="img/default.png" />
-                <!-- badge -->
-                <div class="rank-label-container">
-                    <span class="label label-default rank-label">
-                      <?php
-                      echo "$firstN $lastN - $pseudo";
-                      ?>
-                    </span>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>
-<button class="btn btn-primary" onclick="window.location.href='update.php'" style="border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;" type="submit">Update my profile</button>
-<div class="jumbotron float-center">
-  <?php
-  echo "$description";
-   ?>
-</div>
-<div class="jumbotron float-center">
-  <?php
-  echo "$position";
-   ?>
-</div>
+        <?php
+        echo "<form method=\"post\">";
+        echo "<h1 class=\"h3 mb-1\">Add a job offer</h1>";
+           echo "<div class=\"form-group\">";
+               echo "<label for=\"jl\">Job location</label>";
+              echo "<input type=\"text\" name=\"jobloc\" id=\"jl\" class=\"form-control mr-sm-2\" placeholder=\"Job location\" ";
+            echo "</div>";
+
+            echo "<div class=\"form-group\">";
+                echo "<label for=\"c\">Company</label>";
+        echo "<input type=\"text\" name=\"company\" id=\"c\" class=\"form-control mr-sm-2\"  placeholder=\"Company\" ";
+        echo "</div>";
+
+        echo "<div class=\"form-group\">";
+            echo "<label for=\"t\">Title</label>";
+        echo "<input type=\"text\" name=\"title\" id=\"t\" class=\"form-control mr-sm-2\"  placeholder=\"Title\" ";
+        echo "</div>";
+
+        echo "<div class=\"form-group\">";
+            echo "<label for=\"jd\">Job description</label>";
+        echo "<input type=\"text\" name=\"jobdescri\" id=\"jd\" class=\"form-control mr-sm-2\"  placeholder=\"Job description\" ";
+        echo "</div>";
+
+        echo "<div class=\"form-group\">";
+            echo "<label for=\"l\">Length</label>";
+        echo "<input type=\"number\" name=\"len\" id=\"l\" class=\"form-control mr-sm-2\"  placeholder=\"Length\" ";
+        echo "</div>";
+
+        echo "<div class=\"form-group\">";
+            echo "<label for=\"s\">Skills</label>";
+        echo "<input type=\"text\" name=\"skills\" id=\"s\" class=\"form-control mr-sm-2\"  placeholder=\"Skills\" ";
+        echo "</div>";
+
+        echo "<div class=\"form-group\">";
+            echo "<label for=\"a\">Area</label>";
+        echo "<input type=\"text\" name=\"area\" id=\"a\" class=\"form-control mr-sm-2\"  placeholder=\"Area\" ";
+        echo "</div>";
+        echo "<button class=\"btn btn-primary mr-sm-2\" formaction=\"post_addjob.php\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Add this offer</button>";
+    echo "</form>";
+
+        ?>
+
     <footer class="mastfoot mt-auto">
       <div class="inner">
         <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>

@@ -1,7 +1,17 @@
 <!doctype html>
+<<?php
+session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+}
+ ?>
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="refresh" content="30">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -29,16 +39,16 @@
             <a class="nav-link" href="profile.php">Profile </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="notif.html">Notifications </a>
+            <a class="nav-link" href="notif.php">Notifications </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="network.html">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
+            <a class="nav-link" href="network.php">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="messages.html">Messages </a>
+            <a class="nav-link" href="messages.php">Messages </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="jobs.html">Jobs </a>
+            <a class="nav-link" href="jobs.php">Jobs </a>
           </li>
         </ul>
         <form class="form-inline">
@@ -50,23 +60,19 @@
     </nav>
 
 <div>
-  <form class="form-post" method="post">
-
-  <input type="file" name="fileupload" value="fileupload" id="fileupload">
-
-    
-        <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
-    <button class="btn btn-primary mr-sm-2" formaction="post.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
+  <form action="post.php" class="form-post" method="post" enctype="multipart/form-data">
+    <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload">
+    <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
+    <button class="btn btn-primary mr-sm-2" name="submit" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
   </form>
 </div>
 
 <div>
   <?php
   include("config.php");
-  session_start();
-  $id = $_SESSION['id'];
+  $id = $_SESSION["id"];
 
-  $requete = "SELECT DISTINCT o.ID, o.ID_User, us.Firstname, us.Lastname, o.Description, o.Date_Post, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
+  $requete = "SELECT DISTINCT o.*, us.Firstname, us.Lastname, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
   $requete .= " WHERE o.ID = e.ID_Object AND(EXISTS( SELECT * FROM friendships f WHERE f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
   $requete .= " AND ((f.Relationship = 'Friend' AND e.Status IN ('Public','Friends Only','Network')) OR (f.Relationship = 'Pro' ";
   $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
@@ -79,7 +85,7 @@
 
   mysqli_stmt_store_result($req);
 
-  mysqli_stmt_bind_result($req, $colID, $colID_User, $colID_FirstName, $col_LastName, $colDescription, $colDate_Post, $colDate, $colLocation, $colStatus);
+  mysqli_stmt_bind_result($req, $colID, $colID_User, $colDate_Post, $colUrlMedia, $colDescription, $colID_FirstName, $col_LastName, $colDate, $colLocation, $colStatus);
 
   while(mysqli_stmt_fetch($req)){
     //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
@@ -89,18 +95,27 @@
         echo "<div class=\"col-sm-10\">";
         echo "<label class=\"col-sm-2 control-label text-right\">$colDate_Post</label>";
         echo "</div>";
+
         if(!empty($colDate)){
           echo "<p class=\"form-control mr-sm-2\" type=\"text\">à $colLocation<p>";
         }
+
         if(!empty($colDate = NULL)){
           echo "<p class=\"form-control mr-sm-2\" type=\"text\">le $colDate<p>";
         }
 
         echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+
+        if(!empty($colUrlMedia)){
+          echo "<img src =\"$colUrlMedia\" alt = \"image du post\" >";
+        }
+
         echo "<div>";
-        echo "<form class=\"form-post\" method=\"post\">";
-        echo "<input class=\"form-control mr-sm-2\" name=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
-        echo "<button class=\"btn btn-primary mr-sm-2\" formaction=\"comment.php?idpost=$colID\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Publish</button>";
+        echo "<form action=\"comment.php\" class=\"form-post\" method=\"post\">";
+        echo "<input class=\"form-control mr-sm-2\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+        echo "<input type=\"hidden\" name=\"idpost\" value=\"$colID\" id=\"idpost\"> ";
+        echo "<button class=\"btn btn-primary mr-sm-2\"  style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\" >Publish</button>";
+        //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
         echo "</form>";
         echo "</div>";
 
