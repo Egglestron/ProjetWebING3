@@ -24,6 +24,7 @@ if(empty($_SESSION['id'])){
 
   <title>Messagerie perso</title>
 
+  <script src="show.js"></script>
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -64,17 +65,19 @@ if(empty($_SESSION['id'])){
     </div>
   </nav>
 
+<div class="container-fluid">
+  <div class="row">
   <div class="col-sm-3">
     <?php
     include("config.php");
     $id = $_SESSION["id"];
 
-    $requete3 = "SELECT ID, Name FROM chatgroups WHERE ID_User = ?";
+    $requete3 = "SELECT ID, Name, Notif FROM chatgroups WHERE ID_User = ?";
 
-    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
     $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
 
-    $requete2 = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
     $requete2 .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
 
     //echo $requete;
@@ -85,26 +88,32 @@ if(empty($_SESSION['id'])){
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_ID, $col_Name);
+    mysqli_stmt_bind_result($req, $col_ID, $col_Name, $col_Notif);
     //echo "<div class=\"jumbotron float-center\">";
     echo "<h3>Discussions existantes</h3>";
-    while(mysqli_stmt_fetch($req)){
-      echo "<button class=\"btn btn-lg btn-primary btn-block\" id=\"accessConv\" onclick=\"myFunction($col_ID)\" > $col_Name</button><br>";
 
+    $i = 0;
+
+    echo "<div>";
+
+    while(mysqli_stmt_fetch($req)){
+      $i += 1;
+      if($i > 5){
+        echo "</div>
+        <div id=\"otherDiscussions\" style =\"display: none;\"> ";
+      }
+
+      echo "<button class=\"btn btn-lg btn-primary btn-block\" " ;
+      if($col_Notif == "new"){
+        echo "style=\"background-color : #cc8400;\"";
+      }
+       echo "onclick=\"window.location.href='discussion.php?idDiscussion={$col_ID}'\" type=\"submit\" > $col_Name </button><br>";
     }
 
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $id);
-    mysqli_stmt_execute($req);
+    echo "</div>";
 
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo);
-    //echo "<div class=\"jumbotron float-center\">";
-    echo "<h3>Pros</h3>";
-    while(mysqli_stmt_fetch($req)){
-      echo "$col_FirstName $col_LastName <br>";
-
+    if($i>5){
+      echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhide()\" id=\"hidebutton\" >Show More</button><br>";
     }
 
     $req = mysqli_prepare($db, $requete2);
@@ -113,24 +122,95 @@ if(empty($_SESSION['id'])){
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo);
+    mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
     //echo "<div class=\"jumbotron float-center\">";
     echo "<h3>Friends</h3>";
     while(mysqli_stmt_fetch($req)){
-      echo "<p class=\"button\" onclick=\"myFunction()\" $col_FirstName $col_LastName - $col_Pseudo <br>";
+      echo "<form action=\"discussion.php\" class=\"form-post\" method=\"post\" >";
+      echo "<input type=\"hidden\" name=\"idUser\" value=\"$col_IDUser\" > ";
+      echo "<input type=\"hidden\" name=\"firstname\" value=\"$col_FirstName\" > ";
+      echo "<input type=\"hidden\" name=\"lastname\" value=\"$col_LastName\" > ";
+      echo "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" >$col_FirstName $col_LastName </button> <br>";
+      echo "</form>";
     }
 
+    $req = mysqli_prepare($db, $requete);
+    mysqli_stmt_bind_param($req, "i", $id);
+    mysqli_stmt_execute($req);
+
+    mysqli_stmt_store_result($req);
+
+    mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
+    //echo "<div class=\"jumbotron float-center\">";
+    echo "<h3>Pros</h3>";
+    while(mysqli_stmt_fetch($req)){
+      echo "<form action=\"discussion.php\" class=\"form-post\" method=\"post\" >";
+      echo "<input type=\"hidden\" name=\"idUser\" value=\"$col_IDUser\" > ";
+      echo "<input type=\"hidden\" name=\"firstname\" value=\"$col_FirstName\" > ";
+      echo "<input type=\"hidden\" name=\"lastname\" value=\"$col_LastName\" > ";
+      echo "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" >$col_FirstName $col_LastName </button> <br>";
+      echo "</form>";
+    }
     echo"</div>";
-    echo"<div class=\"col-sm-9\">";
-    echo "hello";
+
+    echo"<div class=\"col-sm-9\" style=\"background-color:white;\">";
+
+if(!empty($_SESSION["idDiscussion"])){
+    $idDiscussion = $_SESSION["idDiscussion"];
+
+    $requete = "SELECT us.ID, us.FirstName, us.LastName, ob.Url_Media, ob.Description, gr.Name FROM users us,";
+    $requete .=" objectposts ob, chatmessages me, chatgroups gr WHERE gr.ID = ? AND gr.ID_User = ob.ID_User AND ob.ID_User = us.ID AND ob.ID = me.ID_Post AND me.ID_Conv = gr.ID ORDER BY ob.Date_Post DESC";
+
+    //echo $requete;
+    $req = mysqli_prepare($db, $requete);
+    mysqli_stmt_bind_param($req, "i", $idDiscussion);
+    mysqli_stmt_execute($req);
+
+    mysqli_stmt_store_result($req);
+
+    mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_JobDescri, $col_Name);
+    //echo "<div class=\"jumbotron float-center\">";
+    echo "<h3>$col_Name</h3>";
+
+    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\">";
+    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<input type=\"hidden\" name=\"idDiscussion\" value=\"$idDiscussion\" id=\"idpost\"> ";
+    echo "<button class=\"btn btn-primary\" type=\"submit\" >Send Message</button>";
+    echo "</form>";
+
+    while(mysqli_stmt_fetch($req)){
+      if($col_IDChatter != $id){
+        echo "<p class=\"col-sm-5\">$col_FirstName $col_LastName :: $col_JobDescri</p>";
+      }
+      else {
+        echo "<div class=\"col-sm-5\"></div>";
+        echo "<div class=\"col-sm-4\">";
+        echo "<p>$col_FirstName $col_LastName :: $col_JobDescri</p>";
+        echo "</div>";
+      }
+    }
+  }
+  else{
+    $firstname = $_SESSION['firstname'];
+    $lastname = $_SESSION['lastname'];
+
+    echo "<h3>$firstname $lastname</h3>";
+
+    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\">";
+    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<button class=\"btn btn-primary\"  style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\" >Send Message</button>";
+    //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
+    echo "</form>";
+  }
 
 
     //echo "</div>";
 
   echo "</div>";
+  echo "</div>";
+  echo "</div>";
 
   //w3schools
-  echo ";
   ?>
   <footer class="mastfoot mt-auto">
     <div class="inner">

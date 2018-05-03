@@ -1,37 +1,20 @@
 /**
 	
-
-
 Requete pour a la fois creer l'objet post et le commentaire en relation
-
 
 **/
 
-
-
-
 INSERT INTO 'objectposts' (ID, ID_User, Date_Post, Url_Media, Description) 
-
-
 VALUES (NULL, '1', '2025-04-04 00:00:00', NULL, 'salut');
 
-
-
 INSERT INTO 'comments' (ID_Object, ID_Post) 
-
-VALUES
-(LAST_INSERT_ID(), 8);
-
-
+VALUES(LAST_INSERT_ID(), 8);
 
 /**
-	
 
 Requete pour a la fois creer l'objet post et l'event en relation
 
-
 **/
-
 
 Insertion
 $req = mysqli_prepare($db, "INSERT INTO objectposts (ID_User, Url_Media, Description) VALUES (?, ?, ?)");
@@ -51,10 +34,6 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_close($req);
 
-
-
-
-
 INSERT INTO 'objectposts' (ID, ID_User, Date_Post, Url_Media, Description) 
 
 VALUES (NULL, '1', '2025-04-04 00:00:00', NULL, 'salut');
@@ -68,14 +47,9 @@ VALUES
 
 /**
 	
-
 Requete pour recuperer tous les posts chronologiquement auquel l'utilisateur X a accès => ID_User2
 
-
 **/
-
-
-
 
 SELECT DISTINCT o.ID, o.ID_User, us.Firstname, us.Lastname, o.Description, o.Date_Post, e.Date, e.Location, e.Status 
 FROM events e, objectposts o, users us 
@@ -87,3 +61,16 @@ AND e.Status IN ('Public','Friends Only','Network'))
 OR (f.Relationship = 'Pro' 
 AND e.Status IN ('Network','Public')))) 
 OR (o.ID_User = '6') ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25
+
+
+/**
+requete pour savoir si une discussion est engagée entre 2 individus
+**/
+
+select a.ID 
+  from chatgroups a
+  join chatgroups b on b.ID = a.ID and a.ID_User != b.ID_User
+where a.ID_User = '6'
+  or a.ID_User = '2'
+  GROUP BY a.ID
+  HAVING COUNT(*)= 2
