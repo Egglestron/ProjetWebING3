@@ -54,7 +54,7 @@
     $id = $_SESSION['id'];
     $info = $_POST["information"];
 
-    $requete = "SELECT DISTINCT us.Firstname, us.LastName, us.Pseudo FROM users us WHERE us.FirstName LIKE  ? OR us.LastName LIKE ?";
+    $requete = "SELECT DISTINCT us.Firstname, us.LastName, us.Pseudo, us.ID FROM users us WHERE us.FirstName LIKE  ? OR us.LastName LIKE ?";
     //echo $requete;
 
     $info .= "%";
@@ -65,14 +65,15 @@
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo);
+    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo, $col_ID);
     echo "<div class=\"jumbotron float-center\">";
     echo "<h3>Noms</h3>";
     while(mysqli_stmt_fetch($req)){
       $firstN = $col_FirstName ;
       $lastN = $col_LastName;
       $pseudo = $col_Pseudo;
-      echo "   $firstN $lastN - $pseudo   |";
+      $idp = $col_ID;
+      echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN - $pseudo<br/></a>";
     }
 ?>
 

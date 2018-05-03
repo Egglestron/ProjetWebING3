@@ -211,6 +211,10 @@ if(!empty($_SESSION["idDiscussion"])){
   echo "</div>";
 
   //w3schools
+<<<<<<< HEAD
+=======
+  echo "";
+>>>>>>> 3f36e6ccaea18e1c036d902df2ff854c52a07fa2
   ?>
   <footer class="mastfoot mt-auto">
     <div class="inner">
