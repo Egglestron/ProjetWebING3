@@ -48,7 +48,7 @@
       </div>
     </nav>
 
-    <button class="btn btn-primary" onclick="window.location.href='addjob.php'" style="border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;" type="submit">Add a job offer</button>
+    <button class="btn btn-primary" onclick="window.location.href='addjob.html'" style="border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;" type="submit">Add a job offer</button>
 
     <?php
     include("config.php");
