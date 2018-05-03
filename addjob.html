@@ -49,47 +49,45 @@
       </div>
     </nav>
 
-        <?php
-        echo "<form method=\"post\">";
-        echo "<h1 class=\"h3 mb-1\">Add a job offer</h1>";
-           echo "<div class=\"form-group\">";
-               echo "<label for=\"jl\">Job location</label>";
-              echo "<input type=\"text\" name=\"jobloc\" id=\"jl\" class=\"form-control mr-sm-2\" placeholder=\"Job location\" ";
-            echo "</div>";
 
-            echo "<div class=\"form-group\">";
-                echo "<label for=\"c\">Company</label>";
-        echo "<input type=\"text\" name=\"company\" id=\"c\" class=\"form-control mr-sm-2\"  placeholder=\"Company\" ";
-        echo "</div>";
+         <form method="post">
+         <h1 class="h3 mb-1">Add a job offer</h1>
+            <div class="form-group">
+                <label for="jl">Job location</label>
+               <input type="text" name="jobloc" id="jl" class="form-control mr-sm-2" placeholder="Job location">
+             </div>
 
-        echo "<div class=\"form-group\">";
-            echo "<label for=\"t\">Title</label>";
-        echo "<input type=\"text\" name=\"title\" id=\"t\" class=\"form-control mr-sm-2\"  placeholder=\"Title\" ";
-        echo "</div>";
+            <div class="form-group">
+                <label for="c">Company</label>
+        <input type="text" name="company" id="c" class="form-control mr-sm-2"  placeholder="Company">
+        </div>
 
-        echo "<div class=\"form-group\">";
-            echo "<label for=\"jd\">Job description</label>";
-        echo "<input type=\"text\" name=\"jobdescri\" id=\"jd\" class=\"form-control mr-sm-2\"  placeholder=\"Job description\" ";
-        echo "</div>";
+        <div class="form-group">
+            <label for="t">Title</label>
+        <input type="text" name="title" id="t" class="form-control mr-sm-2"  placeholder="Title">
+        </div>
 
-        echo "<div class=\"form-group\">";
-            echo "<label for=\"l\">Length</label>";
-        echo "<input type=\"number\" name=\"len\" id=\"l\" class=\"form-control mr-sm-2\"  placeholder=\"Length\" ";
-        echo "</div>";
+        <div class="form-group">
+            <label for="jd">Job description</label>
+        <input type="text" name="jobdescri" id="jd" class="form-control mr-sm-2"  placeholder="Job description">
+        </div>
 
-        echo "<div class=\"form-group\">";
-            echo "<label for=\"s\">Skills</label>";
-        echo "<input type=\"text\" name=\"skills\" id=\"s\" class=\"form-control mr-sm-2\"  placeholder=\"Skills\" ";
-        echo "</div>";
+        <div class="form-group">
+            <label for="l">Length</label>
+        <input type="number" name="len" id="l" class="form-control mr-sm-2"  placeholder="Length">
+        </div>
 
-        echo "<div class=\"form-group\">";
-            echo "<label for=\"a\">Area</label>";
-        echo "<input type=\"text\" name=\"area\" id=\"a\" class=\"form-control mr-sm-2\"  placeholder=\"Area\" ";
-        echo "</div>";
-        echo "<button class=\"btn btn-primary mr-sm-2\" formaction=\"post_addjob.php\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Add this offer</button>";
-    echo "</form>";
+        <div class="form-group">
+            <label for="s">Skills</label>
+        <input type="text" name="skills" id="s" class="form-control mr-sm-2"  placeholder="Skills">
+        </div>
 
-        ?>
+        <div class="form-group">
+            <label for="a">Area</label>
+        <input type="text" name="area" id="a" class="form-control mr-sm-2"  placeholder="Area">
+        </div>
+        <button class="btn btn-primary mr-sm-2" formaction="post_addjob.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Add this offer</button>
+    </form>
 
     <footer class="mastfoot mt-auto">
       <div class="inner">
