@@ -50,7 +50,7 @@
 
 <?php
 include("config.php");
-$idp = isset($_POST["idpost"])?$_POST["idpost"]:null;
+$idp = isset($_GET["idpost"])?$_GET["idpost"]:null;
 
 $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
 $requete .= " WHERE jo.ID_Object = ? AND jo.ID_Object = ob.ID AND ob.ID_User = us.ID";

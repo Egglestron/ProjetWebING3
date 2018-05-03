@@ -1,4 +1,11 @@
 <!doctype html>
+<?php
+session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+}
+ ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -51,7 +58,6 @@
 
     <?php
     include("config.php");
-    session_start();
     $id = $_SESSION['id'];
 
     $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
