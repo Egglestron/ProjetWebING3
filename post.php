@@ -5,8 +5,6 @@ session_start();
 //pour les images
 $id_User = $_SESSION['id'];
 
-
-
 //pour objectposts
 $description = isset($_POST["description"])?$_POST["description"]:null;
 

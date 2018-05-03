@@ -1,4 +1,11 @@
 <!doctype html>
+<?php
+session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+}
+ ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
