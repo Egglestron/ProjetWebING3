@@ -5,13 +5,14 @@ session_start();
 if(!empty($_GET['idDiscussion'])){
   //on enregistre l'id de la discussion
   $idDiscussion = $_GET['idDiscussion'];
+  $id = $_SESSION['id'];
 
   $_SESSION['idUser'] = null;
   $_SESSION['firstname'] = null;
   $_SESSION['lastname'] = null;
 
-  $req = mysqli_prepare($db, "UPDATE chatgroups SET Notif = 'viewed' WHERE id = ?");
-  mysqli_stmt_bind_param($req, "i", $idDiscussion);
+  $req = mysqli_prepare($db, "UPDATE chatgroups SET Notif = 'viewed' WHERE id = ? && ID_User = ?");
+  mysqli_stmt_bind_param($req, "ii", $idDiscussion, $id);
   mysqli_stmt_execute($req);
 
 }
