@@ -1,26 +1,20 @@
 <!doctype html>
-<?php
-session_start();
-
-if(empty($_SESSION['id'])){
-  header('location:login.html');
-}
- ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
-    <title>Jobs </title>
+    <title>Profile </title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/normalize.css">
     <link href="navbar-top-fixed.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -31,8 +25,8 @@ if(empty($_SESSION['id'])){
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="profile.php">Profile </a>
+          <li class="nav-item active">
+            <a class="nav-link" href="profile.php">Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notif.php">Notifications </a>
@@ -43,48 +37,55 @@ if(empty($_SESSION['id'])){
           <li class="nav-item">
             <a class="nav-link" href="messages.php">Messages </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="jobs.php">Jobs <span class="sr-only">(current)</span></a>
           </li>
         </ul>
         <form class="form-inline" method="post">
-          <input class="form-control mr-sm-2" name="information" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-primary  mr-sm-2" name="info" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
+          <input class="form-control mr-sm-2"  name="information" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary  mr-sm-2" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
           <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
         </form>
       </div>
     </nav>
+      <form method="post" action="post_addjob.php">
+        <h1 class="h3 mb-1">Add a job offer</h1>
+          <div class="form-group">
+            <label for="jl">Job location</label>
+           <input type="text" name="jobloc" id="jl" class="form-control mr-sm-2" placeholder="Job location">
+         </div>
 
-    <button class="btn btn-primary" onclick="window.location.href='addjob.html'" style="border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;" type="submit">Add a job offer</button>
+            <div class="form-group">
+                <label for="c">Company</label>
+        <input type="text" name="company" id="c" class="form-control mr-sm-2"  placeholder="Company">
+        </div>
 
-    <?php
-    include("config.php");
+        <div class="form-group">
+            <label for="t">Title</label>
+        <input type="text" name="title" id="t" class="form-control mr-sm-2"  placeholder="Title">
+        </div>
 
-    $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
-    $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
+        <div class="form-group">
+            <label for="jd">Job description</label>
+        <input type="text" name="jobdescri" id="jd" class="form-control mr-sm-2"  placeholder="Job description">
+        </div>
 
-    //echo $requete;
+        <div class="form-group">
+            <label for="l">Length</label>
+        <input type="number" name="len" id="l" class="form-control mr-sm-2"  placeholder="Length">
+        </div>
 
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_execute($req);
+        <div class="form-group">
+            <label for="s">Skills</label>
+        <input type="text" name="skills" id="s" class="form-control mr-sm-2"  placeholder="Skills">
+        </div>
 
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_IDObj, $col_JobLoc, $col_Company, $col_Title, $col_JobDescri, $col_Len, $col_Skills, $col_Area, $col_ID, $col_FirstName, $col_LastName, $col_DatePost);
-
-    while(mysqli_stmt_fetch($req)){
-
-   echo "<main role=\"main\" class=\"container col-sm-5\">";
-      echo "<div class=\"jumbotron float-center text-left\">";
-          echo "<h1 class=\"h3 mb-1\">Job Offer by $col_FirstName $col_LastName <br/> Job title : $col_Title</h1>";
-          echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='showjob.php?idpost={$col_IDObj}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Acces to the offer</button>";
-      echo "</div>";
-  echo "</main>";
-
-    }
-
-    ?>
-
+        <div class="form-group">
+            <label for="a">Area</label>
+        <input type="text" name="area" id="a" class="form-control mr-sm-2"  placeholder="Area">
+        </div>
+        <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Add this offer</button>
+    </form>
 
     <footer class="mastfoot mt-auto">
       <div class="inner">

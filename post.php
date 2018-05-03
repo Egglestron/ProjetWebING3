@@ -5,8 +5,6 @@ session_start();
 //pour les images
 $id_User = $_SESSION['id'];
 
-
-
 //pour objectposts
 $description = isset($_POST["description"])?$_POST["description"]:null;
 
@@ -27,16 +25,18 @@ $target_file = null;
 
 //upload de l'image w3schools.com
 if(isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])){
-  echo $_FILES["fileToUpload"]['size'];
 $target_dir = "uploads/user$id_User/";
   echo "yooo";
   if (!is_dir($target_dir)) {
     mkdir($target_dir, 0777, true);
 }
 
-  $target_file = $target_dir."post".$lastid.".png";
+  $basename = basename($_FILES["fileToUpload"]["name"]);
+  $imageFileType = strtolower(pathinfo($basename,PATHINFO_EXTENSION));
+
+  $target_file = $target_dir."post".$lastid.".".$imageFileType;
   $uploadOk = 1;
-  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
   // Check if image file is a actual image or fake image
 
   if(isset($_POST["submit"])) {

@@ -1,4 +1,11 @@
 <!doctype html>
+<?php
+session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+}
+ ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -51,13 +58,12 @@
 
     <?php
     include("config.php");
-    session_start();
     $id = $_SESSION['id'];
 
-    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
     $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
 
-    $requete2 = "SELECT DISTINCT us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+    $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
     $requete2 .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
 
     //echo $requete;
@@ -68,14 +74,15 @@
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo);
+    mysqli_stmt_bind_result($req, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
 echo "<div class=\"jumbotron float-center\">";
 echo "<h3>Pros</h3>";
     while(mysqli_stmt_fetch($req)){
       $firstN = $col_FirstName ;
       $lastN = $col_LastName;
       $pseudo = $col_Pseudo;
-      echo "   $firstN $lastN - $pseudo   |";
+      $idp = $col_ID;
+      echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
 
     }
 echo "</div>";
@@ -85,14 +92,15 @@ echo "</div>";
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_FirstName2, $col_LastName2, $col_Pseudo2);
+    mysqli_stmt_bind_result($req,  $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
 echo "<div class=\"jumbotron float-center\">";
 echo "<h3>Friends</h3>";
     while(mysqli_stmt_fetch($req)){
-      $firstN2 = $col_FirstName2 ;
-      $lastN2 = $col_LastName2;
-      $pseudo2 = $col_Pseudo2;
-      echo "   $firstN2 $lastN2 - $pseudo2   |";
+      $firstN = $col_FirstName ;
+      $lastN = $col_LastName;
+      $pseudo = $col_Pseudo;
+      $idp = $col_ID;
+      echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
     }
 echo "</div>";
     ?>
