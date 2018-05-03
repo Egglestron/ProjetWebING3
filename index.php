@@ -1,69 +1,91 @@
 <!doctype html>
-<<?php
+<?php
 session_start();
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
 }
- ?>
+?>
 
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="30">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="30">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Home </title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
 
-    <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Feed</title>
 
-    <!-- Custom styles for this template -->
-    <link href="navbar-top-fixed.css" rel="stylesheet">
-    <link href="dist/css/normalize.css" rel="stylesheet">
-  </head>
+  <!-- Bootstrap core CSS -->
+  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
-      <a class="navbar-brand" href="index.php">LOGO</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="profile.php">Profile </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="notif.php">Notifications </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="network.php">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="messages.php">Messages </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="jobs.php">Jobs </a>
-          </li>
-        </ul>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
-          <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
+  <!-- Custom styles for this template -->
+  <link href="common.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
+</head>
+
+
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <a class="navbar-brand" href="index.html" style="font-weight: 700;">Konnect.ed</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="notif.php">Notifications</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="network.php">Network</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="messages.php">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="jobs.php">Jobs</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mx-auto order-2">
+    <form class="navbar-brand mx-auto form-inline">
+      <input class="form-control multitext" type="text" placeholder="Who are you looking for?" aria-label="Search">
+      <button class="btn btn-default" style="" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <form class="form-inline nav-item">
+          <button class="btn btn-default" formaction="logout.php" style="font-weight:600;" type="submit">Disconnect</button>
         </form>
-      </div>
-    </nav>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-<div>
+<!-- Main page -->
+
+<div class="jumbotron text-center">
   <form action="post.php" class="form-post" method="post" enctype="multipart/form-data">
+    <input class="form-control multitext mr-sm-2" name="description" type="text" placeholder="Write a post" aria-label="Write a post">
+    <label for="fileToUpload" class="mr-sm-2">Add photo</label>
     <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload">
-    <input class="form-control mr-sm-2" name="description" type="text" placeholder="Publish" aria-label="Publish">
-    <button class="btn btn-primary mr-sm-2" name="submit" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Publish</button>
+    <button class="btn btn-primary mr-sm-2" name="submit" style="" type="submit">Publish</button>
   </form>
 </div>
 
@@ -75,110 +97,110 @@ if(empty($_SESSION['id'])){
   $requete = "SELECT DISTINCT o.*, us.Firstname, us.Lastname, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
   $requete .= " WHERE o.ID = e.ID_Object AND(EXISTS( SELECT * FROM friendships f WHERE f.ID_User1 = o.ID_User AND f.ID_User2 = ? AND f.Status = 'Accepted' ";
   $requete .= " AND ((f.Relationship = 'Friend' AND e.Status IN ('Public','Friends Only','Network')) OR (f.Relationship = 'Pro' ";
-  $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
+    $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
 
-  //echo $requete;
+    //echo $requete;
 
-  $req = mysqli_prepare($db, $requete);
-  mysqli_stmt_bind_param($req, "ii", $id, $id);
-  mysqli_stmt_execute($req);
+    $req = mysqli_prepare($db, $requete);
+    mysqli_stmt_bind_param($req, "ii", $id, $id);
+    mysqli_stmt_execute($req);
 
-  mysqli_stmt_store_result($req);
+    mysqli_stmt_store_result($req);
 
-  mysqli_stmt_bind_result($req, $colID, $colID_User, $colDate_Post, $colUrlMedia, $colDescription, $colID_FirstName, $col_LastName, $colDate, $colLocation, $colStatus);
+    mysqli_stmt_bind_result($req, $colID, $colID_User, $colDate_Post, $colUrlMedia, $colDescription, $colID_FirstName, $col_LastName, $colDate, $colLocation, $colStatus);
 
-  while(mysqli_stmt_fetch($req)){
-    //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
- echo "<main role=\"main\" class=\"container col-sm-5\">";
-    echo "<div class=\"jumbotron float-center text-left\">";
-        echo "<h1 class=\"h3 mb-1\">$colID_FirstName $col_LastName</h1>";
-        echo "<div class=\"col-sm-10\">";
-        echo "<label class=\"col-sm-2 control-label text-right\">$colDate_Post</label>";
-        echo "</div>";
+    while(mysqli_stmt_fetch($req)){
+      //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+      echo "<main role=\"main\" class=\"container col-sm-5\">";
+      echo "<div class=\"jumbotron float-center text-left\">";
+      echo "<h1 class=\"h3 mb-1\">$colID_FirstName $col_LastName</h1>";
+      echo "<div class=\"col-sm-10\">";
+      echo "<label class=\"col-sm-2 control-label text-right\">$colDate_Post</label>";
+      echo "</div>";
 
-        if(!empty($colDate)){
-          echo "<p class=\"form-control mr-sm-2\" type=\"text\">à $colLocation<p>";
-        }
+      if(!empty($colDate)){
+        echo "<p class=\"form-control mr-sm-2\" type=\"text\">à $colLocation<p>";
+      }
 
-        if(!empty($colDate = NULL)){
-          echo "<p class=\"form-control mr-sm-2\" type=\"text\">le $colDate<p>";
-        }
+      if(!empty($colDate = NULL)){
+        echo "<p class=\"form-control mr-sm-2\" type=\"text\">le $colDate<p>";
+      }
 
-        echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+      echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
 
-        if(!empty($colUrlMedia)){
-          echo "<img src =\"$colUrlMedia\" alt = \"image du post\" >";
-        }
+      if(!empty($colUrlMedia)){
+        echo "<img src =\"$colUrlMedia\" alt = \"image du post\" >";
+      }
 
-        echo "<div>";
-        echo "<form action=\"comment.php\" class=\"form-post\" method=\"post\">";
-        echo "<input class=\"form-control mr-sm-2\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
-        echo "<input type=\"hidden\" name=\"idpost\" value=\"$colID\" id=\"idpost\"> ";
-        echo "<button class=\"btn btn-primary mr-sm-2\"  style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\" >Publish</button>";
-        //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
-        echo "</form>";
-        echo "</div>";
+      echo "<div>";
+      echo "<form action=\"comment.php\" class=\"form-post\" method=\"post\">";
+      echo "<input class=\"form-control mr-sm-2 multitext\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Leave a comment\" aria-label=\"Comment\">";
+      echo "<input type=\"hidden\" name=\"idpost\" value=\"$colID\" id=\"idpost\"> ";
+      echo "<button class=\"btn btn-primary mr-sm-2\"  style=\"\" type=\"submit\" >Comment</button>";
+      //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
+      echo "</form>";
+      echo "</div>";
 
-        $requete = "SELECT o.Date_Post, o.Url_Media, o.Description, u.FirstName, u.LastName FROM objectposts o, users u, comments c ";
-        $requete .= " WHERE o.ID = c.ID_Object AND o.ID_User = u.ID AND c.ID_Post = ? ORDER BY o.Date_Post DESC ";
+      $requete = "SELECT o.Date_Post, o.Url_Media, o.Description, u.FirstName, u.LastName FROM objectposts o, users u, comments c ";
+      $requete .= " WHERE o.ID = c.ID_Object AND o.ID_User = u.ID AND c.ID_Post = ? ORDER BY o.Date_Post DESC ";
 
-        $req2 = mysqli_prepare($db, $requete);
+      $req2 = mysqli_prepare($db, $requete);
 
-        mysqli_stmt_bind_param($req2, "i", $colID);
-        mysqli_stmt_execute($req2);
+      mysqli_stmt_bind_param($req2, "i", $colID);
+      mysqli_stmt_execute($req2);
 
-        mysqli_stmt_store_result($req2);
+      mysqli_stmt_store_result($req2);
 
-        mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
+      mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
 
-        while (mysqli_stmt_fetch($req2)) {
-          // code...
-          echo "<p class=\"form-control mr-sm-2\" type=\"text\">$cFirstn $cLastn le $cDate ::: $cCom<p>";
-        }
-        // <div class="multitext">
-        //   <label for="inputFirstname" class="sr-only">First name</label>
-        //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
-        //   <label for="inputLastname" class="sr-only">Last name</label>
-        //   <input type="text" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last name" required>
-        // </div>
-        //
-        // <div class="multitext">
-        //   <label for="inputEmail" class="sr-only">Email address</label>
-        //   <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        // </div>
-        //
-        // <div class="multitext">
-        //   <label for="inputPassword" class="sr-only">Password</label>
-        //   <input type="password" name='inputPassword' id="inputPassword" class="form-control" placeholder="Password" required>
-        //   <label for="inputPasswordCheck" class="sr-only">Re-type password</label>
-        //   <input type="password" name="inputPasswordCheck" id="inputPasswordCheck" class="form-control" placeholder="Re-type password" required>
-        // </div>
-        //
-        // <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-    echo "</div>";
-echo "</main>";
+      while (mysqli_stmt_fetch($req2)) {
+        // code...
+        echo "<p class=\"form-control mr-sm-2\" type=\"text\">$cFirstn $cLastn le $cDate ::: $cCom<p>";
+      }
+      // <div class="multitext">
+      //   <label for="inputFirstname" class="sr-only">First name</label>
+      //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
+      //   <label for="inputLastname" class="sr-only">Last name</label>
+      //   <input type="text" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last name" required>
+      // </div>
+      //
+      // <div class="multitext">
+      //   <label for="inputEmail" class="sr-only">Email address</label>
+      //   <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      // </div>
+      //
+      // <div class="multitext">
+      //   <label for="inputPassword" class="sr-only">Password</label>
+      //   <input type="password" name='inputPassword' id="inputPassword" class="form-control" placeholder="Password" required>
+      //   <label for="inputPasswordCheck" class="sr-only">Re-type password</label>
+      //   <input type="password" name="inputPasswordCheck" id="inputPasswordCheck" class="form-control" placeholder="Re-type password" required>
+      // </div>
+      //
+      // <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      echo "</div>";
+      echo "</main>";
 
-  }
+    }
 
-  ?>
-</div>
-
-
-
-    <footer class="mastfoot mt-auto">
-      <div class="inner">
-        <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
-      </div>
-    </footer>
+    ?>
+  </div>
 
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../../../dist/js/bootstrap.min.js"></script>
-  </body>
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Konnect.ed by A. Prat, M. Michel and S. Caddeo</p>
+    </div>
+  </footer>
+
+
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="../../../../assets/js/vendor/popper.min.js"></script>
+  <script src="../../../../dist/js/bootstrap.min.js"></script>
+</body>
 </html>
