@@ -50,7 +50,7 @@
     </nav>
 
         <?php
-        echo "<form method=\"post\">";
+        echo "<form action=\"post_addjob.php\" method=\"post\">";
         echo "<h1 class=\"h3 mb-1\">Add a job offer</h1>";
            echo "<div class=\"form-group\">";
                echo "<label for=\"jl\">Job location</label>";
@@ -86,7 +86,7 @@
             echo "<label for=\"a\">Area</label>";
         echo "<input type=\"text\" name=\"area\" id=\"a\" class=\"form-control mr-sm-2\"  placeholder=\"Area\" ";
         echo "</div>";
-        echo "<button class=\"btn btn-primary mr-sm-2\" formaction=\"post_addjob.php\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Add this offer</button>";
+        echo "<button class=\"btn btn-primary mr-sm-2\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark;\" type=\"submit\">Add this offer</button>";
     echo "</form>";
 
         ?>
