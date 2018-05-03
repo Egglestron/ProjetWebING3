@@ -40,7 +40,7 @@ if(empty($_SESSION['id'])){
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-    <a class="navbar-brand" href="index.html" style="font-weight: 700;">Konnect.ed</a>
+    <a class="navbar-brand" href="index.php" style="font-weight: 700;">Konnect.ed</a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="profile.php">Profile</a>
