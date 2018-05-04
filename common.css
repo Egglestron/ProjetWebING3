@@ -24,7 +24,18 @@ input[type="file"] {
 }
 
 .container{
-  margin-top:56px
+  margin-top:56px;
+}
+
+.holder{
+  display: block;
+}
+
+.holder img{
+  margin: 0 auto;
+  max-width: 450px;
+  max-height: 200px;
+  object-fit: cover;
 }
 
 .btn{

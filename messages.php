@@ -10,7 +10,7 @@ if(empty($_SESSION['id'])){
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="30">
+  <meta http-equiv="refresh" content="60">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -154,7 +154,7 @@ if(empty($_SESSION['id'])){
     }
     echo"</div>";
 
-    echo"<div class=\"col-sm-9\" style=\"background-color:white;\">";
+    echo"<div class=\"col-sm-6\" style=\"background-color:white;\">";
     //echo "<div class=\"jumbotron float-right text-center\">";
 if(!empty($_SESSION["idDiscussion"])){
     $idDiscussion = $_SESSION["idDiscussion"];
@@ -169,26 +169,38 @@ if(!empty($_SESSION["idDiscussion"])){
 
     mysqli_stmt_store_result($req);
 
-    mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_JobDescri, $col_Name);
+    mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri, $col_Name);
     //echo "<div class=\"jumbotron float-center\">";
     echo "<h3>$col_Name</h3>";
 
-    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\">";
+    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
     echo "<input class=\"form-control\" style=\" border:solid; \"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
     echo "<input type=\"hidden\" name=\"idDiscussion\" value=\"$idDiscussion\" id=\"idpost\"> ";
-    echo "<button class=\"btn btn-primary\" type=\"submit\" >Send Message</button>";
+    echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
+    <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
+    echo "<button class=\"btn btn-primary\" type=\"submit\" name=\"submit\" >Send Message</button>";
     echo "</form>";
+    echo "<div class=\"preview\">
+      <p>No photo added to the post</p>
+    </div>";
 
+echo "<main role=\"main\" class=\"holder\" >";
+echo "<div class=\"jumbotron float-center text-left\">";
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
         echo "<p align=\"left\">$col_FirstName $col_LastName<br>
-         align=\"right\"> : $col_JobDescri</p>";
+         align=\"right\"> : $col_Descri</p>";
       }
       else {
-        echo "<p align=\"right\" style=\"color : #ff0000;\">$col_FirstName $col_LastName : <br>
-         $col_JobDescri</p>";
+        echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName : <br>
+         $col_Descri</p>";
+        if(!empty($col_UrlMedia)){
+          echo "<img src =\"$col_UrlMedia\" alt = \"image du post\" />";
+         }
       }
     }
+    echo "</div>";
+    echo "</main>";
   }
   else{
     $firstname = isset($_SESSION['firstname'])?$_SESSION['firstname']:"";
@@ -196,11 +208,15 @@ if(!empty($_SESSION["idDiscussion"])){
 
     echo "<h3>$firstname $lastname</h3>";
 
-    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\">";
+    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
     echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
-    echo "<button class=\"btn btn-primary\" type=\"submit\" >Send Message</button>";
-    //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
+    echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
+    <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
+    echo "<button class=\"btn btn-primary\" type=\"submit\" name=\"submit\" >Send Message</button>";
     echo "</form>";
+    echo "<div class=\"preview\">
+      <p>No photo added to the post</p>
+    </div>";
   }
 
 
@@ -227,5 +243,6 @@ if(!empty($_SESSION["idDiscussion"])){
   <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
   <script src="../../../../assets/js/vendor/popper.min.js"></script>
   <script src="../../../../dist/js/bootstrap.min.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
