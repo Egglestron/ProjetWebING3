@@ -117,6 +117,9 @@ if($req==true){
   echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='acceptfriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Accept</button>";
   echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='declinefriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Decline</button>";
   }
+  if($status=="Accepted"){
+  echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Delete</button>";
+}
 }
 }
 
