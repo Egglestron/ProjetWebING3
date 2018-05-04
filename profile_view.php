@@ -22,14 +22,14 @@
     <?php
     include("config.php");
     session_start();
-    $id = isset($_GET['ident'])?$_GET['ident']:null;
+    $idp = isset($_GET['ident'])?$_GET['ident']:null;
 
-    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo FROM users us WHERE us.ID = ?";
+    $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo FROM users us  WHERE us.ID = ?";
 
     //echo $requete;
 
     $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $id);
+    mysqli_stmt_bind_param($req, "i", $idp);
     mysqli_stmt_execute($req);
 
     mysqli_stmt_store_result($req);
@@ -92,6 +92,41 @@
         </div>
 	</div>
 </div>
+<?php
+$id = $_SESSION['id'];
+$idp = isset($_GET['ident'])?$_GET['ident']:null;
+
+$requete = "SELECT fs.Status FROM friendships fs WHERE fs.ID_User1 = ? AND fs.ID_User2 = ? ";
+
+//echo $requete;
+
+$req = mysqli_prepare($db, $requete);
+mysqli_stmt_bind_param($req, "ii", $id, $idp);
+mysqli_stmt_execute($req);
+
+mysqli_stmt_store_result($req);
+mysqli_stmt_bind_result($req, $col_Status);
+if($req===true){
+  while(mysqli_stmt_fetch($req)){
+
+    $status = $col_Status;
+  if($status=='Waiting'){
+  echo "<button class=\"btn btn-primary\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\" disabled>Waiting for an answer</button>";
+  }
+}
+}
+
+else{
+  $rel1 = "Friend";
+  $rel2 = "Pro";
+  echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='addfriend.php?ident={$idp}&rel={$rel1}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Send a friend request</button>";
+  echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='addfriend.php?ident={$idp}&rel={$rel2}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Send a professional request</button>";
+
+}
+
+
+
+ ?>
 <div class="jumbotron float-center">
   <?php
   echo "$description";
