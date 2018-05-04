@@ -1,0 +1,60 @@
+img {
+ height: auto;
+ max-width: 100%;
+ border-radius: 15px;
+}
+
+.preview img {
+  margin-left: 1em;
+  height: 100px;
+  order: 1;
+}
+
+.preview p{
+  margin-top: 15px;
+  padding-right: 1em;
+  font-style: italic;
+}
+
+.jumbotron{
+  padding: 16px;
+  color: #263E99;
+}
+
+.form-post {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 15px;
+}
+
+.message .my-person{
+  color: white;
+  background-color: #263E99;
+}
+.message .other-person{
+  color: white;
+  background-color: hsl(57, 60%, 37%);
+}
+.message .jumbotron{
+  padding: 15px;
+  margin: 2px;
+  box-shadow: none;
+}
+p.message{
+  margin: 0px;
+}
+/*
+ * Footer
+ */
+.mastfoot {
+  position: fixed;
+  bottom: 0px;
+  left: 1em;
+  color: rgba(255, 255, 255, .4);
+  margin: 0px auto; /* fonctionne pas des masses pour l'instant*/
+}
