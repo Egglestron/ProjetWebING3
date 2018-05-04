@@ -23,7 +23,7 @@ if(empty($_SESSION['id'])){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Feed</title>
+  <title>Chat</title>
 
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -74,7 +74,9 @@ if(empty($_SESSION['id'])){
     include("config.php");
     $id = $_SESSION["id"];
 
-    $requete = "SELECT ID, Name, Notif FROM chatgroups WHERE ID_User = ?";
+    $requete = "SELECT g.ID, g.Name, g.Notif FROM chatgroups g JOIN chatmessages m on m.ID_Conv = g.ID ";
+    $requete .= " JOIN objectposts o on o.ID = m.ID_Post WHERE g.ID_User = ? GROUP BY g.ID ORDER by MAX(o.Date_Post) DESC";
+
     //echo $requete;
 
     $req = mysqli_prepare($db, $requete);
@@ -188,8 +190,8 @@ echo "<main role=\"main\" class=\"holder\" >";
 echo "<div class=\"jumbotron float-center text-left\">";
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
-        echo "<p align=\"left\">$col_FirstName $col_LastName<br>
-         align=\"right\"> : $col_Descri</p>";
+        echo "<p align=\"left\">$col_FirstName $col_LastName : <br>
+         $col_Descri</p>";
       }
       else {
         echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName : <br>
