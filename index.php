@@ -157,11 +157,26 @@ if(empty($_SESSION['id'])){
         mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
 
         echo "<div style='margin-top:15px; margin-bottom:0px;'>";
+
+        $i = 0;
+
         while (mysqli_stmt_fetch($req2)) {
           // code...
+          $i += 1;
+
+          if($i == 4){
+            echo "</div>
+            <div id='otherComments".$colID."' style =\"display: none;\"> ";
+          }
+
           echo "<p class='mr-sm-2' type='text'>$cFirstn $cLastn ($cDate) : $cCom<p>";
         }
         echo "</div>";
+
+        if($i>3){
+          echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhideComment(".$colID.")\" id='hidebutton".$colID."' >Show More</button>";
+        }
+
         // <div class="multitext">
         //   <label for="inputFirstname" class="sr-only">First name</label>
         //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
@@ -207,6 +222,7 @@ if(empty($_SESSION['id'])){
     <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="assets/js/vendor/popper.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
+    <script src="show.js"></script>
     <script src="index.js"></script>
   </body>
   </html>

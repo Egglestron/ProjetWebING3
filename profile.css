@@ -4,8 +4,6 @@ img {
  border-radius: 15px;
 }
 
-<<<<<<< HEAD
-=======
 .topnav img {
   filter: invert(1);
   -webkit-filter: invert(1);
@@ -14,7 +12,6 @@ img {
   -ms-filter: invert(1);
 }
 
->>>>>>> 076d212748cbaf29adeda0117a488fb5cdf68e61
 .preview img {
   margin-left: 1em;
   height: 100px;
@@ -28,13 +25,6 @@ img {
 }
 
 .jumbotron{
-<<<<<<< HEAD
-  padding: 16px;
-  color: #263E99;
-}
-
-.form-post {
-=======
   padding-top: 32px;
   padding-bottom: 32px;
   color: #263E99;
@@ -78,7 +68,6 @@ img {
 
 .form-post {
   wijdth: 700px;
->>>>>>> 076d212748cbaf29adeda0117a488fb5cdf68e61
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
@@ -89,24 +78,6 @@ img {
   border-radius: 15px;
 }
 
-<<<<<<< HEAD
-.message .my-person{
-  color: white;
-  background-color: #263E99;
-}
-.message .other-person{
-  color: white;
-  background-color: hsl(57, 60%, 37%);
-}
-.message .jumbotron{
-  padding: 15px;
-  margin: 2px;
-  box-shadow: none;
-}
-p.message{
-  margin: 0px;
-}
-=======
 
 .ident {
     text-align: center;
@@ -115,7 +86,6 @@ p.message{
     color: white;
 }
 
->>>>>>> 076d212748cbaf29adeda0117a488fb5cdf68e61
 /*
  * Footer
  */
