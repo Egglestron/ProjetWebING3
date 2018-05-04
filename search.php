@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="30">
+  <meta http-equiv="refresh" content="60">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -51,7 +51,7 @@
       <div class="mx-auto order-2">
         <form class="navbar-brand mx-auto form-inline" method="post">
           <input class="form-control multitext" name="information" type="text" placeholder="Who are you looking for?" aria-label="Search">
-          <button class="btn btn-default" formaction="search.php" style="" type="submit">Search</button>
+          <button class="btn btn-default" formaction="search.php" type="submit">Search</button>
         </form>
       </div>
 
@@ -69,15 +69,28 @@
     include("config.php");
     session_start();
     $id = $_SESSION['id'];
-    $info = $_POST["information"];
 
-    $requete = "SELECT DISTINCT us.Firstname, us.LastName, us.Pseudo, us.ID FROM users us WHERE us.FirstName LIKE  ? OR us.LastName LIKE ?";
+    if(empty($_POST["information"])){
+      if(!empty($_SESSION["information"])){
+        $info = $_SESSION["information"];
+      }
+      else{
+        $info = "";
+      }
+    }
+    else {
+      // code...
+      $info = $_POST["information"];
+      $_SESSION["information"] = $info;
+    }
+
+    $requete = "SELECT DISTINCT us.Firstname, us.LastName, us.Pseudo, us.ID FROM users us WHERE (us.FirstName LIKE  ? OR us.LastName LIKE ?) AND us.ID != ?";
     //echo $requete;
 
     $info .= "%";
 
     $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "ss", $info, $info);
+    mysqli_stmt_bind_param($req, "ssi", $info, $info, $id);
     mysqli_stmt_execute($req);
 
     mysqli_stmt_store_result($req);
@@ -90,7 +103,11 @@
       $lastN = $col_LastName;
       $pseudo = $col_Pseudo;
       $idp = $col_ID;
-      echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN - $pseudo<br/></a>";
+      echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN";
+      if(!empty($pseudo)){
+        echo "- $pseudo";
+      }
+      echo "<br/></a>";
     }
 ?>
 
