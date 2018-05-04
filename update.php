@@ -118,20 +118,24 @@ while(mysqli_stmt_fetch($req)){
     <form action="post_update.php" class="form-horizontal" method="post">
       <?php
       echo "<div class=\"form-group\">";
-      echo "<label class=\"control-label col-sm-2\" for=\"text\">Description: </label>";
+      echo "<label class=\"control-label col-sm-2\" for=\"desc\">Description: </label>";
       if(empty($description)){
-      echo "<input type=\"text\" name=\"description\" class=\"form-control\" id=\"text\" placeholder=\"My best line\" ";
+      echo "<input type=\"text\" name=\"description\" class=\"form-control\" id=\"desc\" placeholder=\"My best line\"> ";
       }
-      else{echo"<input type=\"text\" name=\"description\" class=\"form-control\" id=\"text\" value=\"$description\" ";}
-      echo "\">";
+      else{
+        echo"<input type=\"text\" name=\"description\" class=\"form-control\" id=\"desc\" value=\"$description\"> ";
+      }
       echo "</div>";
+
       echo "<div class=\"form-group\">";
-      echo "<label class=\"control-label col-sm-2\" for=\"text\">Pseudo: </label>";
+      echo "<label class=\"control-label col-sm-2\" for=\"pseudo\">Pseudo: </label>";
       if(empty($pseudo)){
-      echo "<input type=\"text\" name=\"pseudo\" class=\"form-control\" id=\"text\" placeholder=\"Here is my pseudo\" ";
+      echo "<input type=\"text\" name=\"pseudo\" class=\"form-control\" id=\"pseudo\" placeholder=\"Here is my pseudo\"> ";
       }
-      else{echo"<input type=\"text\" name=\"pseudo\" class=\"form-control\" id=\"text\" value=\"$pseudo\" ";}
-      echo "\">";
+      else{
+        echo"<input type=\"text\" name=\"pseudo\" class=\"form-control\" id=\"pseudo\" value=\"$pseudo\"> ";
+      }
+
       echo "</div>";
       echo "<div class=\"form-group\">";
       echo "<label class=\"control-label col-sm-2\" for=\"select\">Position: </label>";

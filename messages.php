@@ -32,7 +32,6 @@ if(empty($_SESSION['id'])){
   <link href="common.css" rel="stylesheet">
   <link href="index.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
-  <script src="show.js"></script>
 </head>
 
 <body>
@@ -101,7 +100,8 @@ if(empty($_SESSION['id'])){
 
     while(mysqli_stmt_fetch($req)){
       $i += 1;
-      if($i > 5){
+
+      if($i == 6){
         echo "</div>
         <div id=\"otherDiscussions\" style =\"display: none;\"> ";
       }
@@ -255,5 +255,6 @@ echo "<div class=\"jumbotron float-center text-left\">";
   <script src="../../../../assets/js/vendor/popper.min.js"></script>
   <script src="../../../../dist/js/bootstrap.min.js"></script>
   <script src="index.js"></script>
+  <script src="show.js"></script>
 </body>
 </html>

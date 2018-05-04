@@ -108,20 +108,26 @@ while(mysqli_stmt_fetch($req)){
                     </span>
                 </div>
             </div>
-        <div class="container">
-            <span class="label label-default rank-label">
-              <?php
-              echo "$position";
-              ?>
+            <?php
+            if(!empty($position)){
+        echo " <div class='container'>
+            <span class='label label-default rank-label'>
+
+              $position
+
             </span>
-        </div>
-        <div class="container">
-            <span class="label label-default rank-label">
-              <?php
-              echo "$description";
-              ?>
+        </div>";
+      }
+        if(!empty($description)){
+        echo"<div class='container'>
+            <span class='label label-default rank-label'>
+
+              $description
+              
             </span>
-        </div>
+        </div>";
+      }
+        ?>
         </div>
 	</div>
 </main>
