@@ -155,7 +155,7 @@ if(empty($_SESSION['id'])){
     echo"</div>";
 
     echo"<div class=\"col-sm-9\" style=\"background-color:white;\">";
-
+    //echo "<div class=\"jumbotron float-right text-center\">";
 if(!empty($_SESSION["idDiscussion"])){
     $idDiscussion = $_SESSION["idDiscussion"];
 
@@ -174,23 +174,25 @@ if(!empty($_SESSION["idDiscussion"])){
     echo "<h3>$col_Name</h3>";
 
     echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\">";
-    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<input class=\"form-control\" style=\" border:solid; \"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
     echo "<input type=\"hidden\" name=\"idDiscussion\" value=\"$idDiscussion\" id=\"idpost\"> ";
     echo "<button class=\"btn btn-primary\" type=\"submit\" >Send Message</button>";
     echo "</form>";
 
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
-        echo "<p align=\"left\">$col_FirstName $col_LastName : $col_JobDescri</p>";
+        echo "<p align=\"left\">$col_FirstName $col_LastName<br>
+         align=\"right\"> : $col_JobDescri</p>";
       }
       else {
-        echo "<p align=\"right\">$col_FirstName $col_LastName : $col_JobDescri</p>";
+        echo "<p align=\"right\" style=\"color : #ff0000;\">$col_FirstName $col_LastName : <br>
+         $col_JobDescri</p>";
       }
     }
   }
   else{
-    $firstname = $_SESSION['firstname'];
-    $lastname = $_SESSION['lastname'];
+    $firstname = isset($_SESSION['firstname'])?$_SESSION['firstname']:"";
+    $lastname = isset($_SESSION['lastname'])?$_SESSION['lastname']:"";
 
     echo "<h3>$firstname $lastname</h3>";
 
@@ -203,7 +205,7 @@ if(!empty($_SESSION["idDiscussion"])){
 
 
     //echo "</div>";
-
+  //  echo "</div>";
   echo "</div>";
   echo "</div>";
   echo "</div>";
