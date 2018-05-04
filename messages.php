@@ -36,34 +36,40 @@ if(empty($_SESSION['id'])){
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
-    <a class="navbar-brand" href="index.php">LOGO</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <a class="navbar-brand" href="index.php" style="font-weight: 700;">Konnect.ed</a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="profile.php">Profile </a>
+          <a class="nav-link" href="profile.php">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="notif.php">Notifications </a>
+          <a class="nav-link" href="network.php">Network</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="network.php">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
+          <a class="nav-link" href="messages.php">Messages</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="messages.php">Messages </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="jobs.php">Jobs </a>
+          <a class="nav-link" href="jobs.php">Jobs</a>
         </li>
       </ul>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
-        <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
+    </div>
+
+    <div class="mx-auto order-2">
+      <form class="navbar-brand mx-auto form-inline" method="post">
+        <input class="form-control multitext" name="information" type="text" placeholder="Who are you looking for?" aria-label="Search">
+        <button class="btn btn-default" formaction="search.php" style="" type="submit">Search</button>
       </form>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <form class="form-inline nav-item">
+            <button class="btn btn-default" formaction="logout.php" style="font-weight:600;" type="submit">Disconnect</button>
+          </form>
+        </li>
+      </ul>
     </div>
   </nav>
 
