@@ -106,12 +106,16 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_store_result($req);
 mysqli_stmt_bind_result($req, $col_Status);
-if($req===true){
-  while(mysqli_stmt_fetch($req)){
 
+if($req==true){
+  while(mysqli_stmt_fetch($req)){
     $status = $col_Status;
-  if($status=='Waiting'){
+  if($status=="Request sent"){
   echo "<button class=\"btn btn-primary\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\" disabled>Waiting for an answer</button>";
+  }
+  if($status=="Waiting"){
+  echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='acceptfriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Accept</button>";
+  echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='declinefriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Decline</button>";
   }
 }
 }
