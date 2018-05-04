@@ -113,34 +113,34 @@ if(empty($_SESSION['id'])){
       mysqli_stmt_bind_result($req, $colID, $colID_User, $colDate_Post, $colUrlMedia, $colDescription, $colID_FirstName, $col_LastName, $colDate, $colLocation, $colStatus);
 
       while(mysqli_stmt_fetch($req)){
-        //echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
-        echo "<main role=\"main\" class=\"container col-sm-5\">";
-        echo "<div class=\"jumbotron float-center text-left\">";
-        echo "<h1 class=\"h3 mb-1\">$colID_FirstName $col_LastName</h1>";
-        echo "<div class=\"col-sm-10\">";
-        echo "<label class=\"col-sm-2 control-label text-right\">$colDate_Post</label>";
-        echo "</div>";
+        //echo "<p class='form-control mr-sm-2' type='text'>$colDescription<p>";
+        echo "<main role='main' class='container col-sm-5'>";
+        echo "<div class='jumbotron float-center text-left'>";
+        echo "<a class='h3 mb-1' href='profile_view.php?ident=$colID_User'>$colID_FirstName $col_LastName</a>";
+        //echo "<div class='col-sm-10 small'>";
+        echo "<br>$colDate_Post";
+        //echo "</div>";
 
         if(!empty($colDate)){
-          echo "<p class=\"form-control mr-sm-2\" type=\"text\">à $colLocation<p>";
+          echo "<p class='form-control mr-sm-2' type='text'>à $colLocation<p>";
         }
 
         if(!empty($colDate = NULL)){
-          echo "<p class=\"form-control mr-sm-2\" type=\"text\">le $colDate<p>";
+          echo "<p class='form-control mr-sm-2' type='text'>le $colDate<p>";
         }
 
-        echo "<p class=\"form-control mr-sm-2\" type=\"text\">$colDescription<p>";
+        echo "<p class='h2 mr-sm-2' type='text' style='margin-top:20px; margin-bottom:10px;'>$colDescription<p>";
 
         if(!empty($colUrlMedia)){
-          echo "<img src =\"$colUrlMedia\" alt = \"image du post\" >";
+          echo "<img src ='$colUrlMedia' alt = 'image du post' >";
         }
 
         echo "<div>";
-        echo "<form action=\"comment.php\" class=\"form-post\" method=\"post\">";
-        echo "<input class=\"form-control mr-sm-2 multitext\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Leave a comment\" aria-label=\"Comment\">";
-        echo "<input type=\"hidden\" name=\"idpost\" value=\"$colID\" id=\"idpost\"> ";
-        echo "<button class=\"btn btn-primary mr-sm-2\"  style=\"\" type=\"submit\" >Comment</button>";
-        //echo "<input type=\"submit\" name=\"submit\" class=\"button\" id=\"submit_btn\" value=\"Send\" />";
+        echo "<form action='comment.php' class='form-post' method='post'>";
+        echo "<input class='form-control mr-sm-2 multitext' name='description' id='description' type='text' placeholder='Leave a comment' aria-label='Comment'>";
+        echo "<input type='hidden' name='idpost' value='$colID' id='idpost'> ";
+        echo "<button class='btn btn-primary mr-sm-2'  style='' type='submit' >Comment</button>";
+        //echo "<input type='submit' name='submit' class='button' id='submit_btn' value='Send' />";
         echo "</form>";
         echo "</div>";
 
@@ -156,10 +156,12 @@ if(empty($_SESSION['id'])){
 
         mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
 
+        echo "<div style='margin-top:15px; margin-bottom:0px;'>";
         while (mysqli_stmt_fetch($req2)) {
           // code...
-          echo "<p class=\"form-control mr-sm-2\" type=\"text\">$cFirstn $cLastn le $cDate ::: $cCom<p>";
+          echo "<p class='mr-sm-2' type='text'>$cFirstn $cLastn ($cDate) : $cCom<p>";
         }
+        echo "</div>";
         // <div class="multitext">
         //   <label for="inputFirstname" class="sr-only">First name</label>
         //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>

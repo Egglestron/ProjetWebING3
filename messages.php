@@ -36,34 +36,40 @@ if(empty($_SESSION['id'])){
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
-    <a class="navbar-brand" href="index.php">LOGO</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <a class="navbar-brand" href="index.php" style="font-weight: 700;">Konnect.ed</a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="profile.php">Profile </a>
+          <a class="nav-link" href="profile.php">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="notif.php">Notifications </a>
+          <a class="nav-link" href="network.php">Network</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="network.php">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
+          <a class="nav-link" href="messages.php">Messages</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="messages.php">Messages </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="jobs.php">Jobs </a>
+          <a class="nav-link" href="jobs.php">Jobs</a>
         </li>
       </ul>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-primary mr-sm-2" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
-        <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
+    </div>
+
+    <div class="mx-auto order-2">
+      <form class="navbar-brand mx-auto form-inline" method="post">
+        <input class="form-control multitext" name="information" type="text" placeholder="Who are you looking for?" aria-label="Search">
+        <button class="btn btn-default" formaction="search.php" style="" type="submit">Search</button>
       </form>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <form class="form-inline nav-item">
+            <button class="btn btn-default" formaction="logout.php" style="font-weight:600;" type="submit">Disconnect</button>
+          </form>
+        </li>
+      </ul>
     </div>
   </nav>
 
@@ -156,7 +162,7 @@ if(empty($_SESSION['id'])){
     }
     echo"</div>";
 
-    echo"<div class=\"col-sm-6\" style=\"background-color:white;\">";
+    echo"<div class=\"col-sm-6\" style=\"\">";
     //echo "<div class=\"jumbotron float-right text-center\">";
 if(!empty($_SESSION["idDiscussion"])){
     $idDiscussion = $_SESSION["idDiscussion"];
@@ -176,7 +182,7 @@ if(!empty($_SESSION["idDiscussion"])){
     echo "<h3>$col_Name</h3>";
 
     echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<input class=\"form-control\" style=\" border:solid; \"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<input class=\"form-control multitext mr-sm-2\" style=\"\"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Send a message\" aria-label=\"Send a message\">";
     echo "<input type=\"hidden\" name=\"idDiscussion\" value=\"$idDiscussion\" id=\"idpost\"> ";
     echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
     <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
@@ -190,14 +196,20 @@ echo "<main role=\"main\" class=\"holder\" >";
 echo "<div class=\"jumbotron float-center text-left\">";
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
+<<<<<<< HEAD
         echo "<p align=\"left\">$col_FirstName $col_LastName : <br>
          $col_Descri</p>";
+=======
+        echo "<p align=\"left\">$col_FirstName $col_LastName :<br>$col_Descri</p>";
+        if(!empty($col_UrlMedia)){
+          echo "<img src =\"$col_UrlMedia\" alt =\"LinkedMedia\"/>";
+         }
+>>>>>>> 9a66d297ceffa3468cbb9f1b0d4ea559b5612440
       }
       else {
-        echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName : <br>
-         $col_Descri</p>";
+        echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName :<br>$col_Descri</p>";
         if(!empty($col_UrlMedia)){
-          echo "<img src =\"$col_UrlMedia\" alt = \"image du post\" />";
+          echo "<p align='right'><img src=\"$col_UrlMedia\" class='' alt =\"LinkedMedia\"/></p>";
          }
       }
     }
@@ -211,7 +223,7 @@ echo "<div class=\"jumbotron float-center text-left\">";
     echo "<h3>$firstname $lastname</h3>";
 
     echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Write a message\" aria-label=\"Write a message\">";
     echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
     <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
     echo "<button class=\"btn btn-primary\" type=\"submit\" name=\"submit\" >Send Message</button>";

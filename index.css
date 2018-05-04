@@ -24,6 +24,12 @@ img {
   font-style: italic;
 }
 
+.jumbotron{
+  padding-top: 32px;
+  padding-bottom: 32px;
+  color: #263E99;
+}
+
 /**
  * Profile image component
  */

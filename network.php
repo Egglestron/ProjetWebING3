@@ -66,6 +66,9 @@ if(empty($_SESSION['id'])){
     $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
     $requete2 .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
 
+    $requete3 = "SELECT us.ID, us.FirstName, us.LastName, us.Pseudo, fs.Relationship FROM users us, friendships fs WHERE fs.ID_User1 =  ?";
+    $requete3 .= " AND us.ID = fs.ID_User2 AND fs.Status = 'Waiting'";
+
     //echo $requete;
 
     $req = mysqli_prepare($db, $requete);
@@ -103,8 +106,27 @@ echo "<h3>Friends</h3>";
       echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
     }
 echo "</div>";
+
+$req = mysqli_prepare($db, $requete3);
+mysqli_stmt_bind_param($req, "i", $id);
+mysqli_stmt_execute($req);
+
+mysqli_stmt_store_result($req);
+
+mysqli_stmt_bind_result($req, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo, $col_Relation);
+echo "<div class=\"jumbotron float-center\">";
+echo "<h3>Contact requests</h3>";
+while(mysqli_stmt_fetch($req)){
+  $firstN = $col_FirstName ;
+  $lastN = $col_LastName;
+  $pseudo = $col_Pseudo;
+  $idp = $col_ID;
+  $rel = $col_Relation;
+  echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
+}
+echo "</div>";
     ?>
-    
+
     <footer class="mastfoot mt-auto">
       <div class="inner">
         <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
