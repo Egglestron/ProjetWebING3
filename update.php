@@ -49,7 +49,7 @@ while(mysqli_stmt_fetch($req)){
 
     <!-- Custom styles for this template -->
     <link href="common.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
+    <link href="update.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
   </head>
 
