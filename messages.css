@@ -4,17 +4,6 @@ img {
  border-radius: 15px;
 }
 
-<<<<<<< HEAD
-=======
-.topnav img {
-  filter: invert(1);
-  -webkit-filter: invert(1);
-  -moz-filter: invert(1);
-  -o-filter: invert(1);
-  -ms-filter: invert(1);
-}
-
->>>>>>> 076d212748cbaf29adeda0117a488fb5cdf68e61
 .preview img {
   margin-left: 1em;
   height: 100px;
@@ -28,57 +17,11 @@ img {
 }
 
 .jumbotron{
-<<<<<<< HEAD
   padding: 16px;
   color: #263E99;
 }
 
 .form-post {
-=======
-  padding-top: 32px;
-  padding-bottom: 32px;
-  color: #263E99;
-}
-
-/**
- * Profile image component
- */
-.profile-header-container{
-    margin: 0 auto;
-    text-align: center;
-}
-
-.profile-header-img {
-    padding: 54px;
-}
-
-.profile-header-img > img.img-circle {
-    width: 230px;
-    height: 230px;
-  /*  border: 2px solid #51D2B7;*/
-}
-
-.profile-header {
-    margin-top: 30px;
-}
-
-/**
- * Ranking component
- */
-.rank-label-container {
-    margin-top: -19px;
-    text-align: center;
-}
-
-.label.label-default.rank-label {
-    background-color: #4d94ff;
-    padding: 5px 15px 5px 15px;
-    border-radius: 27px;
-}
-
-.form-post {
-  wijdth: 700px;
->>>>>>> 076d212748cbaf29adeda0117a488fb5cdf68e61
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
@@ -89,7 +32,6 @@ img {
   border-radius: 15px;
 }
 
-<<<<<<< HEAD
 .message .my-person{
   color: white;
   background-color: #263E99;
@@ -106,16 +48,6 @@ img {
 p.message{
   margin: 0px;
 }
-=======
-
-.ident {
-    text-align: center;
-    margin-top: 5px;
-    font-size: 15px;
-    color: white;
-}
-
->>>>>>> 076d212748cbaf29adeda0117a488fb5cdf68e61
 /*
  * Footer
  */

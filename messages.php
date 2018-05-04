@@ -32,7 +32,6 @@ if(empty($_SESSION['id'])){
   <link href="common.css" rel="stylesheet">
   <link href="messages.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
-  <script src="show.js"></script>
 </head>
 
 <body>
@@ -102,7 +101,7 @@ if(empty($_SESSION['id'])){
           echo "onclick=\"window.location.href='discussion.php?idDiscussion={$col_ID}'\" type='submit' > $col_Name </button><br>";
         }
         echo "</div>";
-        if($i>5){
+        if($i==6){
           echo "<button class='btn btn-sm btn-success btn-block' onclick='showhide()' id='hidebutton' >Show More</button><br>";
         }
 
@@ -222,5 +221,6 @@ if(empty($_SESSION['id'])){
         </footer>
 
         <script src="index.js"></script>
+		<script src="show.js"></script>
       </body>
       </html>
