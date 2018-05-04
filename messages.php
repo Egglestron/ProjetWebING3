@@ -196,15 +196,12 @@ echo "<main role=\"main\" class=\"holder\" >";
 echo "<div class=\"jumbotron float-center text-left\">";
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
-<<<<<<< HEAD
         echo "<p align=\"left\">$col_FirstName $col_LastName : <br>
          $col_Descri</p>";
-=======
         echo "<p align=\"left\">$col_FirstName $col_LastName :<br>$col_Descri</p>";
         if(!empty($col_UrlMedia)){
           echo "<img src =\"$col_UrlMedia\" alt =\"LinkedMedia\"/>";
          }
->>>>>>> 9a66d297ceffa3468cbb9f1b0d4ea559b5612440
       }
       else {
         echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName :<br>$col_Descri</p>";
