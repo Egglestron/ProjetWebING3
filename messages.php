@@ -154,7 +154,7 @@ if(empty($_SESSION['id'])){
     }
     echo"</div>";
 
-    echo"<div class=\"col-sm-6\" style=\"background-color:white;\">";
+    echo"<div class=\"col-sm-6\" style=\"\">";
     //echo "<div class=\"jumbotron float-right text-center\">";
 if(!empty($_SESSION["idDiscussion"])){
     $idDiscussion = $_SESSION["idDiscussion"];
@@ -174,7 +174,7 @@ if(!empty($_SESSION["idDiscussion"])){
     echo "<h3>$col_Name</h3>";
 
     echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<input class=\"form-control\" style=\" border:solid; \"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<input class=\"form-control multitext mr-sm-2\" style=\"\"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Send a message\" aria-label=\"Send a message\">";
     echo "<input type=\"hidden\" name=\"idDiscussion\" value=\"$idDiscussion\" id=\"idpost\"> ";
     echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
     <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
@@ -188,14 +188,15 @@ echo "<main role=\"main\" class=\"holder\" >";
 echo "<div class=\"jumbotron float-center text-left\">";
     while(mysqli_stmt_fetch($req)){
       if($col_IDChatter != $id){
-        echo "<p align=\"left\">$col_FirstName $col_LastName<br>
-         align=\"right\"> : $col_Descri</p>";
+        echo "<p align=\"left\">$col_FirstName $col_LastName :<br>$col_Descri</p>";
+        if(!empty($col_UrlMedia)){
+          echo "<img src =\"$col_UrlMedia\" alt =\"LinkedMedia\"/>";
+         }
       }
       else {
-        echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName : <br>
-         $col_Descri</p>";
+        echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName :<br>$col_Descri</p>";
         if(!empty($col_UrlMedia)){
-          echo "<img src =\"$col_UrlMedia\" alt = \"image du post\" />";
+          echo "<p align='right'><img src=\"$col_UrlMedia\" class='' alt =\"LinkedMedia\"/></p>";
          }
       }
     }
@@ -209,7 +210,7 @@ echo "<div class=\"jumbotron float-center text-left\">";
     echo "<h3>$firstname $lastname</h3>";
 
     echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Publish\" aria-label=\"Publish\">";
+    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Write a message\" aria-label=\"Write a message\">";
     echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
     <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
     echo "<button class=\"btn btn-primary\" type=\"submit\" name=\"submit\" >Send Message</button>";
