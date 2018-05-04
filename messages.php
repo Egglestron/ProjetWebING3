@@ -23,14 +23,14 @@ if(empty($_SESSION['id'])){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Chat</title>
+  <title>Feed</title>
 
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="common.css" rel="stylesheet">
-  <link href="index.css" rel="stylesheet">
+  <link href="messages.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
 </head>
 
@@ -72,189 +72,155 @@ if(empty($_SESSION['id'])){
     </div>
   </nav>
 
-<div class="container-fluid">
-  <div class="row">
-  <div class="col-sm-3">
-    <?php
-    include("config.php");
-    $id = $_SESSION["id"];
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+        <?php
+        include("config.php");
+        $id = $_SESSION["id"];
 
-    $requete = "SELECT g.ID, g.Name, g.Notif FROM chatgroups g JOIN chatmessages m on m.ID_Conv = g.ID ";
-    $requete .= " JOIN objectposts o on o.ID = m.ID_Post WHERE g.ID_User = ? GROUP BY g.ID ORDER by MAX(o.Date_Post) DESC";
-
-    //echo $requete;
-
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $id);
-    mysqli_stmt_execute($req);
-
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_ID, $col_Name, $col_Notif);
-    //echo "<div class=\"jumbotron float-center\">";
-    echo "<h3>Discussions existantes</h3>";
-
-    $i = 0;
-
-    echo "<div>";
-
-    while(mysqli_stmt_fetch($req)){
-      $i += 1;
-
-      if($i == 6){
-        echo "</div>
-        <div id=\"otherDiscussions\" style =\"display: none;\"> ";
-      }
-
-      echo "<button class=\"btn btn-lg btn-primary btn-block\" " ;
-      if($col_Notif == "new"){
-        echo "style=\"background-color : #cc8400;\"";
-      }
-       echo "onclick=\"window.location.href='discussion.php?idDiscussion={$col_ID}'\" type=\"submit\" > $col_Name </button><br>";
-    }
-
-    echo "</div>";
-
-    if($i>5){
-      echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhide()\" id=\"hidebutton\" >Show More</button><br>";
-    }
-
-    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
-    $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
-
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $id);
-    mysqli_stmt_execute($req);
-
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
-    //echo "<div class=\"jumbotron float-center\">";
-    echo "<h3>Friends</h3>";
-    while(mysqli_stmt_fetch($req)){
-      echo "<form action=\"discussion.php\" class=\"form-post\" method=\"post\" >";
-      echo "<input type=\"hidden\" name=\"idUser\" value=\"$col_IDUser\" > ";
-      echo "<input type=\"hidden\" name=\"firstname\" value=\"$col_FirstName\" > ";
-      echo "<input type=\"hidden\" name=\"lastname\" value=\"$col_LastName\" > ";
-      echo "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" >$col_FirstName $col_LastName </button> <br>";
-      echo "</form>";
-    }
-
-    $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
-    $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
-
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $id);
-    mysqli_stmt_execute($req);
-
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
-    //echo "<div class=\"jumbotron float-center\">";
-    echo "<h3>Pros</h3>";
-    while(mysqli_stmt_fetch($req)){
-      echo "<form action=\"discussion.php\" class=\"form-post\" method=\"post\" >";
-      echo "<input type=\"hidden\" name=\"idUser\" value=\"$col_IDUser\" > ";
-      echo "<input type=\"hidden\" name=\"firstname\" value=\"$col_FirstName\" > ";
-      echo "<input type=\"hidden\" name=\"lastname\" value=\"$col_LastName\" > ";
-      echo "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" >$col_FirstName $col_LastName </button> <br>";
-      echo "</form>";
-    }
-    echo"</div>";
-
-    echo"<div class=\"col-sm-6\" style=\"\">";
-    //echo "<div class=\"jumbotron float-right text-center\">";
-if(!empty($_SESSION["idDiscussion"])){
-    $idDiscussion = $_SESSION["idDiscussion"];
-
-    $requete = "SELECT us.ID, us.FirstName, us.LastName, ob.Url_Media, ob.Description, gr.Name FROM users us,";
-    $requete .=" objectposts ob, chatmessages me, chatgroups gr WHERE gr.ID = ? AND gr.ID_User = ob.ID_User AND ob.ID_User = us.ID AND ob.ID = me.ID_Post AND me.ID_Conv = gr.ID ORDER BY ob.Date_Post DESC";
-
-    //echo $requete;
-    $req = mysqli_prepare($db, $requete);
-    mysqli_stmt_bind_param($req, "i", $idDiscussion);
-    mysqli_stmt_execute($req);
-
-    mysqli_stmt_store_result($req);
-
-    mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri, $col_Name);
-    //echo "<div class=\"jumbotron float-center\">";
-    echo "<h3>$col_Name</h3>";
-
-    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<input class=\"form-control multitext mr-sm-2\" style=\"\"name=\"description\" id=\"description\" type=\"text\" placeholder=\"Send a message\" aria-label=\"Send a message\">";
-    echo "<input type=\"hidden\" name=\"idDiscussion\" value=\"$idDiscussion\" id=\"idpost\"> ";
-    echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
-    <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
-    echo "<button class=\"btn btn-primary\" type=\"submit\" name=\"submit\" >Send Message</button>";
-    echo "</form>";
-    echo "<div class=\"preview\">
-      <p>No photo added to the post</p>
-    </div>";
-
-echo "<main role=\"main\" class=\"holder\" >";
-echo "<div class=\"jumbotron float-center text-left\">";
-    while(mysqli_stmt_fetch($req)){
-      if($col_IDChatter != $id){
-        echo "<p align=\"left\">$col_FirstName $col_LastName : <br>
-         $col_Descri</p>";
-        echo "<p align=\"left\">$col_FirstName $col_LastName :<br>$col_Descri</p>";
-        if(!empty($col_UrlMedia)){
-          echo "<img src =\"$col_UrlMedia\" alt =\"LinkedMedia\"/>";
-         }
-      }
-      else {
-        echo "<p align=\"right\" style=\"color : #ff0000; \">$col_FirstName $col_LastName :<br>$col_Descri</p>";
-        if(!empty($col_UrlMedia)){
-          echo "<p align='right'><img src=\"$col_UrlMedia\" class='' alt =\"LinkedMedia\"/></p>";
-         }
-      }
-    }
-    echo "</div>";
-    echo "</main>";
-  }
-  else{
-    $firstname = isset($_SESSION['firstname'])?$_SESSION['firstname']:"";
-    $lastname = isset($_SESSION['lastname'])?$_SESSION['lastname']:"";
-
-    echo "<h3>$firstname $lastname</h3>";
-
-    echo "<form action=\"postMessage.php\" class=\"form-post\" method=\"post\" enctype=\"multipart/form-data\">";
-    echo "<input class=\"form-control\" name=\"description\" id=\"description\" type=\"text\" placeholder=\"Write a message\" aria-label=\"Write a message\">";
-    echo "<label for=\"fileToUpload\" class=\"btn btn-lg btn-default mr-sm-2\" style=\"cursor: pointer;\">Add a photo</label>
-    <input type=\"file\" name=\"fileToUpload\" value=\"fileToUpload\" id=\"fileToUpload\" accept=\".jpg, .jpeg, .png\">";
-    echo "<button class=\"btn btn-primary\" type=\"submit\" name=\"submit\" >Send Message</button>";
-    echo "</form>";
-    echo "<div class=\"preview\">
-      <p>No photo added to the post</p>
-    </div>";
-  }
+        $requete = "SELECT ID, Name, Notif FROM chatgroups WHERE ID_User = ?";
+        $req = mysqli_prepare($db, $requete);
+        mysqli_stmt_bind_param($req, "i", $id);
+        mysqli_stmt_execute($req);
+        mysqli_stmt_store_result($req);
+        mysqli_stmt_bind_result($req, $col_ID, $col_Name, $col_Notif);
+        echo "<h2 style='color:white;font-weight:600;'>Ongoing discussions</h2>";
+        $i = 0;
+        echo "<div>";
+        while(mysqli_stmt_fetch($req)){
+          $i += 1;
+          if($i > 5){
+            echo "</div>
+            <div id='otherDiscussions' style ='display: none;'> ";
+          }
+          echo "<button class='btn btn-lg btn-primary btn-block' " ;
+          if($col_Notif == "new"){
+            echo "style='background-color : #cc8400;'";
+          }
+          echo "onclick=\"window.location.href='discussion.php?idDiscussion={$col_ID}'\" type='submit' > $col_Name </button><br>";
+        }
+        echo "</div>";
+        if($i==6){
+          echo "<button class='btn btn-sm btn-success btn-block' onclick='showhide()' id='hidebutton' >Show More</button><br>";
+        }
 
 
-    //echo "</div>";
-  //  echo "</div>";
-  echo "</div>";
-  echo "</div>";
-  echo "</div>";
+        $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+        $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
+        $req = mysqli_prepare($db, $requete);
+        mysqli_stmt_bind_param($req, "i", $id);
+        mysqli_stmt_execute($req);
+        mysqli_stmt_store_result($req);
+        mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
+        echo "<br><h2 style='color:white;font-weight:600;'>Start a new discussion</h2>";
+        echo "<h3 style='color:white;'>Friends</h3>";
+        while(mysqli_stmt_fetch($req)){
+          echo "<form action='discussion.php' class='form-post' method='post' >";
+          echo "<input type='hidden' name='idUser' value='$col_IDUser' > ";
+          echo "<input type='hidden' name='firstname' value='$col_FirstName' > ";
+          echo "<input type='hidden' name='lastname' value='$col_LastName' > ";
+          echo "<button class='btn btn-lg btn-primary btn-block' type='submit' >$col_FirstName $col_LastName</button><br>";
+          echo "</form><br>";
+        }
 
-  //w3schools
-  ?>
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-      <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
-    </div>
-  </footer>
+        $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
+        $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
+        $req = mysqli_prepare($db, $requete);
+        mysqli_stmt_bind_param($req, "i", $id);
+        mysqli_stmt_execute($req);
+        mysqli_stmt_store_result($req);
+        mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
+        echo "<h3 style='color:white;'>Professionals</h3>";
+        while(mysqli_stmt_fetch($req)){
+          echo "<form action='discussion.php' class='form-post' method='post' >";
+          echo "<input type='hidden' name='idUser' value='$col_IDUser' > ";
+          echo "<input type='hidden' name='firstname' value='$col_FirstName' > ";
+          echo "<input type='hidden' name='lastname' value='$col_LastName' > ";
+          echo "<button class='btn btn-lg btn-primary btn-block' type='submit' >$col_FirstName $col_LastName </button> <br>";
+          echo "</form>";
+        }
+        echo"</div>";
+
+        echo"<div class='col-sm-6' style=''>";
+        if(!empty($_SESSION["idDiscussion"])){
+          $idDiscussion = $_SESSION["idDiscussion"];
+          $requete = "SELECT us.ID, us.FirstName, us.LastName, ob.Url_Media, ob.Description, gr.Name FROM users us,";
+          $requete .=" objectposts ob, chatmessages me, chatgroups gr WHERE gr.ID = ? AND gr.ID_User = ob.ID_User AND ob.ID_User = us.ID AND ob.ID = me.ID_Post AND me.ID_Conv = gr.ID ORDER BY ob.Date_Post DESC";
+          $req = mysqli_prepare($db, $requete);
+          mysqli_stmt_bind_param($req, "i", $idDiscussion);
+          mysqli_stmt_execute($req);
+          mysqli_stmt_store_result($req);
+          mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri, $col_Name);
+          echo "<h3 style='color:white;'>$col_Name</h3>";
+          echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
+          echo "<input class='form-control multitext mr-sm-2' style=''name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
+          echo "<input type='hidden' name='idDiscussion' value='$idDiscussion' id='idpost'> ";
+          echo "<label for='fileToUpload' class='btn btn-lg btn-default mr-sm-2' style='cursor: pointer;'>Add a photo</label>
+          <input type='file' name='fileToUpload' value='fileToUpload' id='fileToUpload' accept='.jpg, .jpeg, .png'>";
+          echo "<button class='btn btn-primary' type='submit' name='submit' >Send Message</button>";
+          echo "</form>";
+          echo "<div class='preview' style='color:white;'>
+          <p>No photo added to the post</p>
+          </div>";
 
 
 
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-  <script src="../../../../assets/js/vendor/popper.min.js"></script>
-  <script src="../../../../dist/js/bootstrap.min.js"></script>
-  <script src="index.js"></script>
-  <script src="show.js"></script>
-</body>
-</html>
+          echo "<main role='main' class='holder'>";
+          echo "<div class='jumbotron message'>";
+          while(mysqli_stmt_fetch($req)){
+            echo "<div class='col-sm-12' style='overflow: hidden;padding: 0px;'>";
+            if($col_IDChatter != $id){
+              echo "<div class='jumbotron float-left text-left other-person'>";
+              //echo "<h4 align='left'>$col_FirstName $col_LastName</h4>";
+              echo "<p class='message' align='left'>$col_Descri</p>";
+              if(!empty($col_UrlMedia)){
+                echo "<img src ='$col_UrlMedia' alt ='LinkedMedia'/>";
+              }
+            }
+            else {
+              echo "<div class='jumbotron float-right text-left my-person'>";
+              //echo "<h4 align='right' style=''>$col_FirstName $col_LastName</h4>";
+              echo "<p class='message' align='right' style=''>$col_Descri</p>";
+              if(!empty($col_UrlMedia)){
+                echo "<img src='$col_UrlMedia' class='' alt ='LinkedMedia'/>";
+              }
+            }
+            echo "</div></div>";
+          }
+          echo "</div>";
+          echo "</main>";
+        }
+        else{
+          $firstname = isset($_SESSION['firstname'])?$_SESSION['firstname']:"";
+          $lastname = isset($_SESSION['lastname'])?$_SESSION['lastname']:"";
+
+          echo "<h3>$firstname $lastname</h3>";
+
+          echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
+          echo "<input class='form-control multitext mr-sm-2' name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
+          echo "<label for='fileToUpload' class='btn btn-lg btn-default mr-sm-2' style='cursor: pointer;'>Add a photo</label>
+          <input type='file' name='fileToUpload' value='fileToUpload' id='fileToUpload' accept='.jpg, .jpeg, .png'>";
+          echo "<button class='btn btn-primary' type='submit' name='submit' >Send Message</button>";
+          echo "</form>";
+          echo "<div class='preview' style='color:white;>
+          <p>No photo added to the post</p>
+          </div>";
+        }
+
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+
+        //w3schools
+        ?>
+        <footer class="mastfoot mt-auto">
+          <div class="inner">
+            <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
+          </div>
+        </footer>
+
+        <script src="index.js"></script>
+		<script src="show.js"></script>
+      </body>
+      </html>

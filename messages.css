@@ -4,14 +4,6 @@ img {
  border-radius: 15px;
 }
 
-.topnav img {
-  filter: invert(1);
-  -webkit-filter: invert(1);
-  -moz-filter: invert(1);
-  -o-filter: invert(1);
-  -ms-filter: invert(1);
-}
-
 .preview img {
   margin-left: 1em;
   height: 100px;
@@ -25,49 +17,11 @@ img {
 }
 
 .jumbotron{
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding: 16px;
   color: #263E99;
 }
 
-/**
- * Profile image component
- */
-.profile-header-container{
-    margin: 0 auto;
-    text-align: center;
-}
-
-.profile-header-img {
-    padding: 54px;
-}
-
-.profile-header-img > img.img-circle {
-    width: 230px;
-    height: 230px;
-  /*  border: 2px solid #51D2B7;*/
-}
-
-.profile-header {
-    margin-top: 30px;
-}
-
-/**
- * Ranking component
- */
-.rank-label-container {
-    margin-top: -19px;
-    text-align: center;
-}
-
-.label.label-default.rank-label {
-    background-color: #4d94ff;
-    padding: 5px 15px 5px 15px;
-    border-radius: 27px;
-}
-
 .form-post {
-  wijdth: 700px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row wrap;
@@ -78,14 +32,22 @@ img {
   border-radius: 15px;
 }
 
-
-.ident {
-    text-align: center;
-    margin-top: 5px;
-    font-size: 15px;
-    color: white;
+.message .my-person{
+  color: white;
+  background-color: #263E99;
 }
-
+.message .other-person{
+  color: white;
+  background-color: hsl(57, 60%, 37%);
+}
+.message .jumbotron{
+  padding: 15px;
+  margin: 2px;
+  box-shadow: none;
+}
+p.message{
+  margin: 0px;
+}
 /*
  * Footer
  */
