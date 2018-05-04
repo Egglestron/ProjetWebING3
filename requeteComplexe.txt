@@ -74,3 +74,14 @@ where a.ID_User = '6'
   or a.ID_User = '2'
   GROUP BY a.ID
   HAVING COUNT(*)= 2
+
+/**
+requete qui recupere les discussions les plus récentes
+**/
+
+SELECT g.ID, g.Name, g.Notif FROM chatgroups g 
+JOIN chatmessages m on m.ID_Conv = g.ID
+JOIN objectposts o on o.ID = m.ID_Post
+WHERE g.ID_User = '6'
+GROUP BY g.ID
+ORDER by MAX(o.Date_Post) DESC
