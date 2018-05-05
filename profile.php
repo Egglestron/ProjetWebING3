@@ -123,7 +123,7 @@ while(mysqli_stmt_fetch($req)){
             <span class='label label-default rank-label'>
 
               $description
-              
+
             </span>
         </div>";
       }
@@ -142,7 +142,7 @@ while(mysqli_stmt_fetch($req)){
 
     <footer class="mastfoot mt-auto">
       <div class="inner">
-        <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
+        <p>Konnect.ed<br>A. Prat, M. Michel and S. Caddeo</p>
       </div>
     </footer>
 

@@ -8,12 +8,36 @@ if(empty($_SESSION['id'])){
 
 if(empty($_GET['ident']))
 header("Location: search.php");
+
+include("config.php");
+$idp = $_GET['ident'];
+
+$requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo FROM users us  WHERE us.ID = ?";
+
+//echo $requete;
+
+$req = mysqli_prepare($db, $requete);
+mysqli_stmt_bind_param($req, "i", $idp);
+mysqli_stmt_execute($req);
+
+mysqli_stmt_store_result($req);
+
+mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position, $col_Pseudo);
+
+while(mysqli_stmt_fetch($req)){
+  $firstN = $col_FirstName ;
+  $lastN = $col_LastName;
+  $description = $col_Description;
+  $position = $col_Position;
+  $pseudo = $col_Pseudo;
+}
+
 ?>
 
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="60">
+  <meta http-equiv="refresh" content="30">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -26,72 +50,56 @@ header("Location: search.php");
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Profile</title>
+    <title>Profile </title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link href="navbar-top-fixed.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="common.css" rel="stylesheet">
+    <link href="profile.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
+  </head>
 
-</head>
 
-<body>
-  <?php
-  include("config.php");
-  $idp = $_GET['ident'];
 
-  $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo FROM users us  WHERE us.ID = ?";
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <a class="navbar-brand" href="index.php" style="font-weight: 700;">Konnect.ed</a>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="profile.php">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="network.php">Network</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="messages.php">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="jobs.php">Jobs</a>
+          </li>
+        </ul>
+      </div>
 
-  //echo $requete;
+      <div class="mx-auto order-2">
+        <form class="navbar-brand mx-auto form-inline" method="post">
+          <input class="form-control multitext" name="information" type="text" placeholder="Who are you looking for?" aria-label="Search">
+          <button class="btn btn-default" formaction="search.php" style="" type="submit">Search</button>
+        </form>
+      </div>
 
-  $req = mysqli_prepare($db, $requete);
-  mysqli_stmt_bind_param($req, "i", $idp);
-  mysqli_stmt_execute($req);
-
-  mysqli_stmt_store_result($req);
-
-  mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position, $col_Pseudo);
-
-  while(mysqli_stmt_fetch($req)){
-    $firstN = $col_FirstName ;
-    $lastN = $col_LastName;
-    $description = $col_Description;
-    $position = $col_Position;
-    $pseudo = $col_Pseudo;
-  }
-  ?>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <!-- style="background-color:  #000099;"  Pour avoir la navbar en bleu-->
-    <a class="navbar-brand" href="index.php">LOGO</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="notif.php">Notifications </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="network.php">Network </a>    <!--<a class="nav-link disabled" href="#">Network </a>  pour griser la case-->
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="messages.php">Messages </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="jobs.php">Jobs </a>
-        </li>
-      </ul>
-      <form class="form-inline" method="post">
-        <input class="form-control mr-sm-2" name="information" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-primary  mr-sm-2" name="info" formaction="search.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Search</button>
-        <button class="btn btn-primary" formaction="logout.php" style="border-color: #000099; color: #000099; background-color: navbar-dark;" type="submit">Disconnect</button>
-      </form>
-    </div>
-  </nav>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <form class="form-inline nav-item">
+              <button class="btn btn-default" formaction="logout.php" style="font-weight:600;" type="submit">Disconnect</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
   <div class="container">
     <div class="row">
@@ -102,7 +110,10 @@ header("Location: search.php");
           <div class="rank-label-container">
             <span class="label label-default rank-label">
               <?php
+              if(!empty($pseudo))
               echo "$firstN $lastN - $pseudo";
+              else
+              echo "$firstN $lastN"
               ?>
             </span>
           </div>
@@ -129,20 +140,20 @@ header("Location: search.php");
     while(mysqli_stmt_fetch($req)){
       $status = $col_Status;
       if($status=="Request sent"){
-        echo "<button class=\"btn btn-primary\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\" disabled>Waiting for an answer</button>";
+        echo "<button class=\"btn btn-primary\" style=\"\" type=\"submit\" disabled>Waiting for an answer</button>";
       }
       if($status=="Waiting"){
-        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='acceptfriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Accept</button>";
-        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='declinefriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Decline</button>";
+        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='acceptfriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Accept</button>";
+        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='declinefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Decline</button>";
       }
       if($status=="Accepted"){
-        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Delete</button>";
+        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Delete</button>";
       }
     }
   }
   else{
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='addfriend.php?ident={$idp}&rel=Friend'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Send a friend request</button>";
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='addfriend.php?ident={$idp}&rel=Pro'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">Send a professional request</button>";
+    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='addfriend.php?ident={$idp}&rel=Friend'\" style=\"\" type=\"submit\">Send a friend request</button>";
+    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='addfriend.php?ident={$idp}&rel=Pro'\" style=\"\" type=\"submit\">Send a professional request</button>";
 
   }
 
@@ -161,7 +172,7 @@ header("Location: search.php");
   </div>
   <footer class="mastfoot mt-auto">
     <div class="inner">
-      <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
+      <p>Konnect.ed<br>A. Prat, M. Michel and S. Caddeo</p>
     </div>
   </footer>
 
