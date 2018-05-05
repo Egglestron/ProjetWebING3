@@ -6,8 +6,6 @@ if(empty($_SESSION['id'])){
   header('location:login.html');
 }
 ?>
-
-
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -34,8 +32,6 @@ if(empty($_SESSION['id'])){
   <link href="index.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
 </head>
-
-
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top">
@@ -76,7 +72,6 @@ if(empty($_SESSION['id'])){
   </nav>
 
   <!-- Main page -->
-
   <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My feed</h3></div>
 
   <main role="main" class="container">
@@ -105,110 +100,62 @@ if(empty($_SESSION['id'])){
     $requete .= " AND ((f.Relationship = 'Friend' AND e.Status IN ('Public','Friends Only','Network')) OR (f.Relationship = 'Pro' ";
       $requete .= " AND e.Status IN ('Network','Public')))) OR (o.ID_User = ?) ) AND us.ID = o.ID_User  ORDER BY o.Date_Post DESC LIMIT 25";
 
-      //echo $requete;
-
       $req = mysqli_prepare($db, $requete);
       mysqli_stmt_bind_param($req, "ii", $id, $id);
       mysqli_stmt_execute($req);
-
       mysqli_stmt_store_result($req);
-
       mysqli_stmt_bind_result($req, $colID, $colID_User, $colDate_Post, $colUrlMedia, $colDescription, $colID_FirstName, $col_LastName, $colDate, $colLocation, $colStatus);
 
       while(mysqli_stmt_fetch($req)){
-        //echo "<p class='form-control mr-sm-2' type='text'>$colDescription<p>";
         echo "<main role='main' class='container col-sm-5'>";
         echo "<div class='jumbotron float-center text-left'>";
         echo "<a class='h3 mb-1' href='profile_view.php?ident=$colID_User'>$colID_FirstName $col_LastName</a>";
-        //echo "<div class='col-sm-10 small'>";
         echo "<br>$colDate_Post";
-        //echo "</div>";
-
         if(!empty($colDate)){
           echo "<p class='form-control mr-sm-2' type='text'>à $colLocation<p>";
         }
-
         if(!empty($colDate = NULL)){
           echo "<p class='form-control mr-sm-2' type='text'>le $colDate<p>";
         }
-
         echo "<p class='h2 mr-sm-2' type='text' style='margin-top:20px; margin-bottom:10px;'>$colDescription<p>";
-
         if(!empty($colUrlMedia)){
           echo "<img src ='$colUrlMedia' alt = 'image du post' >";
         }
-
         echo "<div>";
         echo "<form action='comment.php' class='form-post' method='post'>";
         echo "<input class='form-control mr-sm-2 multitext' name='description' id='description' type='text' placeholder='Leave a comment' aria-label='Comment'>";
         echo "<input type='hidden' name='idpost' value='$colID' id='idpost'> ";
         echo "<button class='btn btn-primary mr-sm-2'  style='' type='submit' >Comment</button>";
-        //echo "<input type='submit' name='submit' class='button' id='submit_btn' value='Send' />";
         echo "</form>";
         echo "</div>";
 
         $requete = "SELECT o.Date_Post, o.Url_Media, o.Description, u.FirstName, u.LastName FROM objectposts o, users u, comments c ";
         $requete .= " WHERE o.ID = c.ID_Object AND o.ID_User = u.ID AND c.ID_Post = ? ORDER BY o.Date_Post DESC ";
-
         $req2 = mysqli_prepare($db, $requete);
-
         mysqli_stmt_bind_param($req2, "i", $colID);
         mysqli_stmt_execute($req2);
-
         mysqli_stmt_store_result($req2);
-
         mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
-
         echo "<div style='margin-top:15px; margin-bottom:0px;'>";
 
-        $i = 0;
-
+        $i = 0;        
         while (mysqli_stmt_fetch($req2)) {
-          // code...
           $i += 1;
-
           if($i == 4){
             echo "</div>
             <div id='otherComments".$colID."' style =\"display: none;\"> ";
           }
-
           echo "<p class='mr-sm-2' type='text'>$cFirstn $cLastn ($cDate) : $cCom<p>";
         }
         echo "</div>";
-
         if($i>3){
           echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhideComment(".$colID.")\" id='hidebutton".$colID."' >Show More</button>";
         }
-
-        // <div class="multitext">
-        //   <label for="inputFirstname" class="sr-only">First name</label>
-        //   <input type="text" name="inputFirstname" id="inputFirstname" class="form-control" placeholder="First name" required>
-        //   <label for="inputLastname" class="sr-only">Last name</label>
-        //   <input type="text" name="inputLastname" id="inputLastname" class="form-control" placeholder="Last name" required>
-        // </div>
-        //
-        // <div class="multitext">
-        //   <label for="inputEmail" class="sr-only">Email address</label>
-        //   <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        // </div>
-        //
-        // <div class="multitext">
-        //   <label for="inputPassword" class="sr-only">Password</label>
-        //   <input type="password" name='inputPassword' id="inputPassword" class="form-control" placeholder="Password" required>
-        //   <label for="inputPasswordCheck" class="sr-only">Re-type password</label>
-        //   <input type="password" name="inputPasswordCheck" id="inputPasswordCheck" class="form-control" placeholder="Re-type password" required>
-        // </div>
-        //
-        // <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
         echo "</div>";
         echo "</main>";
-
       }
-
       ?>
     </div>
-
-
 
     <footer class="mastfoot mt-auto">
       <div class="inner">
@@ -216,15 +163,6 @@ if(empty($_SESSION['id'])){
       </div>
     </footer>
 
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="assets/js/vendor/popper.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
     <script src="show.js"></script>
     <script src="index.js"></script>
   </body>
