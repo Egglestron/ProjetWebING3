@@ -151,7 +151,7 @@ if(empty($_SESSION['id'])){
         }
         echo "</div>";
         if($i>3){
-          echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhideComment(".$colID.")\" id='hidebutton".$colID."' >Show More</button>";
+          echo "<button class=\"btn btn-sm btn-success btn-block\" onclick=\"showhideComment('$colID')\" id='hidebutton".$colID."' >Show More</button>";
         }
         echo "</div>";
         echo "</main>";
