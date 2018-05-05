@@ -94,7 +94,12 @@ while(mysqli_stmt_fetch($req)){
       </div>
     </nav>
 
-  <div class="container">
+
+    <div class='container'>
+      <h3 style='color:white; font-weight:700; font-size:3em;'>Profile</h3>
+    </div>
+
+  <div class="container jumbotron">
     <div class="row">
       <div class="profile-header-container">
         <div class="profile-header-img">
@@ -115,7 +120,7 @@ while(mysqli_stmt_fetch($req)){
         </div>
       </div>
     </div>
-  </div>
+
   <?php
   $id = $_SESSION['id'];
   $idp = $_GET['ident'];
@@ -142,7 +147,7 @@ while(mysqli_stmt_fetch($req)){
         echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Decline</button>";
       }
       if($status=="Accepted"){
-        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Delete</button>";
+        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Delete connection</button>";
       }
     }
   }
@@ -165,6 +170,8 @@ while(mysqli_stmt_fetch($req)){
   </div>";
 }
   ?>
+
+</div>
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>Konnect.ed<br>A. Prat, M. Michel and S. Caddeo</p>
