@@ -75,6 +75,9 @@ if(empty($_SESSION['id'])){
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3">
+        <div class='container'>
+          <h3 style='color:white; font-weight:700; font-size:3em;'>My messages</h3><br>
+        </div>
         <?php
         include("config.php");
         $id = $_SESSION["id"];

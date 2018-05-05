@@ -96,8 +96,9 @@
     mysqli_stmt_store_result($req);
 
     mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Pseudo, $col_ID);
-    echo "<div class=\"jumbotron float-center\">";
-    echo "<h3>Noms</h3>";
+    echo "<div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>Search results</h3></div>";
+    echo "<div class=\"jumbotron float-center container\">";
+    echo "";
     while(mysqli_stmt_fetch($req)){
       $firstN = $col_FirstName ;
       $lastN = $col_LastName;

@@ -79,12 +79,18 @@ if(empty($_SESSION['id'])){
   include("config.php");
   $id = $_SESSION['id'];
 
+  if(empty($_GET['idobj']))
+  header("Location: jobs.php");
+
+  include("config.php");
+  $id_obj = $_GET['idobj'];
+
   $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts ob, jobreacts jr";
-  $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Object AND jr.ID_User = us.ID";
+  $requete .= " WHERE ob.ID_User = ? AND jr.ID_Offer = ? AND jr.ID_User = us.ID";
   //echo $requete;
 
   $req = mysqli_prepare($db, $requete);
-  mysqli_stmt_bind_param($req, "i", $id);
+  mysqli_stmt_bind_param($req, "ii", $id, $id_obj);
   mysqli_stmt_execute($req);
   mysqli_stmt_store_result($req);
   mysqli_stmt_bind_result($req, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
