@@ -1,0 +1,35 @@
+API des polices, developers.google.com
+Bootstrap examples, getbootstrap.com
+Buzut, buzut.fr
+CSS-tricks, css-tricks.com
+codrops, tympanus.net/codrops
+colorlib., colorlib.com
+Comment ça marche ?, www.commentcamarche.com
+ComputerHope, computerhope.com
+DaniWeb, www.daniweb.com
+ECE Paris, www.ece.fr
+Form.Guide Your HTML Form Resource, form.guide
+GrizzlyWeb, www.grizzlyweb.com
+Hardware.fr, forum.hardware.fr
+HtmlGoodies, htmlgoodies.com
+Interneting is Hard, internetingishard.com
+M. Beaussier - Developpez.com, beaussier.developpez.com
+MDN web docs, developer.mozilla.org
+Manuel Php, www.manuelphp.com
+Nimish Prabhu, nimishprabhu.com
+OpenClassrooms, openclassrooms.com
+PHP France, forum.phpfrance.com
+PHP, php.net
+Polices (Muli), fonts.google.com
+Quora, www.quora.com
+Solidystated, solidystated.com
+StackOverflow, stackoverflow.com
+Team Treehouse, teamtreehouse.com
+Technologies de formation et apprentissage de l'université de Genève, tecfa.unige.ch
+TeemoWeb, teemoweb.blogspot.fr
+Tutorials Point, tutorialspoint.com
+W3school, w3schools.com
+WebKit, webkit.org
+WebRankingInfo, www.webrankinginfo.com
+WikiBooks, fr.wikibooks.org
+wikiHow, fr.wikihow.com
