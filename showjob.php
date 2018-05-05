@@ -112,7 +112,7 @@ echo "</main>";
 
 <footer class="mastfoot mt-auto">
   <div class="inner">
-    <p>LonkedOn by Arthur Prat, Maxime Michel and Sam Caddeo</p>
+    <p>Konnect.ed<br>A. Prat, M. Michel and S. Caddeo</p>
   </div>
 </footer>
 
