@@ -165,8 +165,7 @@ if(empty($_SESSION['id'])){
           mysqli_stmt_execute($req);
           mysqli_stmt_store_result($req);
           mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri, $col_Name);
-
-          echo "<h3 style='color:white;'>$col_Name</h3>";
+          echo "<div class='container'><h3 style='color:white; font-weight:700; font-size:2em;'>$col_Name</h3><br></div>";
           echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
           echo "<input class='form-control multitext mr-sm-2' style=''name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
           echo "<input type='hidden' name='idDiscussion' value='$idDiscussion' id='idpost'> ";
@@ -209,7 +208,7 @@ if(empty($_SESSION['id'])){
           $firstname = isset($_SESSION['firstname'])?$_SESSION['firstname']:"";
           $lastname = isset($_SESSION['lastname'])?$_SESSION['lastname']:"";
 
-          echo "<h3>$firstname $lastname</h3>";
+          echo "<div class='container'><h3 style='color:white; font-weight:700; font-size:2em;'>$firstname $lastname</h3><br></div>";
 
           echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
           echo "<input class='form-control multitext mr-sm-2' name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
