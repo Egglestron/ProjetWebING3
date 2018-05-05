@@ -30,7 +30,7 @@ if(empty($_SESSION['id'])){
   <!-- Custom styles for this template -->
   <link href="common.css" rel="stylesheet">
   <link href="index.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
+  <link href="fonts.css" rel="stylesheet">
 </head>
 
 <body>
@@ -138,7 +138,7 @@ if(empty($_SESSION['id'])){
         mysqli_stmt_bind_result($req2, $cDate, $cUrlM, $cCom, $cFirstn, $cLastn);
         echo "<div style='margin-top:15px; margin-bottom:0px;'>";
 
-        $i = 0;        
+        $i = 0;
         while (mysqli_stmt_fetch($req2)) {
           $i += 1;
           if($i == 4){
