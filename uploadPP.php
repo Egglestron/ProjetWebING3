@@ -1,4 +1,9 @@
 <?php
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
 if(isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])){
 $target_dir = "uploads/user$id/";
   echo "yooo";
@@ -33,11 +38,6 @@ $target_dir = "uploads/user$id/";
           $uploadOk = 0;
       }
   }
-  // Check if file already exists
-  if (file_exists($target_file)) {
-    echo "file exists";
-      $uploadOk = 0;
-  }
 
   // Check file size
   if ($_FILES["fileToUpload"]["size"] > 5000000) {
@@ -58,6 +58,10 @@ $target_dir = "uploads/user$id/";
   } else {
        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
   }
+}
+else {
+  header('location:index.php');
+  exit;
 }
 
 ?>

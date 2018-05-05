@@ -1,7 +1,12 @@
 <?php
 include("config.php");
-session_start();
 
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
+if(!empty($Company = $_POST["company"])){
 //pour objectposts
 $id_User = $_SESSION['id'];
 $JobLoc = $_POST["jobloc"];
@@ -24,8 +29,9 @@ mysqli_stmt_bind_param($req, "issssdss", $lastid, $JobLoc, $Company, $Title, $Jo
 mysqli_stmt_execute($req);
 
 mysqli_stmt_close($req);
+}
 
 //echo "<meta http-equiv=\"refresh\" content=\"0\"> ";
 header("Location: jobs.php");
-//exit;
+exit;
 ?>

@@ -1,6 +1,16 @@
 <?php
 include("config.php");
-session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
+if (!isset($_GET['ident'])) {
+  // code...
+  header('location:index.php');
+  exit;
+}
 
 //pour objectposts
 $id = $_SESSION['id'];

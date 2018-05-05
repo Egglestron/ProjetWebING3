@@ -1,8 +1,17 @@
 <?php
 include("config.php");
-session_start();
 
-//pour objectposts
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
+if (!isset($_GET['ident'])) {
+  // code...
+  header('location:index.php');
+  exit;
+}
+
 $id = $_SESSION['id'];
 $idp = isset($_GET['ident'])?$_GET['ident']:null;
 

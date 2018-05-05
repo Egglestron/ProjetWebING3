@@ -1,22 +1,26 @@
 <?php
 include("config.php");
-session_start();
 
-//pour les images
-$id_User = $_SESSION['id'];
-
-//pour objectposts
-$description = isset($_POST["description"])?$_POST["description"]:null;
-
-//pour events
-$Date = isset($_POST["Date"])?$_POST["Date"]:null;
-$Location = isset($_POST["Location"])?$_POST["Location"]:null;
-$Status = isset($_POST["Status"])?$_POST["Url_Media"]:"Public";
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
 
 
 // Insertion
 
-if((isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])) || !empty($description)){
+if((isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])) || !empty($_POST["description"])){
+  //pour les images
+  $id_User = $_SESSION['id'];
+
+  //pour objectposts
+  $description = isset($_POST["description"])?$_POST["description"]:null;
+
+  //pour events
+  $Date = isset($_POST["Date"])?$_POST["Date"]:null;
+  $Location = isset($_POST["Location"])?$_POST["Location"]:null;
+  $Status = isset($_POST["Status"])?$_POST["Url_Media"]:"Public";
+
   $req = mysqli_prepare($db, "INSERT INTO objectposts (ID_User, Description) VALUES (?, ?)");
   mysqli_stmt_bind_param($req, "is", $id_User, $description);
   mysqli_stmt_execute($req);
@@ -36,5 +40,5 @@ if((isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])) |
 }
 
   header('location:index.php');
-
-  ?>
+  exit;
+?>

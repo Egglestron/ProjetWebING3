@@ -1,6 +1,15 @@
 <?php
 include("config.php");
-session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
+if(empty($_POST["description"])){
+  header('location:index.php');
+  exit;
+}
 
 //pour objectposts
 $id_User = $_SESSION['id'];
@@ -24,6 +33,6 @@ mysqli_stmt_execute($req);
 mysqli_stmt_close($req);
 
 //echo "<meta http-equiv=\"refresh\" content=\"0\"> ";
-header("Location: {$_SERVER['HTTP_REFERER']}");
-//exit;
+header("Location: index.php");
+exit;
 ?>

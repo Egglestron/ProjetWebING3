@@ -1,6 +1,10 @@
 <?php
 include("config.php");
-session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
 
 //pour objectposts
 $id_User = $_SESSION["id"];
@@ -58,10 +62,11 @@ mysqli_stmt_execute($req);
 
 $lastid = mysqli_insert_id($db);
 
+if(isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])){
 $target_file = null;
-
 //include a picture
 include("uploadPicture.php");
+}
 
 $req = mysqli_prepare($db, "INSERT INTO chatmessages (ID_Conv, ID_Post) VALUES(?, ?)");
 mysqli_stmt_bind_param($req, "ii", $idDiscussion, $lastid);
@@ -75,6 +80,6 @@ mysqli_stmt_close($req);
 }
 
 //echo "<meta http-equiv=\"refresh\" content=\"0\"> ";
-header("Location: {$_SERVER['HTTP_REFERER']}");
+header("Location: messages.php");
 exit;
 ?>

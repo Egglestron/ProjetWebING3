@@ -1,6 +1,10 @@
 <?php
 include("config.php");
-session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
 
 if(!empty($_GET['idDiscussion'])){
   //on enregistre l'id de la discussion
@@ -14,9 +18,8 @@ if(!empty($_GET['idDiscussion'])){
   $req = mysqli_prepare($db, "UPDATE chatgroups SET Notif = 'viewed' WHERE id = ? && ID_User = ?");
   mysqli_stmt_bind_param($req, "ii", $idDiscussion, $id);
   mysqli_stmt_execute($req);
-
 }
-else {
+elseif(!empty($_POST['idUser'])){
   $_SESSION['idDiscussion'] = null;
   $_SESSION['idUser'] = $_POST['idUser'];
   $_SESSION['firstname'] = $_POST['firstname'];
@@ -45,6 +48,6 @@ else {
 
 $_SESSION['idDiscussion'] = $idDiscussion;
 
-header("Location: {$_SERVER['HTTP_REFERER']}");
+header("Location: messages.php");
 exit;
 ?>

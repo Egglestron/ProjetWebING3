@@ -1,8 +1,17 @@
 <?php
 
 include("config.php");
-session_start();
-$error = "";
+
+if(!empty($_SESSION['id'])){
+  header('location:index.php');
+  exit;
+}
+
+elseif(empty($_POST['inputEmail'])) {
+  // code...
+  header('location:login.html');
+  exit;
+}
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -32,14 +41,16 @@ if(password_verify($_POST['inputPassword'], $colPasswordhash)){
 
 
     if ($isPasswordCorrect) {
-        session_start();
         $_SESSION['email'] = $mymail;
-        header("location: welcome.php");
+        include('lock.php');
+        header("location: index.php");
+        exit;
     }
     else {
       //echo $phash;
 
         header("location: login.html");
+        exit;
     }
 
 }

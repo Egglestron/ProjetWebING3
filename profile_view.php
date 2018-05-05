@@ -1,15 +1,18 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
 }
 
-if(empty($_GET['ident']))
-header("Location: search.php");
+if(empty($_GET['ident'])){
+  header("Location: search.php");
+  exit;
+}
 
-include("config.php");
+
 $idp = $_GET['ident'];
 
 $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo, us.ProfilePicture FROM users us  WHERE us.ID = ?";

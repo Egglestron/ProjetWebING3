@@ -1,9 +1,15 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
+}
+
+if(empty($_GET["idpost"])){
+  header('location:jobs.php');
+  exit;
 }
 ?>
 
@@ -75,7 +81,7 @@ if(empty($_SESSION['id'])){
   </nav>
 
 <?php
-include("config.php");
+
 $idp = isset($_GET["idpost"])?$_GET["idpost"]:null;
 
 $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";

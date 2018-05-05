@@ -1,9 +1,10 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
 }
 ?>
 <html lang="en">
@@ -79,10 +80,10 @@ if(empty($_SESSION['id'])){
   </div>
 
   <?php
-  include("config.php");
+
   $id = $_SESSION['id'];
 
-  $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
+  $requete = "SELECT jo.ID_Object, jo.Title, us.ID, us.FirstName, us.LastName FROM joboffers jo, objectposts ob, users us";
   $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
 
   $req = mysqli_prepare($db, $requete);
@@ -90,7 +91,7 @@ if(empty($_SESSION['id'])){
 
   mysqli_stmt_store_result($req);
 
-  mysqli_stmt_bind_result($req, $col_IDObj, $col_JobLoc, $col_Company, $col_Title, $col_JobDescri, $col_Len, $col_Skills, $col_Area, $col_ID, $col_FirstName, $col_LastName, $col_DatePost);
+  mysqli_stmt_bind_result($req, $col_IDObj, $col_Title, $col_ID, $col_FirstName, $col_LastName);
 
   while(mysqli_stmt_fetch($req)){
     if($col_ID == $id){

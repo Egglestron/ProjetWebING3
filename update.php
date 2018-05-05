@@ -1,8 +1,13 @@
 <!doctype html>
 <?php
 include("config.php");
-session_start();
+
 $id = $_SESSION['id'];
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
 
 $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.ProfilePicture, us.position, us.Pseudo FROM users us WHERE us.ID = ?";
 
@@ -19,7 +24,6 @@ mysqli_stmt_bind_result($req, $firstN, $lastN, $description, $profilePicture, $p
 while(mysqli_stmt_fetch($req)){
 }
 ?>
-
 
 <html lang="en">
 <head>
@@ -97,7 +101,10 @@ while(mysqli_stmt_fetch($req)){
                 <div class="rank-label-container">
                     <span class="label label-default rank-label">
                       <?php
-                      echo "$firstN $lastN - $pseudo";
+                      echo "$firstN $lastN";
+                      if(!empty($pseudo)){
+                        echo "- $pseudo";
+                      }
                       ?>
                     </span>
                 </div>

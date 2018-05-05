@@ -1,11 +1,13 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
 }
 ?>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -92,7 +94,7 @@ if(empty($_SESSION['id'])){
 
   <div>
     <?php
-    include("config.php");
+
     $id = $_SESSION["id"];
 
     $requete = "SELECT DISTINCT o.*, us.Firstname, us.Lastname, e.Date, e.Location, e.Status FROM events e, objectposts o, users us ";
@@ -123,7 +125,7 @@ if(empty($_SESSION['id'])){
         }
         echo "<div>";
         echo "<form action='comment.php' class='form-post' method='post'>";
-        echo "<input class='form-control mr-sm-2 multitext' name='description' id='description' type='text' placeholder='Leave a comment' aria-label='Comment'>";
+        echo "<input class='form-control mr-sm-2 multitext' name='description' id='description' type='text'  placeholder='Leave a comment' aria-label='Comment' required>";
         echo "<input type='hidden' name='idpost' value='$colID' id='idpost'> ";
         echo "<button class='btn btn-primary mr-sm-2'  style='' type='submit' >Comment</button>";
         echo "</form>";

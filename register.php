@@ -1,7 +1,17 @@
 <?php
 
 include("config.php");
-session_start();
+
+if(!empty($_SESSION['id'])){
+  header('location:index.php');
+  exit;
+}
+
+if(empty($_POST['inputPassword'])){
+  header('location: register.html');
+  exit;
+}
+
 $error = "";
 // Vérification de la validité des informations
 
@@ -18,4 +28,5 @@ mysqli_stmt_execute($req);
 mysqli_stmt_close($req);
 
 header('location: login.html');
+exit;
 ?>

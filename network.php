@@ -1,9 +1,10 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
 }
 ?>
 <html lang="en">
@@ -76,7 +77,7 @@ if(empty($_SESSION['id'])){
   <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My network</h3></div>
 
   <?php
-  include("config.php");
+
   $id = $_SESSION['id'];
 
   $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";

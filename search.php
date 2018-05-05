@@ -1,4 +1,13 @@
 <!doctype html>
+<?php
+include("config.php");
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
+ ?>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -66,8 +75,7 @@
       </div>
     </nav>
 <?php
-    include("config.php");
-    session_start();
+
     $id = $_SESSION['id'];
 
     if(empty($_POST["information"])){

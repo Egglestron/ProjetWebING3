@@ -1,9 +1,10 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
 }
 ?>
 
@@ -79,7 +80,7 @@ if(empty($_SESSION['id'])){
           <h3 style='color:white; font-weight:700; font-size:3em;'>My messages</h3><br>
         </div>
         <?php
-        include("config.php");
+
         $id = $_SESSION["id"];
 
         $requete = "SELECT g.ID, g.Name, g.Notif FROM chatgroups g JOIN chatmessages m on m.ID_Conv = g.ID ";
@@ -95,7 +96,7 @@ if(empty($_SESSION['id'])){
         echo "<div>";
         while(mysqli_stmt_fetch($req)){
           $i += 1;
-          if($i == 3){
+          if($i == 5){
             echo "</div>
             <div id='otherDiscussions' style ='display: none;'> ";
           }
@@ -107,7 +108,7 @@ if(empty($_SESSION['id'])){
           echo "onclick=\"window.location.href='discussion.php?idDiscussion={$col_ID}'\" type='submit' > $col_Name </button><br>";
         }
         echo "</div>";
-        if($i>2){
+        if($i>4){
           echo "<button class='btn btn-sm btn-success btn-block' onclick='showhide()' id='hidebutton' >Show More</button><br>";
         }
 

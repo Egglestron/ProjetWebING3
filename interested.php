@@ -1,9 +1,14 @@
 <!doctype html>
 <?php
-session_start();
+include("config.php");
 
 if(empty($_SESSION['id'])){
   header('location:login.html');
+  exit;
+}
+
+if(empty($_GET['idobj'])){
+  header("Location: jobs.php");
 }
 ?>
 <html lang="en">
@@ -76,13 +81,9 @@ if(empty($_SESSION['id'])){
   <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My Offers</h3></div>
 
   <?php
-  include("config.php");
+
   $id = $_SESSION['id'];
 
-  if(empty($_GET['idobj']))
-  header("Location: jobs.php");
-
-  include("config.php");
   $id_obj = $_GET['idobj'];
 
   $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts ob, jobreacts jr";

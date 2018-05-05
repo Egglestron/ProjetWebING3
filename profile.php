@@ -1,7 +1,12 @@
 <!doctype html>
 <?php
 include("config.php");
-session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
 $id = $_SESSION['id'];
 
 $requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.ProfilePicture, us.Position, us.Pseudo FROM users us WHERE us.ID = ?";

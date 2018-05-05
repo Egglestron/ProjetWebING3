@@ -1,4 +1,10 @@
 <?php
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
 if(isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]['name'])){
 $target_dir = "uploads/user$id_User/";
   echo "yooo";
@@ -58,6 +64,10 @@ $target_dir = "uploads/user$id_User/";
   } else {
        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
   }
+}
+elseif(empty($description)) {
+  header('location:index.php');
+  exit;
 }
 
 if(!empty($target_file)){

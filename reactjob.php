@@ -1,6 +1,17 @@
 <?php
 include("config.php");
-session_start();
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+
+if (!isset($_GET['idpost'])) {
+  // code...
+  header('location:jobs.php');
+  exit;
+}
+
 $id = $_SESSION["id"];
 $idp = isset($_GET["idpost"])?$_GET["idpost"]:null;
 
@@ -15,3 +26,5 @@ mysqli_stmt_execute($req);
 mysqli_stmt_close($req);
 
 header("Location: jobs.php");
+exit;
+?>
