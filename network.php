@@ -73,7 +73,7 @@ if(empty($_SESSION['id'])){
     </div>
   </nav>
 
-  <div class="container"><h3 style='color:white; font-weight:700; font-size:3em;'>My network</h3></div>
+  <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My network</h3></div>
 
   <?php
   include("config.php");

@@ -76,6 +76,9 @@ if(empty($_SESSION['id'])){
   </nav>
 
   <!-- Main page -->
+
+  <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My feed</h3></div>
+
   <main role="main" class="container">
     <div class="jumbotron">
       <h1>Something to share?</h1>

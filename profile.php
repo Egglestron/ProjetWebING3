@@ -40,7 +40,7 @@ while(mysqli_stmt_fetch($req)){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-    <title>Profile </title>
+    <title>Profile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -91,7 +91,13 @@ while(mysqli_stmt_fetch($req)){
       </div>
     </nav>
 
+    <div class='container'>
+      <h3 style='color:white; font-weight:700; font-size:3em;'>My profile</h3>
+      <button class="btn btn-lg btn-primary mr-sm-2" onclick="window.location.href='update.php'" style="" type="submit">Update my profile</button>
+    </div>
+
     <main role="main" class="container">
+      <div class="jumbotron">
 	  <div class="row">
         <div class="profile-header-container">
     		<div class="profile-header-img">
@@ -131,10 +137,6 @@ while(mysqli_stmt_fetch($req)){
         </div>
 	</div>
 </main>
-
-
-<div class="col-md-4 text-center">
-<button class="btn btn-lg btn-primary mr-sm-2" onclick="window.location.href='update.php'" style="" type="submit">Update my profile</button>
 </div>
 
 
