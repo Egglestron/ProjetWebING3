@@ -41,7 +41,7 @@ if(password_verify($_POST['inputPassword'], $colPasswordhash)){
 
 
     if ($isPasswordCorrect) {
-        $_SESSION['email'] = $mymail;
+        $_SESSION['email'] = $_POST['inputEmail'];
         include('lock.php');
         header("location: index.php");
         exit;

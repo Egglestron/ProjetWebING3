@@ -1,4 +1,14 @@
 <!doctype html>
+
+<?php
+include("config.php");
+
+if(empty($_SESSION['id'])){
+  header('location:login.html');
+  exit;
+}
+?>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">

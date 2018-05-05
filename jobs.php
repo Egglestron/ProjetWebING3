@@ -76,7 +76,7 @@ if(empty($_SESSION['id'])){
 
   <div class='container'>
     <h3 style='color:white; font-weight:700; font-size:3em;'>My jobs</h3>
-    <button class="btn btn-lg btn-primary" onclick="window.location.href='addjob.html'" style="" type="submit">Add a job offer</button>
+    <button class="btn btn-lg btn-primary" onclick="window.location.href='addjob.php'" style="" type="submit">Add a job offer</button>
   </div>
 
   <?php
