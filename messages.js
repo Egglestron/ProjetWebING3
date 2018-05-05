@@ -1,32 +1,29 @@
 //html5andcss3.org
-function showhideEdit(){
+function showEdit(text){
   var edit = document.getElementById("edit");
   var submit = document.getElementById("submit");
+  var cancel = document.getElementById("cancel");
   var name = document.getElementById("nameChat");
 
-  if(edit.style.display !== "none") {
     edit.style.display = "none";
+    cancel.style.display = "block";
     submit.style.display = "block";
-  }
-  // else {
-  //   edit.style.display = "block";
-  //   cancel.style.display = "none";
-  //   submit.style.display = "none";
-  // }
+    name.style.color = "#000000";
+    name.style.backgroundColor = "#ffffff";
+    name.contentEditable = "true";
+    name.innerHTML = text;
 }
 
+function hideEdit(){
+  var edit = document.getElementById("edit");
+  var submit = document.getElementById("submit");
+  var cancel = document.getElementById("cancel");
+  var name = document.getElementById("nameChat");
 
-//
-// function showhideComment(id){
-//   //var id = 35;
-//   var div = document.getElementById("otherComments".concat(id));
-//   var but = document.getElementById("hidebutton".concat(id));
-//   if (div.style.display !== "none") {
-//     div.style.display = "none";
-//     but.textContent = "Show More";
-//   }
-//   else {
-//     div.style.display = "block";
-//     but.textContent = "Show Less";
-//   }
-// }
+    edit.style.display = "block";
+    cancel.style.display = "none";
+    submit.style.display = "none";
+    name.style.color = "#ffffff";
+    name.style.backgroundColor = "#4067FF";
+    name.contentEditable = "false";
+}

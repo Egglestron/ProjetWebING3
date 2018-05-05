@@ -36,6 +36,10 @@ img {
   margin-right: 30px;
 }
 
+.holder{
+  display: inline;
+}
+
 .message .my-person{
   color: white;
   background-color: #263E99;

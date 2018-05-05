@@ -12,7 +12,7 @@ header("Location: search.php");
 include("config.php");
 $idp = $_GET['ident'];
 
-$requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo FROM users us  WHERE us.ID = ?";
+$requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.Position, us.Pseudo, us.ProfilePicture FROM users us  WHERE us.ID = ?";
 
 //echo $requete;
 
@@ -22,7 +22,7 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_store_result($req);
 
-mysqli_stmt_bind_result($req, $firstN, $lastN, $description, $position, $pseudo);
+mysqli_stmt_bind_result($req, $firstN, $lastN, $description, $position, $pseudo, $PP);
 
 while(mysqli_stmt_fetch($req)){
 }
@@ -98,7 +98,9 @@ while(mysqli_stmt_fetch($req)){
     <div class="row">
       <div class="profile-header-container">
         <div class="profile-header-img">
-          <img class="img-circle" src="img/default.png" />
+          <?php
+          echo "<img class='img-circle' src='".$PP."' />";
+          ?>
           <!-- badge -->
           <div class="rank-label-container">
             <span class="label label-default rank-label">

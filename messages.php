@@ -79,7 +79,9 @@ if(empty($_SESSION['id'])){
         include("config.php");
         $id = $_SESSION["id"];
 
-        $requete = "SELECT ID, Name, Notif FROM chatgroups WHERE ID_User = ?";
+        $requete = "SELECT g.ID, g.Name, g.Notif FROM chatgroups g JOIN chatmessages m on m.ID_Conv = g.ID ";
+        $requete .= " JOIN objectposts o on o.ID = m.ID_Post WHERE g.ID_User = ? GROUP BY g.ID ORDER by MAX(o.Date_Post) DESC";
+
         $req = mysqli_prepare($db, $requete);
         mysqli_stmt_bind_param($req, "i", $id);
         mysqli_stmt_execute($req);
@@ -90,10 +92,11 @@ if(empty($_SESSION['id'])){
         echo "<div>";
         while(mysqli_stmt_fetch($req)){
           $i += 1;
-          if($i > 5){
+          if($i == 3){
             echo "</div>
             <div id='otherDiscussions' style ='display: none;'> ";
           }
+
           echo "<button class='btn btn-lg btn-primary btn-block' " ;
           if($col_Notif == "new"){
             echo "style='background-color : #cc8400;'";
@@ -101,7 +104,7 @@ if(empty($_SESSION['id'])){
           echo "onclick=\"window.location.href='discussion.php?idDiscussion={$col_ID}'\" type='submit' > $col_Name </button><br>";
         }
         echo "</div>";
-        if($i==6){
+        if($i>2){
           echo "<button class='btn btn-sm btn-success btn-block' onclick='showhide()' id='hidebutton' >Show More</button><br>";
         }
 
@@ -177,15 +180,14 @@ if(empty($_SESSION['id'])){
           mysqli_stmt_store_result($req);
           mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri);
 
-          echo "<div class='holder'><form class='form-inline' method='post'>";
+          echo "<div class='holder' ><form method='post'>";
           echo "<h3 style='color:white; font-weight:700; font-size:2em; border-radius:15px' id='nameChat' name='nameChat' contenteditable='false'>$Name</h3>";
           echo "<input type='hidden' name='idDiscussion' value='$idDiscussion' id='iddiscussion'> ";
-          echo "<button class='btn btn-primary' id='edit' onclick='showhideEdit()' style='display:block;'>Edit Chat name</button>";
-          echo "<div style='display:none;' id='submit'>";
-          echo "<button class='btn btn-primary' formaction='updateName.php' type='submit' name='submit'>Validate</button>";
-          echo "<button class='btn btn-primary' onclick='showhideEdit()' >Cancel</button>";
+          echo "<button class='btn btn-primary' formaction='updateName.php' id='submit' type='submit' name='submit' style='display:none;'>Validate</button>";
+          echo "</form>";
+          echo "<button class='btn btn-primary' onclick='hideEdit(blabla)' id='cancel' style='display:none;' >Cancel</button>";
+          echo "<button class='btn btn-primary' id='edit' onclick=\"showEdit()\">Edit Chat name</button>";
           echo "</div>";
-          echo "</form></div>";
 
           echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
           echo "<input class='form-control multitext mr-sm-2' style=''name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
