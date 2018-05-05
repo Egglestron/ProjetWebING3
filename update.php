@@ -4,7 +4,7 @@ include("config.php");
 session_start();
 $id = $_SESSION['id'];
 
-$requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.position, us.Pseudo FROM users us WHERE us.ID = ?";
+$requete = "SELECT DISTINCT us.Firstname, us.Lastname, us.description, us.ProfilePicture, us.position, us.Pseudo FROM users us WHERE us.ID = ?";
 
 //echo $requete;
 
@@ -14,14 +14,9 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_store_result($req);
 
-mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position, $col_Pseudo);
+mysqli_stmt_bind_result($req, $firstN, $lastN, $description, $profilePicture, $position, $pseudo);
 
 while(mysqli_stmt_fetch($req)){
-  $firstN = $col_FirstName ;
-  $lastN = $col_LastName;
-  $description = $col_Description;
-  $position = $col_Position;
-  $pseudo = $col_Pseudo;
 }
 ?>
 
@@ -29,7 +24,6 @@ while(mysqli_stmt_fetch($req)){
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="30">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -93,11 +87,12 @@ while(mysqli_stmt_fetch($req)){
       </div>
     </nav>
 
-    <div class="container">
 	  <div class="row">
         <div class="profile-header-container">
     		<div class="profile-header-img">
-                <img class="img-circle" src="img/default.png" />
+          <?php
+          echo "<img class='img-circle' src='".$profilePicture."' />";
+          ?>
                 <!-- badge -->
                 <div class="rank-label-container">
                     <span class="label label-default rank-label">
@@ -109,13 +104,17 @@ while(mysqli_stmt_fetch($req)){
             </div>
         </div>
 	</div>
-</div>
 
 <main role="main" class="container">
   <div class="jumbotron">
     <h1>Update my profile</h1>
     <br>
     <form action="post_update.php" class="form-horizontal" method="post">
+      <label for="fileToUpload" class="btn btn-lg btn-default mr-sm-2" style="cursor: pointer;">Add a Profile Picture</label>
+      <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png">
+      <div class="preview">
+        <p>No photo added</p>
+      </div>
       <?php
       echo "<div class=\"form-group\">";
       echo "<label class=\"control-label col-sm-2\" for=\"desc\">Description: </label>";
@@ -166,5 +165,6 @@ while(mysqli_stmt_fetch($req)){
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../../../assets/js/vendor/popper.min.js"></script>
     <script src="../../../../dist/js/bootstrap.min.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

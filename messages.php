@@ -108,13 +108,17 @@ if(empty($_SESSION['id'])){
 
         $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
         $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Friend'";
+
         $req = mysqli_prepare($db, $requete);
+
         mysqli_stmt_bind_param($req, "i", $id);
         mysqli_stmt_execute($req);
         mysqli_stmt_store_result($req);
         mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
+
         echo "<br><h2 style='color:white;font-weight:600;'>Start a new discussion</h2>";
         echo "<h3 style='color:white;'>Friends</h3>";
+
         while(mysqli_stmt_fetch($req)){
           echo "<form action='discussion.php' class='form-post' method='post' >";
           echo "<input type='hidden' name='idUser' value='$col_IDUser' > ";
@@ -126,12 +130,16 @@ if(empty($_SESSION['id'])){
 
         $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, friendships fs WHERE fs.ID_User1 = ?";
         $requete .=" AND us.ID = fs.ID_User2 AND fs.Status = 'Accepted' AND  fs.Relationship = 'Pro'";
+
         $req = mysqli_prepare($db, $requete);
+
         mysqli_stmt_bind_param($req, "i", $id);
         mysqli_stmt_execute($req);
         mysqli_stmt_store_result($req);
         mysqli_stmt_bind_result($req, $col_IDUser, $col_FirstName, $col_LastName, $col_Pseudo);
+
         echo "<h3 style='color:white;'>Professionals</h3>";
+
         while(mysqli_stmt_fetch($req)){
           echo "<form action='discussion.php' class='form-post' method='post' >";
           echo "<input type='hidden' name='idUser' value='$col_IDUser' > ";
@@ -143,15 +151,21 @@ if(empty($_SESSION['id'])){
         echo"</div>";
 
         echo"<div class='col-sm-6' style=''>";
+
         if(!empty($_SESSION["idDiscussion"])){
           $idDiscussion = $_SESSION["idDiscussion"];
+
           $requete = "SELECT us.ID, us.FirstName, us.LastName, ob.Url_Media, ob.Description, gr.Name FROM users us,";
-          $requete .=" objectposts ob, chatmessages me, chatgroups gr WHERE gr.ID = ? AND gr.ID_User = ob.ID_User AND ob.ID_User = us.ID AND ob.ID = me.ID_Post AND me.ID_Conv = gr.ID ORDER BY ob.Date_Post DESC";
+          $requete .=" objectposts ob, chatmessages me, chatgroups gr WHERE gr.ID = ? AND gr.ID_User = ob.ID_User AND ";
+          $requete .=" ob.ID_User = us.ID AND ob.ID = me.ID_Post AND me.ID_Conv = gr.ID ORDER BY ob.Date_Post DESC";
+
           $req = mysqli_prepare($db, $requete);
+
           mysqli_stmt_bind_param($req, "i", $idDiscussion);
           mysqli_stmt_execute($req);
           mysqli_stmt_store_result($req);
           mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri, $col_Name);
+
           echo "<h3 style='color:white;'>$col_Name</h3>";
           echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
           echo "<input class='form-control multitext mr-sm-2' style=''name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
