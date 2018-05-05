@@ -1,0 +1,19 @@
+Polices (Muli), fonts.google.com
+API des polices, developers.google.com
+StackOverflow, stackoverflow.com
+ECE Paris, www.ece.fr
+Bootstrap examples, getbootstrap.com
+MDN web docs, developer.mozilla.org
+wikiHow, fr.wikihow.com
+ComputerHope, computerhope.com
+Quora, www.quora.com
+W3school, w3schools.com
+Interneting is Hard, internetingishard.com
+Tutorials Point, tutorialspoint.com
+Team Treehouse, teamtreehouse.com
+CSS-tricks, css-tricks.com
+colorlib., colorlib.com
+Buzut, buzut.fr
+codrops, tympanus.net/codrops
+M. Beaussier - Developpez.com, beaussier.developpez.com
+WebKit, webkit.org
