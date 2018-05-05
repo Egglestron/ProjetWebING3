@@ -183,12 +183,12 @@ if(empty($_SESSION['id'])){
           mysqli_stmt_store_result($req);
           mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri);
 
-          echo "<div class='holder' ><form method='post'>";
+          echo "<div class='holder' ><form class='form-inline' method='post'>";
           echo "<h3 style='color:white; font-weight:700; font-size:2em; border-radius:15px' id='nameChat' name='nameChat' contenteditable='false'>$Name</h3>";
-          echo "<input type='hidden' name='idDiscussion' value='$idDiscussion' id='iddiscussion'> ";
+          echo "<input class='form-control multitext mr-sm-2' style='display:none; color:black: background-color:white' name='name2' id='name2' type='text' placeholder='$Name' aria-label='Write a message'>";
           echo "<button class='btn btn-primary' formaction='updateName.php' id='submit' type='submit' name='submit' style='display:none;'>Validate</button>";
           echo "</form>";
-          echo "<button class='btn btn-primary' onclick='hideEdit(blabla)' id='cancel' style='display:none;' >Cancel</button>";
+          echo "<button class='btn btn-primary' onclick=\"hideEdit('$Name')\" id='cancel' style='display:none;' >Cancel</button>";
           echo "<button class='btn btn-primary' id='edit' onclick=\"showEdit()\">Edit Chat name</button>";
           echo "</div>";
 
@@ -228,7 +228,7 @@ if(empty($_SESSION['id'])){
           echo "</div>";
           echo "</main>";
         }
-        else{
+        else if(isset($_SESSION['firstname']) && isset($_SESSION['lastname'])){
           $firstname = isset($_SESSION['firstname'])?$_SESSION['firstname']:"";
           $lastname = isset($_SESSION['lastname'])?$_SESSION['lastname']:"";
 

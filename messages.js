@@ -1,20 +1,19 @@
 //html5andcss3.org
-function showEdit(text){
+function showEdit(){
   var edit = document.getElementById("edit");
   var submit = document.getElementById("submit");
   var cancel = document.getElementById("cancel");
   var name = document.getElementById("nameChat");
+  var input = document.getElementById("name2");
 
     edit.style.display = "none";
     cancel.style.display = "block";
     submit.style.display = "block";
-    name.style.color = "#000000";
-    name.style.backgroundColor = "#ffffff";
-    name.contentEditable = "true";
-    name.innerHTML = text;
+    name.style.display = "none";
+    name2.style.display = "block";
 }
 
-function hideEdit(){
+function hideEdit(text){
   var edit = document.getElementById("edit");
   var submit = document.getElementById("submit");
   var cancel = document.getElementById("cancel");
@@ -24,6 +23,7 @@ function hideEdit(){
     cancel.style.display = "none";
     submit.style.display = "none";
     name.style.color = "#ffffff";
-    name.style.backgroundColor = "#4067FF";
-    name.contentEditable = "false";
+    name.style.display = "block";
+    name2.style.display = "none";
+    name.innerHTML = text;
 }
