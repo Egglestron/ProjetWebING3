@@ -73,6 +73,8 @@ if(empty($_SESSION['id'])){
     </div>
   </nav>
 
+  <div class="container"><h3 style='color:white; font-weight:700; font-size:3em;'>My network</h3></div>
+
   <?php
   include("config.php");
   $id = $_SESSION['id'];
@@ -93,14 +95,14 @@ if(empty($_SESSION['id'])){
   mysqli_stmt_execute($req);
   mysqli_stmt_store_result($req);
   mysqli_stmt_bind_result($req, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
-  echo "<div class=\"jumbotron float-center\">";
+  echo "<div class=\"jumbotron container float-center\">";
   echo "<h3>Pros</h3>";
   while(mysqli_stmt_fetch($req)){
     $firstN = $col_FirstName ;
     $lastN = $col_LastName;
     $pseudo = $col_Pseudo;
     $idp = $col_ID;
-    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
+    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br></a>";
   }
   echo "</div>";
 
@@ -110,14 +112,14 @@ if(empty($_SESSION['id'])){
   mysqli_stmt_execute($req);
   mysqli_stmt_store_result($req);
   mysqli_stmt_bind_result($req,  $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
-  echo "<div class=\"jumbotron float-center\">";
+  echo "<div class=\"jumbotron container float-center\">";
   echo "<h3>Friends</h3>";
   while(mysqli_stmt_fetch($req)){
     $firstN = $col_FirstName ;
     $lastN = $col_LastName;
     $pseudo = $col_Pseudo;
     $idp = $col_ID;
-    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
+    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br></a>";
   }
   echo "</div>";
 
@@ -127,7 +129,7 @@ if(empty($_SESSION['id'])){
   mysqli_stmt_execute($req);
   mysqli_stmt_store_result($req);
   mysqli_stmt_bind_result($req, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo, $col_Relation);
-  echo "<div class=\"jumbotron float-center\">";
+  echo "<div class=\"jumbotron container float-center\">";
   echo "<h3>Contact requests</h3>";
   while(mysqli_stmt_fetch($req)){
     $firstN = $col_FirstName ;
@@ -135,7 +137,7 @@ if(empty($_SESSION['id'])){
     $pseudo = $col_Pseudo;
     $idp = $col_ID;
     $rel = $col_Relation;
-    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br/></a>";
+    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br></a>";
   }
   echo "</div>";
   ?>
