@@ -123,7 +123,7 @@ while(mysqli_stmt_fetch($req)){
             <span class='label label-default rank-label'>
 
               $description
-              
+
             </span>
         </div>";
       }
