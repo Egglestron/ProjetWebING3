@@ -91,7 +91,7 @@ while(mysqli_stmt_fetch($req)){
         <div class="profile-header-container">
     		<div class="profile-header-img">
           <?php
-          echo "<img class='img-circle' src='".$profilePicture."' />";
+          echo "<img  src='".$profilePicture."' />";
           ?>
                 <!-- badge -->
                 <div class="rank-label-container">
@@ -109,7 +109,7 @@ while(mysqli_stmt_fetch($req)){
   <div class="jumbotron">
     <h1>Update my profile</h1>
     <br>
-    <form action="post_update.php" class="form-horizontal" method="post">
+    <form action="post_update.php" class="form-horizontal" method="post" enctype="multipart/form-data">
       <label for="fileToUpload" class="btn btn-lg btn-default mr-sm-2" style="cursor: pointer;">Add a Profile Picture</label>
       <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png">
       <div class="preview">
