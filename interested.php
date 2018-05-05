@@ -22,7 +22,7 @@ if(empty($_SESSION['id'])){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Interested </title>
+  <title>Offers</title>
 
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +30,7 @@ if(empty($_SESSION['id'])){
   <!-- Custom styles for this template -->
   <link href="common.css" rel="stylesheet">
   <link href="network.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
+  <link href="fonts.css" rel="stylesheet">
 </head>
 
 
@@ -73,14 +73,14 @@ if(empty($_SESSION['id'])){
     </div>
   </nav>
 
-  <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My jobs</h3></div>
+  <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My Offers</h3></div>
 
   <?php
   include("config.php");
   $id = $_SESSION['id'];
 
-  $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts, ob jobreacts jr";
-  $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Offer AND jr.US_User = us.ID";
+  $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts ob, jobreacts jr";
+  $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Object AND jr.ID_User = us.ID";
   //echo $requete;
 
   $req = mysqli_prepare($db, $requete);
