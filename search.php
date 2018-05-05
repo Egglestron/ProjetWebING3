@@ -11,7 +11,6 @@ if(empty($_SESSION['id'])){
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="60">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -79,17 +78,11 @@ if(empty($_SESSION['id'])){
     $id = $_SESSION['id'];
 
     if(empty($_POST["information"])){
-      if(!empty($_SESSION["information"])){
-        $info = $_SESSION["information"];
-      }
-      else{
         $info = "";
-      }
     }
     else {
       // code...
       $info = $_POST["information"];
-      $_SESSION["information"] = $info;
     }
 
     $requete = "SELECT DISTINCT us.Firstname, us.LastName, us.Pseudo, us.ID FROM users us WHERE (us.FirstName LIKE  ? OR us.LastName LIKE ?) AND us.ID != ?";
