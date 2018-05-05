@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 03 mai 2018 à 22:14
+-- Généré le :  sam. 05 mai 2018 à 10:10
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -36,15 +36,21 @@ CREATE TABLE IF NOT EXISTS `chatgroups` (
   `Notif` enum('viewed','new') NOT NULL DEFAULT 'viewed',
   PRIMARY KEY (`ID`,`ID_User`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `chatgroups`
 --
 
 INSERT INTO `chatgroups` (`ID`, `ID_User`, `Name`, `Notif`) VALUES
-(28, 2, 'Arthur Prat', 'viewed'),
-(28, 6, 'Maxime Maxime', 'viewed');
+(28, 2, 'Arthur Prat', 'new'),
+(28, 6, 'Maxime Maxime', 'viewed'),
+(29, 4, 'Arthur Prat', 'new'),
+(29, 6, 'sam caddeo', 'viewed'),
+(30, 1, 'Arthur Prat', 'new'),
+(30, 6, 'zefzfzfezef zefzefz', 'viewed'),
+(31, 6, 'arthur2 prat2', 'new'),
+(31, 9, 'Arthur Prat', 'viewed');
 
 -- --------------------------------------------------------
 
@@ -68,7 +74,38 @@ INSERT INTO `chatmessages` (`ID_Conv`, `ID_Post`) VALUES
 (28, 239),
 (28, 240),
 (28, 241),
-(28, 242);
+(28, 242),
+(28, 243),
+(28, 244),
+(28, 251),
+(28, 252),
+(28, 253),
+(28, 254),
+(29, 255),
+(28, 257),
+(28, 258),
+(28, 259),
+(28, 260),
+(28, 261),
+(28, 262),
+(28, 263),
+(30, 264),
+(30, 265),
+(30, 266),
+(31, 269),
+(31, 270),
+(31, 271),
+(31, 272),
+(28, 273),
+(31, 274),
+(28, 275),
+(31, 276),
+(28, 277),
+(29, 278),
+(31, 279),
+(31, 280),
+(31, 281),
+(31, 282);
 
 -- --------------------------------------------------------
 
@@ -107,7 +144,8 @@ INSERT INTO `comments` (`ID_Object`, `ID_Post`) VALUES
 (171, 68),
 (172, 68),
 (182, 68),
-(183, 68);
+(183, 68),
+(267, 250);
 
 -- --------------------------------------------------------
 
@@ -144,7 +182,15 @@ INSERT INTO `events` (`ID_Object`, `Date`, `Location`, `Status`) VALUES
 (67, NULL, NULL, 'Public'),
 (68, NULL, NULL, 'Public'),
 (221, NULL, NULL, 'Public'),
-(222, NULL, NULL, 'Public');
+(222, NULL, NULL, 'Public'),
+(245, NULL, NULL, 'Public'),
+(246, NULL, NULL, 'Public'),
+(247, NULL, NULL, 'Public'),
+(248, NULL, NULL, 'Public'),
+(249, NULL, NULL, 'Public'),
+(250, NULL, NULL, 'Public'),
+(256, NULL, NULL, 'Public'),
+(268, NULL, NULL, 'Public');
 
 -- --------------------------------------------------------
 
@@ -172,13 +218,13 @@ INSERT INTO `friendships` (`ID_User1`, `ID_User2`, `Status`, `Relationship`) VAL
 (1, 6, 'Accepted', 'Friend'),
 (2, 1, 'Request sent', 'Friend'),
 (2, 4, 'Accepted', 'Pro'),
-(2, 6, 'Accepted', 'Friend'),
+(2, 6, 'Waiting', 'Friend'),
 (4, 1, 'Accepted', 'Friend'),
 (4, 2, 'Accepted', 'Friend'),
-(4, 6, 'Accepted', 'Friend'),
 (6, 1, 'Accepted', 'Friend'),
-(6, 2, 'Accepted', 'Friend'),
-(6, 4, 'Accepted', 'Friend');
+(6, 2, 'Request sent', 'Friend'),
+(6, 9, 'Waiting', 'Pro'),
+(9, 6, 'Request sent', 'Pro');
 
 -- --------------------------------------------------------
 
@@ -250,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `objectposts` (
   `Description` text,
   PRIMARY KEY (`ID`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `objectposts`
@@ -455,7 +501,47 @@ INSERT INTO `objectposts` (`ID`, `ID_User`, `Date_Post`, `Url_Media`, `Descripti
 (239, 6, '2018-05-03 20:10:03', NULL, 'yo'),
 (240, 6, '2018-05-03 20:12:49', NULL, 'ca va?'),
 (241, 6, '2018-05-03 21:31:03', NULL, 'oui et toi?'),
-(242, 6, '2018-05-03 23:21:07', NULL, 'Allo?');
+(242, 6, '2018-05-03 23:21:07', NULL, 'Allo?'),
+(243, 6, '2018-05-04 00:43:20', NULL, 'wesh?'),
+(244, 6, '2018-05-04 00:44:48', NULL, 'zdz'),
+(245, 6, '2018-05-04 10:37:41', 'uploads/user6/post245.jpg', 'lol'),
+(246, 6, '2018-05-04 10:54:36', 'uploads/user6/post246.png', ''),
+(247, 6, '2018-05-04 10:56:05', NULL, ''),
+(248, 6, '2018-05-04 11:00:24', NULL, 'dd'),
+(249, 6, '2018-05-04 11:00:42', 'uploads/user6/post249.jpg', 'dd'),
+(250, 6, '2018-05-04 11:01:47', 'uploads/user6/post250.jpg', ''),
+(251, 6, '2018-05-04 11:06:35', NULL, 'kek'),
+(252, 6, '2018-05-04 11:09:52', NULL, 'kek'),
+(253, 6, '2018-05-04 11:23:32', 'uploads/user6/post253.jpg', ''),
+(254, 6, '2018-05-04 11:54:07', NULL, ''),
+(255, 6, '2018-05-04 11:55:34', NULL, ''),
+(256, 6, '2018-05-04 11:59:08', NULL, ''),
+(257, 6, '2018-05-04 12:00:21', NULL, ''),
+(258, 6, '2018-05-04 12:01:40', NULL, NULL),
+(259, 6, '2018-05-04 12:02:11', NULL, NULL),
+(260, 6, '2018-05-04 12:03:14', NULL, NULL),
+(261, 6, '2018-05-04 12:04:41', NULL, NULL),
+(262, 6, '2018-05-04 12:05:29', NULL, 'd'),
+(263, 6, '2018-05-04 12:06:34', NULL, NULL),
+(264, 6, '2018-05-04 12:11:17', 'uploads/user6/post264.jpg', NULL),
+(265, 6, '2018-05-04 12:11:26', NULL, 'q'),
+(266, 6, '2018-05-04 12:11:36', 'uploads/user6/post266.jpg', NULL),
+(267, 6, '2018-05-04 12:28:57', NULL, 'stylÃ©'),
+(268, 9, '2018-05-04 13:35:36', 'uploads/user9/post268.jpg', 'first post'),
+(269, 9, '2018-05-04 13:41:25', NULL, 'Salut arthur'),
+(270, 6, '2018-05-04 13:44:53', NULL, 'Salut Arthur2'),
+(271, 6, '2018-05-04 13:55:17', NULL, 'ca va?'),
+(272, 9, '2018-05-04 13:58:22', NULL, 'oui et toi?'),
+(273, 6, '2018-05-04 15:53:16', NULL, 'test'),
+(274, 9, '2018-05-04 16:00:27', NULL, 'alors?'),
+(275, 6, '2018-05-04 16:10:05', NULL, 'test 2'),
+(276, 6, '2018-05-04 16:10:17', NULL, 'tu me soules'),
+(277, 6, '2018-05-04 16:14:13', NULL, 'kek'),
+(278, 6, '2018-05-04 16:14:22', NULL, 'ok'),
+(279, 9, '2018-05-04 19:33:18', NULL, 'et beh niquel'),
+(280, 9, '2018-05-04 19:33:23', 'uploads/user9/post280.png', NULL),
+(281, 9, '2018-05-04 19:33:36', NULL, 'test'),
+(282, 9, '2018-05-04 19:33:41', NULL, 'le scroll');
 
 -- --------------------------------------------------------
 
@@ -480,11 +566,9 @@ CREATE TABLE IF NOT EXISTS `reacts` (
 
 DROP TABLE IF EXISTS `shares`;
 CREATE TABLE IF NOT EXISTS `shares` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ID_User` int(11) NOT NULL,
   `ID_Object` int(11) NOT NULL,
   `Title` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
   KEY `ID_User` (`ID_User`),
   KEY `ID_Object` (`ID_Object`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -506,13 +590,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `ProfilePicture` varchar(32) DEFAULT NULL,
   `CoverPicture` varchar(32) DEFAULT NULL,
   `Status` enum('Admin','LambdaUser') NOT NULL DEFAULT 'LambdaUser',
-  `Position` enum('Etudiant','Salarié') DEFAULT NULL,
+  `Position` enum('Student','Teacher','Professional') DEFAULT NULL,
   `CV` varchar(32) DEFAULT NULL,
   `Uptime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
@@ -523,7 +607,8 @@ INSERT INTO `users` (`ID`, `Email`, `LastName`, `FirstName`, `Pseudo`, `Password
 (2, 'maximemichelpc@gmail.com', 'Maxime', 'Maxime', 'Egglestron', 'maxmic', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-04-24 06:12:11', NULL),
 (4, 'sam@bb', 'caddeo', 'sam', 'sami', 'fezef', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-05-01 10:52:50', NULL),
 (5, 'maxime.michel@edu.ece.fr', 'MICHEL', 'Maxime', NULL, '$2y$10$COhGj5KWn2sN7MSt3KSJau/uFfwnJTXcYa0BtfP2B0f2DsMKSLBoy', NULL, NULL, 'Admin', NULL, NULL, '2018-05-01 15:45:02', NULL),
-(6, 'arthur.prat@edu.ece.fr', 'Prat', 'Arthur', NULL, '$2y$10$TFQEsmB57rkwEquH2lJq4.Ua76h0mLn795osGjbCSE5ap.M/mXJJu', NULL, NULL, 'Admin', NULL, NULL, '2018-05-01 17:14:46', NULL);
+(6, 'arthur.prat@edu.ece.fr', 'Prat', 'Arthur', 'Archi', '$2y$10$TFQEsmB57rkwEquH2lJq4.Ua76h0mLn795osGjbCSE5ap.M/mXJJu', NULL, NULL, 'Admin', 'Student', NULL, '2018-05-01 17:14:46', 'je suis bg'),
+(9, 'arthur2.prat@edu.ece.fr', 'prat2', 'arthur2', NULL, '$2y$10$FlVYdgUM/SHe9qv6hM3ZEueLPv/uwbk6tpytbmcRRwwhu.2mFgfT6', NULL, NULL, 'LambdaUser', NULL, NULL, '2018-05-04 13:34:25', NULL);
 
 --
 -- Contraintes pour les tables déchargées

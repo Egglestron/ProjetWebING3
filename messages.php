@@ -23,7 +23,7 @@ if(empty($_SESSION['id'])){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Feed</title>
+  <title>Chat</title>
 
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
