@@ -91,7 +91,7 @@ while(mysqli_stmt_fetch($req)){
         <div class="profile-header-container">
     		<div class="profile-header-img">
           <?php
-          echo "<img  src='".$profilePicture."' />";
+          echo "<img src='".$profilePicture."' />";
           ?>
                 <!-- badge -->
                 <div class="rank-label-container">

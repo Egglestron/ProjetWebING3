@@ -86,7 +86,7 @@ if(empty($_SESSION['id'])){
   $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
 
   $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts ob, jobreacts jr";
-  $requete2 .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Offer AND jr.US_User = us.ID";
+  $requete2 .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Object AND jr.ID_User = us.ID";
 
   //echo $requete;
 
