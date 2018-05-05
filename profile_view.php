@@ -45,7 +45,7 @@ while(mysqli_stmt_fetch($req)){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-    <title>Profile </title>
+    <title>Profile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -55,8 +55,6 @@ while(mysqli_stmt_fetch($req)){
     <link href="profile.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
   </head>
-
-
 
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">

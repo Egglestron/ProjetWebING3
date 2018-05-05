@@ -32,6 +32,10 @@ img {
   border-radius: 15px;
 }
 
+.form-inline h3 {
+  margin-right: 30px;
+}
+
 .message .my-person{
   color: white;
   background-color: #263E99;

@@ -155,7 +155,6 @@ if(empty($_SESSION['id'])){
         if(!empty($_SESSION["idDiscussion"])){
           $idDiscussion = $_SESSION["idDiscussion"];
 
-
           $req = mysqli_prepare($db, "SELECT Name FROM chatgroups WHERE ID = ? and ID_User = ?" );
 
           mysqli_stmt_bind_param($req, "ii", $idDiscussion, $id);
@@ -178,7 +177,16 @@ if(empty($_SESSION['id'])){
           mysqli_stmt_store_result($req);
           mysqli_stmt_bind_result($req, $col_IDChatter, $col_FirstName, $col_LastName, $col_UrlMedia, $col_Descri);
 
-          echo "<div class='holder'><h3 style='color:white; font-weight:700; font-size:2em;'>$Name</h3><br></div>";
+          echo "<div class='holder'><form class='form-inline' method='post'>";
+          echo "<h3 style='color:white; font-weight:700; font-size:2em; border-radius:15px' id='nameChat' name='nameChat' contenteditable='false'>$Name</h3>";
+          echo "<input type='hidden' name='idDiscussion' value='$idDiscussion' id='iddiscussion'> ";
+          echo "<button class='btn btn-primary' id='edit' onclick='showhideEdit()' style='display:block;'>Edit Chat name</button>";
+          echo "<div style='display:none;' id='submit'>";
+          echo "<button class='btn btn-primary' formaction='updateName.php' type='submit' name='submit'>Validate</button>";
+          echo "<button class='btn btn-primary' onclick='showhideEdit()' >Cancel</button>";
+          echo "</div>";
+          echo "</form></div>";
+
           echo "<form action='postMessage.php' class='form-post' method='post' enctype='multipart/form-data'>";
           echo "<input class='form-control multitext mr-sm-2' style=''name='description' id='description' type='text' placeholder='Write a message' aria-label='Write a message'>";
           echo "<input type='hidden' name='idDiscussion' value='$idDiscussion' id='idpost'> ";
@@ -189,8 +197,6 @@ if(empty($_SESSION['id'])){
           echo "<div class='preview' style='color:white;'>
           <p>No photo added to the post</p>
           </div>";
-
-
 
           echo "<main role='main' class='holder'>";
           echo "<div class='jumbotron message'>";
@@ -247,6 +253,7 @@ if(empty($_SESSION['id'])){
         </footer>
 
         <script src="index.js"></script>
-		<script src="show.js"></script>
+        <script src="show.js"></script>
+        <script src="messages.js"></script>
       </body>
       </html>
