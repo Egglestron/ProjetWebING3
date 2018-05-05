@@ -85,11 +85,6 @@ if(empty($_SESSION['id'])){
   $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
   $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
 
-  $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts ob, jobreacts jr";
-  $requete2 .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Object AND jr.ID_User = us.ID";
-
-  //echo $requete;
-
   $req = mysqli_prepare($db, $requete);
   mysqli_stmt_execute($req);
 
@@ -97,39 +92,26 @@ if(empty($_SESSION['id'])){
 
   mysqli_stmt_bind_result($req, $col_IDObj, $col_JobLoc, $col_Company, $col_Title, $col_JobDescri, $col_Len, $col_Skills, $col_Area, $col_ID, $col_FirstName, $col_LastName, $col_DatePost);
 
-  $req2 = mysqli_prepare($db, $requete2);
-  mysqli_stmt_bind_param($req2, "i", $id);
-  mysqli_stmt_execute($req2);
-  mysqli_stmt_store_result($req2);
-  mysqli_stmt_bind_result($req2, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
-  if(mysqli_stmt_num_rows($req2)>0){
   while(mysqli_stmt_fetch($req)){
-
+    if($col_ID == $id){
     echo "<main role=\"main\" class=\"container col-sm-5\">";
     echo "<div class=\"jumbotron float-center text-left\">";
     echo "<h1 class=\"h3 mb-1\">Job Offer by $col_FirstName $col_LastName <br/> Job title : $col_Title</h1><br>";
     echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='showjob.php?idpost={$col_IDObj}'\" style=\"\" type=\"submit\">See the offer</button>";
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='interested.php'\" style=\"\" type=\"submit\">People interested</button>";
+    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='interested.php?idobj={$col_IDObj}'\" style=\"\" type=\"submit\">People interested</button>";
+    echo "</div>";
+    echo "</main>";
+  }
+  else{
+    echo "<main role=\"main\" class=\"container col-sm-5\">";
+    echo "<div class=\"jumbotron float-center text-left\">";
+    echo "<h1 class=\"h3 mb-1\">Job Offer by $col_FirstName $col_LastName <br/> Job title : $col_Title</h1><br>";
+    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='showjob.php?idpost={$col_IDObj}'\" style=\"\" type=\"submit\">See the offer</button>";
     echo "</div>";
     echo "</main>";
   }
 }
-else{
-  while(mysqli_stmt_fetch($req)){
-
-    echo "<main role=\"main\" class=\"container col-sm-5\">";
-    echo "<div class=\"jumbotron float-center text-left\">";
-    echo "<h1 class=\"h3 mb-1\">Job Offer by $col_FirstName $col_LastName <br/> Job title : $col_Title</h1><br>";
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='showjob.php?idpost={$col_IDObj}'\" style=\"\" type=\"submit\">See the offer</button>";
-    echo "</div>";
-    echo "</main>";
-}
-}
   ?>
-
-
-
-
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
