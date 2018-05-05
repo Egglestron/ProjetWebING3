@@ -22,14 +22,9 @@ mysqli_stmt_execute($req);
 
 mysqli_stmt_store_result($req);
 
-mysqli_stmt_bind_result($req, $col_FirstName, $col_LastName, $col_Description, $col_Position, $col_Pseudo);
+mysqli_stmt_bind_result($req, $firstN, $lastN, $description, $position, $pseudo);
 
 while(mysqli_stmt_fetch($req)){
-  $firstN = $col_FirstName ;
-  $lastN = $col_LastName;
-  $description = $col_Description;
-  $position = $col_Position;
-  $pseudo = $col_Pseudo;
 }
 
 ?>
@@ -144,7 +139,7 @@ while(mysqli_stmt_fetch($req)){
       }
       if($status=="Waiting"){
         echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='acceptfriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Accept</button>";
-        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='declinefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Decline</button>";
+        echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Decline</button>";
       }
       if($status=="Accepted"){
         echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='deletefriend.php?ident={$idp}'\" style=\"\" type=\"submit\">Delete</button>";
@@ -158,18 +153,18 @@ while(mysqli_stmt_fetch($req)){
   }
 
 
+  if(!empty($description)){
+  echo " <div class='jumbotron float-center'>
+    $description
+  </div>";
+}
 
+  if(!empty($position)){
+  echo "<div class='jumbotron float-center'>
+    $position
+  </div>";
+}
   ?>
-  <div class="jumbotron float-center">
-    <?php
-    echo "$description";
-    ?>
-  </div>
-  <div class="jumbotron float-center">
-    <?php
-    echo "$position";
-    ?>
-  </div>
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>Konnect.ed<br>A. Prat, M. Michel and S. Caddeo</p>
