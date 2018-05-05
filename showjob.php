@@ -101,8 +101,8 @@ echo "<main role=\"main\" class=\"container col-sm-5\">";
       echo "<p class=\"form-control mr-sm-2\" type=\"text\">Description : $col_JobDescri</p>";
       echo "<p class=\"form-control mr-sm-2\" type=\"text\">Lenght : $col_Len months</p>";
       echo "<p class=\"form-control mr-sm-2\" type=\"text\">Skills required :  $col_Skills</p>";
-      echo "<p class=\"form-control mr-sm-2\" type=\"text\">Job area : $col_Area</p>";
-      echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='reactjob.php?idpost={$col_IDObj}'\" style=\"border-color: #000099; color: #000099; background-color: navbar-dark; text-align: center;\" type=\"submit\">I'm interested</button>";
+      echo "<p class=\"form-control mr-sm-2\" type=\"text\">Job area : $col_Area</p><br>";
+      echo "<button class=\"btn btn-lg btn-primary\" onclick=\"window.location.href='reactjob.php?idpost={$col_IDObj}'\" style='' type=\"submit\">I'm interested</button>";
 
   echo "</div>";
 echo "</main>";
