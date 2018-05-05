@@ -22,14 +22,14 @@ if(empty($_SESSION['id'])){
   <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Profile </title>
+  <title>Interested </title>
 
   <!-- Bootstrap core CSS -->
   <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="common.css" rel="stylesheet">
-  <link href="jobs.css" rel="stylesheet">
+  <link href="network.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700,800,900" rel="stylesheet">
 </head>
 
@@ -73,63 +73,33 @@ if(empty($_SESSION['id'])){
     </div>
   </nav>
 
-  <div class='container'>
-    <h3 style='color:white; font-weight:700; font-size:3em;'>My jobs</h3>
-    <button class="btn btn-lg btn-primary" onclick="window.location.href='addjob.html'" style="" type="submit">Add a job offer</button>
-  </div>
+  <div class='container'><h3 style='color:white; font-weight:700; font-size:3em;'>My jobs</h3></div>
 
   <?php
   include("config.php");
   $id = $_SESSION['id'];
 
-  $requete = "SELECT jo.*, us.ID, us.FirstName, us.LastName, ob.Date_Post FROM joboffers jo, objectposts ob, users us";
-  $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = us.ID ORDER BY ob.Date_Post DESC";
-
-  $requete2 = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts ob, jobreacts jr";
-  $requete2 .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Offer AND jr.US_User = us.ID";
-
+  $requete = "SELECT DISTINCT us.ID, us.Firstname, us.Lastname, us.Pseudo FROM users us, joboffers jo, objectposts, ob jobreacts jr";
+  $requete .= " WHERE jo.ID_Object = ob.ID AND ob.ID_User = ? AND jr.ID_Offer = jo.ID_Offer AND jr.US_User = us.ID";
   //echo $requete;
 
   $req = mysqli_prepare($db, $requete);
+  mysqli_stmt_bind_param($req, "i", $id);
   mysqli_stmt_execute($req);
-
   mysqli_stmt_store_result($req);
-
-  mysqli_stmt_bind_result($req, $col_IDObj, $col_JobLoc, $col_Company, $col_Title, $col_JobDescri, $col_Len, $col_Skills, $col_Area, $col_ID, $col_FirstName, $col_LastName, $col_DatePost);
-
-  $req2 = mysqli_prepare($db, $requete2);
-  mysqli_stmt_bind_param($req2, "i", $id);
-  mysqli_stmt_execute($req2);
-  mysqli_stmt_store_result($req2);
-  mysqli_stmt_bind_result($req2, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
-  if(mysqli_stmt_num_rows($req2)>0){
+  mysqli_stmt_bind_result($req, $col_ID, $col_FirstName, $col_LastName, $col_Pseudo);
+  echo "<div class=\"jumbotron container float-center\">";
+  echo "<h3>Interested</h3>";
   while(mysqli_stmt_fetch($req)){
-
-    echo "<main role=\"main\" class=\"container col-sm-5\">";
-    echo "<div class=\"jumbotron float-center text-left\">";
-    echo "<h1 class=\"h3 mb-1\">Job Offer by $col_FirstName $col_LastName <br/> Job title : $col_Title</h1><br>";
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='showjob.php?idpost={$col_IDObj}'\" style=\"\" type=\"submit\">See the offer</button>";
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='interested.php'\" style=\"\" type=\"submit\">People interested</button>";
-    echo "</div>";
-    echo "</main>";
+    $firstN = $col_FirstName ;
+    $lastN = $col_LastName;
+    $pseudo = $col_Pseudo;
+    $idp = $col_ID;
+    echo "<a href=\"profile_view.php?ident={$idp}\" class=\"label\">$firstN $lastN $pseudo<br></a>";
   }
-}
-else{
-  while(mysqli_stmt_fetch($req)){
+  echo "</div>";
 
-    echo "<main role=\"main\" class=\"container col-sm-5\">";
-    echo "<div class=\"jumbotron float-center text-left\">";
-    echo "<h1 class=\"h3 mb-1\">Job Offer by $col_FirstName $col_LastName <br/> Job title : $col_Title</h1><br>";
-    echo "<button class=\"btn btn-primary\" onclick=\"window.location.href='showjob.php?idpost={$col_IDObj}'\" style=\"\" type=\"submit\">See the offer</button>";
-    echo "</div>";
-    echo "</main>";
-}
-}
   ?>
-
-
-
-
 
   <footer class="mastfoot mt-auto">
     <div class="inner">
